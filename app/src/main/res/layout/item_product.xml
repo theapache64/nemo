@@ -12,16 +12,25 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:layout_margin="5dp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{product.imageUrl}"
+            tools:ignore="ContentDescription" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#B5000000"
+            android:gravity="center"
             android:layout_gravity="center"
             android:text="@{product.title}"
             android:textSize="17sp"
