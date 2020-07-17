@@ -1,0 +1,116 @@
+{
+ "added": [
+  {
+   "id": 1,
+   "type": "implementation",
+   "installed_name": "retrofit",
+   "gpm_dep": {
+    "artifact_id": "retrofit",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit",
+    "get_from": "Central",
+    "group_id": "com.squareup.retrofit2",
+    "name": "Retrofit",
+    "description": "A type-safe HTTP client for Android and Java."
+   }
+  },
+  {
+   "id": 2,
+   "type": "implementation",
+   "installed_name": "glide",
+   "gpm_dep": {
+    "artifact_id": "glide",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.github.bumptech.glide/glide",
+    "get_from": "Central",
+    "group_id": "com.github.bumptech.glide",
+    "name": "Glide",
+    "description": "A fast and efficient image loading library for Android focused on smooth scrolling."
+   }
+  },
+  {
+   "id": 3,
+   "type": "implementation",
+   "installed_name": "moshi",
+   "gpm_dep": {
+    "artifact_id": "moshi",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.squareup.moshi/moshi",
+    "get_from": "Central",
+    "group_id": "com.squareup.moshi",
+    "name": "Moshi",
+    "description": "Moshi"
+   }
+  },
+  {
+   "id": 4,
+   "type": "implementation",
+   "installed_name": "activity-ktx",
+   "gpm_dep": {
+    "artifact_id": "activity-ktx",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.activity/activity-ktx",
+    "get_from": "Google",
+    "group_id": "androidx.activity",
+    "name": "Activity Kotlin Extensions",
+    "description": "Kotlin extensions for 'activity' artifact"
+   }
+  },
+  {
+   "id": 5,
+   "type": "implementation",
+   "installed_name": "livedata",
+   "gpm_dep": {
+    "artifact_id": "lifecycle-livedata-ktx",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-livedata-ktx",
+    "get_from": "Google",
+    "group_id": "androidx.lifecycle",
+    "name": "LiveData Kotlin Extensions",
+    "description": "Kotlin extensions for 'livedata' artifact"
+   }
+  },
+  {
+   "id": 6,
+   "type": "implementation",
+   "installed_name": "moshi-convertor",
+   "gpm_dep": {
+    "artifact_id": "converter-moshi",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-moshi",
+    "get_from": "Central",
+    "group_id": "com.squareup.retrofit2",
+    "name": "Converter: Moshi",
+    "description": "A Retrofit Converter which uses Moshi for serialization."
+   }
+  },
+  {
+   "id": 7,
+   "type": "implementation",
+   "installed_name": "moshi-codegen",
+   "gpm_dep": {
+    "artifact_id": "moshi-kotlin-codegen",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.squareup.moshi/moshi-kotlin-codegen",
+    "get_from": "Central",
+    "group_id": "com.squareup.moshi",
+    "name": "Moshi Kotlin Codegen",
+    "description": "Moshi Kotlin Codegen"
+   }
+  },
+  {
+   "id": 8,
+   "type": "implementation",
+   "installed_name": "material",
+   "gpm_dep": {
+    "artifact_id": "material",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.google.android.material/material",
+    "get_from": "Google",
+    "group_id": "com.google.android.material",
+    "name": "Material Components For Android",
+    "description": "Material Components for Android is a static library that you can add to your Android application in order to use APIs that provide implementations of the Material Design specification. Compatible on devices running API 14 or later."
+   }
+  }
+ ]
+}
