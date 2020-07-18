@@ -12,8 +12,17 @@ import com.theapache64.nemo.data.repositories.ProductsRepository
  */
 class ProductsViewModel @ViewModelInject constructor(
     private val productsRepository: ProductsRepository
-) : ViewModel() {
+) : ViewModel(), ProductsAdapter.Callback {
+
     val products = liveData {
         emit(productsRepository.getProducts())
+    }
+
+    override fun onAddToCartClicked(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onProductClicked(position: Int) {
+        TODO("Not yet implemented")
     }
 }

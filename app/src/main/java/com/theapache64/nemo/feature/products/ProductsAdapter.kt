@@ -11,7 +11,10 @@ import com.theapache64.nemo.databinding.ItemProductBinding
  * Copyright (c) 2020
  * All rights reserved
  */
-class ProductsAdapter(private val products: List<ProductsResponse.Product>) :
+class ProductsAdapter(
+    private val products: List<ProductsResponse.Product>,
+    private val callback : Callback
+) :
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +33,18 @@ class ProductsAdapter(private val products: List<ProductsResponse.Product>) :
         holder.binding.product = products[position]
     }
 
-    class ViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemProductBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                callback.onProductClicked(layoutPosition)
+            }
+        }
+    }
+
+    interface Callback{
+        fun onAddToCartClicked(position: Int)
+        fun onProductClicked(position: Int)
+    }
 
 }

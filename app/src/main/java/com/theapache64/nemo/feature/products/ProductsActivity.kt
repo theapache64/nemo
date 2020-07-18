@@ -22,7 +22,10 @@ class ProductsActivity : AppCompatActivity() {
         )
 
         viewModel.products.observe(this, Observer {
-            binding.rvProducts.adapter = ProductsAdapter(it.products)
+            binding.rvProducts.adapter = ProductsAdapter(
+                products = it.products,
+                callback = viewModel
+            )
         })
     }
 }
