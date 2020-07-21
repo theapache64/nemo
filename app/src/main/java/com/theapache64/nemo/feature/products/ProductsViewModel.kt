@@ -19,10 +19,10 @@ class ProductsViewModel @ViewModelInject constructor(
     }
 
     override fun onAddToCartClicked(position: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onProductClicked(position: Int) {
-        TODO("Not yet implemented")
+
     }
 }

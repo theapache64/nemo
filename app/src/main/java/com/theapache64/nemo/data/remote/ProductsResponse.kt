@@ -20,7 +20,7 @@ data class ProductsResponse(
         val id: Int, // 1
         @Json(name = "title")
         val title: String, // Guppy
-        @Json(name = "imageUrl")
+        @Json(name = "image_url")
         val imageUrl: String
     )
 }
