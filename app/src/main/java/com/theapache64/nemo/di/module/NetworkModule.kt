@@ -40,7 +40,7 @@ class NetworkModule {
     @Provides
     fun provideOkHttpClient(retrosheetInterceptor: RetrosheetInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(retrosheetInterceptor)
+            .addInterceptor(RetrosheetInterceptor.Builder().build())
             .build()
     }
 

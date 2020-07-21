@@ -10,7 +10,6 @@ import retrofit2.http.GET
  */
 interface NemoApi {
 
-    @Params(smartQuery = "SELECT id, title, image_url WHERE price is not null")
     @GET("products")
     suspend fun getProducts(): ProductsResponse
 }

@@ -1,4 +1,2 @@
-# nemo
-Nemo is a simple E-Commerce app engine, powered by google sheets.
-
-**UNDER DEVELOPMENT**
+# nemo 
+Nemo is a simple E-Commerce app engine. Powered by [Retrosheet](https://github.com/theapache64/retrosheet) library.
