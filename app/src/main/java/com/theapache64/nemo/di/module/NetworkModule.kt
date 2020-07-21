@@ -22,9 +22,25 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideRetrosheetInterceptor(): RetrosheetInterceptor {
+        return RetrosheetInterceptor.Builder()
+            .addSmartQueryMap(
+                "products", mapOf(
+                    "id" to "A",
+                    "title" to "B",
+                    "image_url" to "C",
+                    "price" to "D",
+                    "quantity" to "E"
+                )
+            )
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(retrosheetInterceptor: RetrosheetInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(RetrosheetInterceptor())
+            .addInterceptor(retrosheetInterceptor)
             .build()
     }
 

@@ -1,5 +1,6 @@
 package com.theapache64.nemo.data.remote
 
+import com.theapache64.retrosheet.core.Params
 import retrofit2.http.GET
 
 /**
@@ -9,7 +10,7 @@ import retrofit2.http.GET
  */
 interface NemoApi {
 
+    @Params(smartQuery = "SELECT id, title, image_url WHERE price is not null")
     @GET("products")
     suspend fun getProducts(): ProductsResponse
-
 }

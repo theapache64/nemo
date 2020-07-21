@@ -111,6 +111,20 @@
     "name": "Material Components For Android",
     "description": "Material Components for Android is a static library that you can add to your Android application in order to use APIs that provide implementations of the Material Design specification. Compatible on devices running API 14 or later."
    }
+  },
+  {
+   "id": 9,
+   "type": "implementation",
+   "installed_name": "room",
+   "gpm_dep": {
+    "artifact_id": "room-runtime",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.room/room-runtime",
+    "get_from": "Google",
+    "group_id": "androidx.room",
+    "name": "Android Room Runtime",
+    "description": "Android Room-Runtime"
+   }
   }
  ]
 }
