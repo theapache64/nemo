@@ -37,14 +37,14 @@ class ProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                callback.onProductClicked(layoutPosition)
+                callback.onProductClicked(layoutPosition,products[layoutPosition])
             }
         }
     }
 
     interface Callback{
         fun onAddToCartClicked(position: Int)
-        fun onProductClicked(position: Int)
+        fun onProductClicked(position: Int, product: Product)
     }
 
 }

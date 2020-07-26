@@ -10,8 +10,9 @@ import javax.inject.Singleton
  * All rights reserved
  */
 @Singleton
-class ProductsRepository @Inject constructor(
+class ProductsRepo @Inject constructor(
     private val nemoApi: NemoApi
 ) {
-     fun getProducts() = nemoApi.getProducts()
+    fun getProducts() = nemoApi.getProducts()
+    fun getProduct(productId: Int) = nemoApi.getProduct(productId)
 }
