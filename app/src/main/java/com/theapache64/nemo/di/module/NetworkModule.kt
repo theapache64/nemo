@@ -1,6 +1,7 @@
 package com.theapache64.nemo.di.module
 
 import com.theapache64.nemo.data.remote.NemoApi
+import com.theapache64.nemo.utils.flow.FlowResourceCallAdapterFactory
 import com.theapache64.retrosheet.RetrosheetInterceptor
 import dagger.Module
 import dagger.Provides
@@ -24,7 +25,7 @@ class NetworkModule {
     @Provides
     fun provideRetrosheetInterceptor(): RetrosheetInterceptor {
         return RetrosheetInterceptor.Builder()
-            .addSmartQueryMap(
+            .addSheet(
                 "products", mapOf(
                     "id" to "A",
                     "title" to "B",
@@ -40,7 +41,7 @@ class NetworkModule {
     @Provides
     fun provideOkHttpClient(retrosheetInterceptor: RetrosheetInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(RetrosheetInterceptor.Builder().build())
+            .addInterceptor(retrosheetInterceptor)
             .build()
     }
 
@@ -51,6 +52,7 @@ class NetworkModule {
             .client(okHttpClient)
             .baseUrl("https://docs.google.com/spreadsheets/d/1IcZTH6-g7cZeht_xr82SHJOuJXD_p55QueMrZcnsAvQ/")
             .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(FlowResourceCallAdapterFactory())
             .build()
             .create(NemoApi::class.java)
     }

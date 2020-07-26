@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">nemo</string>
+    <string name="products_loading">Loading products...</string>
 </resources>

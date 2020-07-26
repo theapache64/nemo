@@ -1,6 +1,7 @@
 package com.theapache64.nemo.data.remote
 
-import com.theapache64.retrosheet.core.Params
+import com.theapache64.nemo.utils.flow.Resource
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 
 /**
@@ -11,5 +12,5 @@ import retrofit2.http.GET
 interface NemoApi {
 
     @GET("products")
-    suspend fun getProducts(): ProductsResponse
+    fun getProducts(): Flow<Resource<List<Product>>>
 }

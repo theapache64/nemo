@@ -2,6 +2,7 @@ package com.theapache64.nemo
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 /**
  * Created by theapache64 : Jul 17 Fri,2020 @ 20:24
@@ -9,4 +10,13 @@ import dagger.hilt.android.HiltAndroidApp
  * All rights reserved
  */
 @HiltAndroidApp
-class Nemo : Application()
+class Nemo : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+            Timber.d("onCreate: Debug tree planted")
+        }
+    }
+}

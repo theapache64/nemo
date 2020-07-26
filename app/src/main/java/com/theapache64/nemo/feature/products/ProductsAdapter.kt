@@ -3,7 +3,7 @@ package com.theapache64.nemo.feature.products
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.theapache64.nemo.data.remote.ProductsResponse
+import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.databinding.ItemProductBinding
 
 /**
@@ -12,8 +12,8 @@ import com.theapache64.nemo.databinding.ItemProductBinding
  * All rights reserved
  */
 class ProductsAdapter(
-    private val products: List<ProductsResponse.Product>,
-    private val callback : Callback
+    private val products: List<Product>,
+    private val callback: Callback
 ) :
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 

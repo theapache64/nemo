@@ -13,5 +13,5 @@ import javax.inject.Singleton
 class ProductsRepository @Inject constructor(
     private val nemoApi: NemoApi
 ) {
-    suspend fun getProducts() = nemoApi.getProducts()
+     fun getProducts() = nemoApi.getProducts()
 }

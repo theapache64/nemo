@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.theapache64.nemo.data.remote.ProductsResponse.Product" />
+            type="com.theapache64.nemo.data.remote.Product" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
