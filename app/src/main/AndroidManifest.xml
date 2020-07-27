@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nemo">
-        <activity android:name=".feature.productdetail.ProductDetailActivity"></activity>
+        <activity android:name=".feature.productdetail.ProductDetailActivity" />
         <activity android:name=".feature.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

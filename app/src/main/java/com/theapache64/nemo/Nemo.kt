@@ -1,6 +1,9 @@
 package com.theapache64.nemo
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+import com.theapache64.twinkill.TwinKill
+import com.theapache64.twinkill.googlesans.GoogleSans
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -16,7 +19,16 @@ class Nemo : Application() {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-            Timber.d("onCreate: Debug tree planted")
         }
+
+        AppCompatDelegate.setDefaultNightMode(
+            AppCompatDelegate.MODE_NIGHT_NO
+        )
+
+        TwinKill.init(
+            TwinKill.builder()
+                .setDefaultFont(GoogleSans.Regular)
+                .build()
+        )
     }
 }

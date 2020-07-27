@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity
 import com.theapache64.twinkill.utils.extensions.snackBar
 import com.theapache64.twinkill.utils.extensions.toast
 
@@ -15,7 +16,7 @@ import com.theapache64.twinkill.utils.extensions.toast
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutId: Int
-) : AppCompatActivity() {
+) : BaseAppCompatActivity() {
 
     protected lateinit var binding: B
     abstract val viewModel: VM

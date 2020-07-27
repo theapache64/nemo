@@ -12,7 +12,7 @@ class SplashViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     val shouldGoToProducts = liveData {
-        delay(1500)
+        delay(2000)
         emit(true)
     }
 }

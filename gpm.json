@@ -153,6 +153,20 @@
     "name": "Timber",
     "description": "No-nonsense injectable logging."
    }
+  },
+  {
+   "id": 12,
+   "type": "implementation",
+   "installed_name": "twinkill",
+   "gpm_dep": {
+    "artifact_id": "google_sans",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.theapache64.twinkill/google_sans",
+    "get_from": "JCenter",
+    "group_id": "com.theapache64.twinkill",
+    "name": "Google Sans",
+    "description": "Google sans fonts for TwinKill"
+   }
   }
  ]
 }
