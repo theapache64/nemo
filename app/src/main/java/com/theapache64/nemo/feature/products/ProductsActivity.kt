@@ -57,8 +57,10 @@ class ProductsActivity :
         viewModel.products.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
-                    binding.lvProducts.showLoading(R.string.products_loading)
-                    binding.rvProducts.gone()
+                    if (productsAdapter.itemCount == 0) {
+                        binding.lvProducts.showLoading(R.string.products_loading)
+                        binding.rvProducts.gone()
+                    }
                 }
                 is Resource.Success -> {
                     binding.lvProducts.hideLoading()

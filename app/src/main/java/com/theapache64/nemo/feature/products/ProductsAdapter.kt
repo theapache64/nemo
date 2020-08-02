@@ -2,11 +2,9 @@ package com.theapache64.nemo.feature.products
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.databinding.ItemProductBinding
-import com.theapache64.nemo.utils.BaseDiffUtilCallback
 
 /**
  * Created by theapache64 : Jul 17 Fri,2020 @ 20:30
@@ -36,17 +34,14 @@ class ProductsAdapter(
     }
 
     fun append(newProducts: List<Product>) {
-        val diffResult = DiffUtil.calculateDiff(
-            ProductsDiffCallback(
-                products,
-                newProducts
-            )
-        )
-        diffResult.dispatchUpdatesTo(this)
+        val positionStart = products.size
+        products.addAll(newProducts)
+        notifyItemRangeInserted(positionStart, newProducts.size)
     }
 
     fun clear() {
         products.clear()
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: ItemProductBinding) :
@@ -62,18 +57,5 @@ class ProductsAdapter(
         fun onAddToCartClicked(position: Int)
         fun onProductClicked(position: Int, product: Product)
     }
-
-
-    class ProductsDiffCallback(oldItems: List<Product>, newItems: List<Product>) :
-        BaseDiffUtilCallback<Product>(oldItems, newItems) {
-        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
-            return oldItem == newItem
-        }
-    }
-
 
 }
