@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">nemo</string>
     <string name="products_loading">Loading products...</string>
+    <string name="splash_sync_error_title">Sync Error</string>
+    <string name="splash_sync_error_message">Failed to sync config. Please check your internet connection</string>
 </resources>

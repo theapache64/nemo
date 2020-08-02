@@ -2,9 +2,11 @@ package com.theapache64.nemo.feature.products
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.databinding.ItemProductBinding
+import com.theapache64.nemo.utils.BaseDiffUtilCallback
 
 /**
  * Created by theapache64 : Jul 17 Fri,2020 @ 20:30
@@ -12,10 +14,10 @@ import com.theapache64.nemo.databinding.ItemProductBinding
  * All rights reserved
  */
 class ProductsAdapter(
-    private val products: List<Product>,
     private val callback: Callback
-) :
-    RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+
+    private val products = mutableListOf<Product>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,18 +35,45 @@ class ProductsAdapter(
         holder.binding.product = products[position]
     }
 
+    fun append(newProducts: List<Product>) {
+        val diffResult = DiffUtil.calculateDiff(
+            ProductsDiffCallback(
+                products,
+                newProducts
+            )
+        )
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun clear() {
+        products.clear()
+    }
+
     inner class ViewHolder(val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                callback.onProductClicked(layoutPosition,products[layoutPosition])
+                callback.onProductClicked(layoutPosition, products[layoutPosition])
             }
         }
     }
 
-    interface Callback{
+    interface Callback {
         fun onAddToCartClicked(position: Int)
         fun onProductClicked(position: Int, product: Product)
     }
+
+
+    class ProductsDiffCallback(oldItems: List<Product>, newItems: List<Product>) :
+        BaseDiffUtilCallback<Product>(oldItems, newItems) {
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem == newItem
+        }
+    }
+
 
 }

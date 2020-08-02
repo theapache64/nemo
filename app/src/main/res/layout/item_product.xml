@@ -29,10 +29,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#B5000000"
+            android:background="@color/trans_black"
             android:gravity="center"
             android:layout_gravity="center"
             android:text="@{product.title}"
+            android:textColor="@android:color/white"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

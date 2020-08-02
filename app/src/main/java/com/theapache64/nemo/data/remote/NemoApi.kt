@@ -13,10 +13,19 @@ import retrofit2.http.Query
  */
 interface NemoApi {
 
+    @GET("config")
+    fun getConfig(): Flow<Resource<Config>>
+
+    @SheetQuery("SELECT * LIMIT :products_per_page OFFSET :offset")
     @GET("products")
-    fun getProducts(): Flow<Resource<List<Product>>>
+    fun getProducts(
+        @Query("products_per_page") productsPerPage: Int,
+        @Query("offset") offset: Int
+    ): Flow<Resource<List<Product>>>
 
     @SheetQuery("SELECT * WHERE id = :productId")
     @GET("products")
-    fun getProduct(@Query("productId") productId: Int): Flow<Resource<Product>>
+    fun getProduct(
+        @Query("productId") productId: Int
+    ): Flow<Resource<Product>>
 }

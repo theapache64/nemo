@@ -13,6 +13,6 @@ open class BaseViewModel : ViewModel() {
     private val _snackBarMsg = SingleLiveEvent<Any>()
     val snackBarMsg: LiveData<Any> = _snackBarMsg
 
-    private val _toastMsg = MutableLiveData<Any>()
+    protected val _toastMsg = MutableLiveData<Any>()
     val toastMsg: LiveData<Any> = _toastMsg
 }
