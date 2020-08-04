@@ -13,6 +13,7 @@ import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.visible
 import com.theapache64.nemo.utils.flow.Resource
+import com.theapache64.twinkill.utils.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,19 +70,32 @@ class ProductsActivity :
             when (it) {
                 is Resource.Loading -> {
                     if (productsAdapter.itemCount == 0) {
+                        // normal loading
                         binding.lvProducts.showLoading(R.string.products_loading)
                         binding.rvProducts.gone()
+                    } else {
+                        // pagination loading
+                        binding.csrlProducts.isRefreshing = true
                     }
                 }
                 is Resource.Success -> {
-                    binding.lvProducts.hideLoading()
-                    binding.rvProducts.visible()
+                    if (productsAdapter.itemCount == 0) {
+                        binding.lvProducts.hideLoading()
+                        binding.rvProducts.visible()
+                    } else {
+                        binding.csrlProducts.isRefreshing = false
+                    }
 
                     productsAdapter.append(it.data)
                 }
                 is Resource.Error -> {
-                    binding.rvProducts.gone()
-                    binding.lvProducts.showError(it.message)
+                    if (productsAdapter.itemCount == 0) {
+                        binding.rvProducts.gone()
+                        binding.lvProducts.showError(it.message)
+                    } else {
+                        toast(it.message)
+                        binding.csrlProducts.isRefreshing = false
+                    }
                 }
             }
         })

@@ -17,6 +17,7 @@
 
 
         <com.theapache64.twinkill.ui.widgets.CustomSwipeRefreshLayout
+            android:id="@+id/csrl_products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
