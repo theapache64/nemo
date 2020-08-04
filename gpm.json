@@ -167,6 +167,20 @@
     "name": "Google Sans",
     "description": "Google sans fonts for TwinKill"
    }
+  },
+  {
+   "id": 13,
+   "type": "implementation",
+   "installed_name": "materialratingbar",
+   "gpm_dep": {
+    "artifact_id": "library",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/me.zhanghai.android.materialratingbar/library",
+    "get_from": "Central",
+    "group_id": "me.zhanghai.android.materialratingbar",
+    "name": "MaterialRatingBar Library",
+    "description": "A Material Design RatingBar with consistent appearance"
+   }
   }
  ]
 }

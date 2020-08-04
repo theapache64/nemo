@@ -10,36 +10,57 @@
             type="com.theapache64.nemo.data.remote.Product" />
     </data>
 
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp">
 
-        <ImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{product.imageUrl}"
-            tools:ignore="ContentDescription" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/trans_black"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="@{product.title}"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/lorem" />
+            <!--Image-->
+            <ImageView
+                android:id="@+id/iv_product_image"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{product.imageUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
+
+            <TextView
+                android:id="@+id/tv_product_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@{product.title}"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/iv_product_image"
+                app:layout_constraintTop_toBottomOf="@id/iv_product_image"
+                tools:text="@tools:sample/lorem" />
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                style="@style/Widget.MaterialRatingBar.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="6dp"
+                android:isIndicator="true"
+                android:rating="@{product.rating}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_product_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
 </layout>

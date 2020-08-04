@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
         tools:context=".feature.splash.SplashActivity">
 
         <ProgressBar
@@ -30,12 +28,14 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             fontPath="fonts/nemo.ttf"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
+            android:transitionName="@string/transition_app_logo_to_products_title"
             android:textSize="@dimen/splash_title_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pb_config_sync" />
+            app:layout_constraintTop_toBottomOf="@id/pb_config_sync"
+            tools:targetApi="lollipop" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

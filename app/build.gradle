@@ -92,4 +92,7 @@ dependencies {
 
 	// Google Sans : Google sans fonts for TwinKill
 	implementation 'com.theapache64.twinkill:google_sans:1.1.0-alpha05'
+
+	// MaterialRatingBar Library : A Material Design RatingBar with consistent appearance
+	implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 }

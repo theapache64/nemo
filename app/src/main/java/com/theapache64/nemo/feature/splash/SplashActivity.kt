@@ -1,12 +1,10 @@
 package com.theapache64.nemo.feature.splash
 
 import android.content.DialogInterface
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.os.Build
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivitySplashBinding
@@ -20,21 +18,18 @@ class SplashActivity :
     BaseActivity<ActivitySplashBinding, SplashViewModel>(R.layout.activity_splash) {
 
     override fun onCreate() {
-
-        binding.pbConfigSync.run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                indeterminateTintList = ColorStateList.valueOf(Color.WHITE)
-            } else {
-                indeterminateDrawable.setColorFilter(
-                    Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN
-                );
-            }
-        }
+        binding.executePendingBindings()
 
         // Go to products
         viewModel.shouldGoToProducts.observe(this, Observer { shouldGoToProducts ->
             if (shouldGoToProducts) {
-                startActivity(ProductsActivity.getStartIntent(this))
+                val intent = ProductsActivity.getStartIntent(this)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this,
+                    binding.tvAppName,
+                    getString(R.string.transition_app_logo_to_products_title)
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         })

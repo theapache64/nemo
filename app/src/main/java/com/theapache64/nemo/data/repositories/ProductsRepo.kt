@@ -1,7 +1,9 @@
 package com.theapache64.nemo.data.repositories
 
-import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.NemoApi
+import com.theapache64.nemo.data.remote.Product
+import com.theapache64.nemo.utils.flow.Resource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,12 +14,19 @@ import javax.inject.Singleton
  */
 @Singleton
 class ProductsRepo @Inject constructor(
-    private val nemoApi: NemoApi
+    private val nemoApi: NemoApi,
+    private val configRepo: ConfigRepo
 ) {
-    fun getProducts(page: Int, config: Config) = nemoApi.getProducts(
-        config.productsPerPage,
-        (page - 1) * config.productsPerPage
-    )
+    /**
+     * To get products
+     */
+    fun getProducts(page: Int): Flow<Resource<List<Product>>> {
+        val config = configRepo.getLocalConfig()!!
+        return nemoApi.getProducts(
+            config.productsPerPage,
+            (page - 1) * config.productsPerPage
+        )
+    }
 
     fun getProduct(productId: Int) = nemoApi.getProduct(productId)
 }

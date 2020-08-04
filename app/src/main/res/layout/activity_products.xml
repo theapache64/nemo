@@ -8,41 +8,77 @@
         <variable
             name="viewModel"
             type="com.theapache64.nemo.feature.products.ProductsViewModel" />
+
     </data>
 
-    <com.theapache64.twinkill.ui.widgets.CustomSwipeRefreshLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:onRefreshListener="@{()->viewModel.onRetryOrSwipeDown()}"
-        tools:context=".feature.products.ProductsActivity">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.theapache64.twinkill.ui.widgets.CustomSwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:onRefreshListener="@{()->viewModel.onRetryOrSwipeDown()}"
+            tools:context=".feature.products.ProductsActivity">
 
-            <com.theapache64.twinkill.ui.widgets.LoadingView
-                android:id="@+id/lv_products"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:retryCallback="@{()->viewModel.onRetryOrSwipeDown()}" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_products"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:spanCount="2"
-                tools:listitem="@layout/item_product" />
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/apl_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.theapache64.twinkill.ui.widgets.CustomSwipeRefreshLayout>
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/mt_products"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@android:color/white">
+
+                        <TextView
+                            android:id="@+id/toolbar_title"
+                            style="@style/toolbar_logo"
+                            fontPath="fonts/nemo.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name"
+                            android:transitionName="@string/transition_app_logo_to_products_title"
+                            tools:targetApi="lollipop" />
+                    </com.google.android.material.appbar.MaterialToolbar>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <com.theapache64.twinkill.ui.widgets.LoadingView
+                    android:id="@+id/lv_products"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/apl_products"
+                    app:retryCallback="@{()->viewModel.onRetryOrSwipeDown()}" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_products"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/apl_products"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_product" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.theapache64.twinkill.ui.widgets.CustomSwipeRefreshLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
