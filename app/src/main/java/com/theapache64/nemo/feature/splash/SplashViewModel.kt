@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.flow.Resource
+import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -18,13 +19,13 @@ class SplashViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
 
-    private val _shouldGoToProducts = MutableLiveData<Boolean>()
+    private val _shouldGoToProducts = SingleLiveEvent<Boolean>()
     val shouldGoToProducts: LiveData<Boolean> = _shouldGoToProducts
 
-    private val _shouldShowConfigSyncError = MutableLiveData<Boolean>()
+    private val _shouldShowConfigSyncError = SingleLiveEvent<Boolean>()
     val shouldShowConfigSyncError: LiveData<Boolean> = _shouldShowConfigSyncError
 
-    private val _shouldShowProgress = MutableLiveData<Boolean>()
+    private val _shouldShowProgress = SingleLiveEvent<Boolean>()
     val shouldShowProgress: LiveData<Boolean> = _shouldShowProgress
 
     init {

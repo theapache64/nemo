@@ -39,10 +39,10 @@ class ProductsViewModel @ViewModelInject constructor(
             .asLiveData(viewModelScope.coroutineContext)
     }
 
-    private val _shouldLaunchProductDetail = MutableLiveData<Int>()
+    private val _shouldLaunchProductDetail = SingleLiveEvent<Int>()
     val shouldLaunchProductDetail: LiveData<Int> = _shouldLaunchProductDetail
 
-    private val _shouldClearProducts = MutableLiveData<Boolean>()
+    private val _shouldClearProducts = SingleLiveEvent<Boolean>()
     val shouldClearProducts: LiveData<Boolean> = _shouldClearProducts
 
 
