@@ -16,7 +16,7 @@ interface NemoApi {
     @GET("config")
     fun getConfig(): Flow<Resource<Config>>
 
-    @SheetQuery("SELECT * LIMIT :products_per_page OFFSET :offset")
+    @SheetQuery("SELECT * ORDER BY id DESC LIMIT :products_per_page OFFSET :offset")
     @GET("products")
     fun getProducts(
         @Query("products_per_page") productsPerPage: Int,
