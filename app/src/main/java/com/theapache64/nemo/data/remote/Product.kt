@@ -17,6 +17,8 @@ data class Product(
     val title: String, // Guppy
     @Json(name = "rating")
     val rating: Int,
+    @Json(name = "price")
+    val price: Int,
     @Json(name = "image_url")
     val imageUrl: String
 )

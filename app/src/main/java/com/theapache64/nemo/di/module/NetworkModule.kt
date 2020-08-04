@@ -34,7 +34,7 @@ class NetworkModule {
         return RetrosheetInterceptor.Builder()
             .addSheet(
                 "products",
-                "id", "title", "image_url", "price", "quantity"
+                "id", "title", "image_url", "is_out_of_stock", "rating", "price"
             )
             .setLogging(true)
             .build()

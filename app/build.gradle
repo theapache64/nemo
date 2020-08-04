@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.theapache64.nemo"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

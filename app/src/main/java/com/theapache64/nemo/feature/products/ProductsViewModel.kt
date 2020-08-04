@@ -2,6 +2,7 @@ package com.theapache64.nemo.feature.products
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.data.repositories.ProductsRepo
@@ -18,6 +19,8 @@ class ProductsViewModel @ViewModelInject constructor(
     private val productsRepo: ProductsRepo,
     private val configRepo: ConfigRepo
 ) : BaseViewModel(), ProductsAdapter.Callback {
+
+    val config: LiveData<Config> = MutableLiveData(configRepo.getLocalConfig())
 
     val visibleThreshold = 5
     var previousTotal = -1
@@ -70,8 +73,7 @@ class ProductsViewModel @ViewModelInject constructor(
 
     fun onScrollEndReached() {
         Timber.d("onScrollEndReached: ${_pageNo.value}")
-        val config = configRepo.getLocalConfig()!!
-        val totalPages = config.totalPages
+        val totalPages = config.value!!.totalPages
         val nextPageNo = _pageNo.value!!.plus(1)
         if (nextPageNo <= totalPages) {
             _pageNo.value = nextPageNo

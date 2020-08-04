@@ -32,7 +32,7 @@ class ProductsActivity :
 
     override fun onCreate() {
         binding.viewModel = viewModel
-        watchProducts()
+        watchConfig()
         watchProductDetail()
     }
 
@@ -42,11 +42,22 @@ class ProductsActivity :
         })
     }
 
-    private fun watchProducts() {
-        val productsAdapter = ProductsAdapter(
-            callback = viewModel
-        )
-        binding.rvProducts.adapter = productsAdapter
+    private fun watchConfig() {
+
+        // Waiting for config
+        viewModel.config.observe(this, Observer {
+            val productsAdapter = ProductsAdapter(
+                callback = viewModel,
+                config = it
+            )
+            binding.rvProducts.adapter = productsAdapter
+            watchProducts(productsAdapter)
+        })
+
+
+    }
+
+    private fun watchProducts(productsAdapter: ProductsAdapter) {
 
         viewModel.shouldClearProducts.observe(this, Observer { shouldClear ->
             if (shouldClear) {
