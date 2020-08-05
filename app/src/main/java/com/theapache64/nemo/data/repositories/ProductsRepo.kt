@@ -22,9 +22,10 @@ class ProductsRepo @Inject constructor(
      */
     fun getProducts(page: Int): Flow<Resource<List<Product>>> {
         val config = configRepo.getLocalConfig()!!
+        val offset = (page - 1) * config.productsPerPage
         return nemoApi.getProducts(
             config.productsPerPage,
-            (page - 1) * config.productsPerPage
+            offset
         )
     }
 

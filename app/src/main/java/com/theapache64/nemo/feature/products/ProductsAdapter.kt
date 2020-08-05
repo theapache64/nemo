@@ -13,11 +13,11 @@ import com.theapache64.nemo.databinding.ItemProductBinding
  * All rights reserved
  */
 class ProductsAdapter(
+    val products : List<Product>,
     private val config: Config,
     private val callback: Callback
 ) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
-    private val products = mutableListOf<Product>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -36,16 +36,6 @@ class ProductsAdapter(
         holder.binding.config = config
     }
 
-    fun append(newProducts: List<Product>) {
-        val positionStart = products.size
-        products.addAll(newProducts)
-        notifyItemRangeInserted(positionStart, newProducts.size)
-    }
-
-    fun clear() {
-        products.clear()
-        notifyDataSetChanged()
-    }
 
     inner class ViewHolder(val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -37,7 +37,7 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
     }
 
     private fun watchProduct() {
-        viewModel.product.observe(this, Observer {
+        viewModel.productResp.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
                 }

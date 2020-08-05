@@ -48,6 +48,7 @@ class ProductsActivity :
         // Waiting for config
         viewModel.config.observe(this, Observer {
             val productsAdapter = ProductsAdapter(
+                products = viewModel.products,
                 callback = viewModel,
                 config = it
             )
@@ -62,11 +63,11 @@ class ProductsActivity :
 
         viewModel.shouldClearProducts.observe(this, Observer { shouldClear ->
             if (shouldClear) {
-                productsAdapter.clear()
+                productsAdapter.notifyDataSetChanged()
             }
         })
 
-        viewModel.products.observe(this, Observer {
+        viewModel.productsResp.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
                     if (productsAdapter.itemCount == 0) {
@@ -79,14 +80,16 @@ class ProductsActivity :
                     }
                 }
                 is Resource.Success -> {
-                    if (productsAdapter.itemCount == 0) {
+                    if (viewModel.positionStart == 0) {
                         binding.lvProducts.hideLoading()
                         binding.rvProducts.visible()
                     } else {
                         binding.csrlProducts.isRefreshing = false
                     }
-
-                    productsAdapter.append(it.data)
+                    productsAdapter.notifyItemRangeInserted(
+                        viewModel.positionStart,
+                        viewModel.products.size
+                    )
                 }
                 is Resource.Error -> {
                     if (productsAdapter.itemCount == 0) {

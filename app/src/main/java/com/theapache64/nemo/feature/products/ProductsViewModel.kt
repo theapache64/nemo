@@ -7,7 +7,9 @@ import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.data.repositories.ProductsRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
+import com.theapache64.nemo.utils.flow.Resource
 import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 /**
@@ -20,6 +22,7 @@ class ProductsViewModel @ViewModelInject constructor(
     private val configRepo: ConfigRepo
 ) : BaseViewModel(), ProductsAdapter.Callback {
 
+    var positionStart: Int = -1
     val config: LiveData<Config> = MutableLiveData(configRepo.getLocalConfig())
 
     val visibleThreshold = 5
@@ -30,6 +33,7 @@ class ProductsViewModel @ViewModelInject constructor(
     var visibleItemCount = -1
 
     private val _pageNo = SingleLiveEvent<Int>()
+    val products = mutableListOf<Product>()
 
     init {
 
@@ -37,16 +41,22 @@ class ProductsViewModel @ViewModelInject constructor(
         _pageNo.value = 1
     }
 
-    val products = _pageNo.switchMap { pageNo ->
+    val productsResp = _pageNo.switchMap { pageNo ->
         productsRepo.getProducts(pageNo)
+            .onEach {
+                if (it is Resource.Success) {
+                    positionStart = products.size
+                    products.addAll(it.data)
+                }
+            }
             .asLiveData(viewModelScope.coroutineContext)
     }
 
     private val _shouldLaunchProductDetail = SingleLiveEvent<Int>()
     val shouldLaunchProductDetail: LiveData<Int> = _shouldLaunchProductDetail
 
-    private val _shouldClearProducts = SingleLiveEvent<Boolean>()
-    val shouldClearProducts: LiveData<Boolean> = _shouldClearProducts
+    private val _shouldUpdateRecyclerView = SingleLiveEvent<Boolean>()
+    val shouldClearProducts: LiveData<Boolean> = _shouldUpdateRecyclerView
 
 
     private fun resetPageData() {
@@ -66,7 +76,8 @@ class ProductsViewModel @ViewModelInject constructor(
     }
 
     fun onRetryOrSwipeDown() {
-        _shouldClearProducts.value = true
+        products.clear()
+        _shouldUpdateRecyclerView.value = true
         _pageNo.value = 1
         resetPageData()
     }
