@@ -2,11 +2,10 @@ package com.theapache64.nemo.feature.splash
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
-import com.theapache64.nemo.utils.flow.Resource
+import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
 import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

@@ -2,7 +2,7 @@ package com.theapache64.nemo.data.repositories
 
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.data.remote.Product
-import com.theapache64.nemo.utils.flow.Resource
+import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton

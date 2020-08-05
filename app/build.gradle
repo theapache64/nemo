@@ -85,13 +85,15 @@ dependencies {
     implementation 'com.theapache64:retrosheet:1.1.1'
 
 	// Core : A simple util package, mainly based on android Jetpack components.
-	implementation 'com.theapache64.twinkill:core:1.1.1-alpha01'
+    def twinkill_version = '1.1.1-alpha02'
+	implementation "com.theapache64.twinkill:core:$twinkill_version"
+    implementation "com.theapache64.twinkill:google_sans:$twinkill_version"
+    implementation "com.theapache64.twinkill:network:$twinkill_version"
 
-	// Timber : No-nonsense injectable logging.
+
+    // Timber : No-nonsense injectable logging.
 	implementation 'com.jakewharton.timber:timber:4.7.1'
 
-	// Google Sans : Google sans fonts for TwinKill
-	implementation 'com.theapache64.twinkill:google_sans:1.1.0-alpha05'
 
 	// MaterialRatingBar Library : A Material Design RatingBar with consistent appearance
 	implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
@@ -101,4 +103,5 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
 }

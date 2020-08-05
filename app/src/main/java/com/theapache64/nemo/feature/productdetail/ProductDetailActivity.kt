@@ -8,7 +8,7 @@ import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityProductDetailBinding
 import com.theapache64.nemo.feature.base.BaseActivity
 import com.theapache64.nemo.utils.extensions.getIntExtraOrThrow
-import com.theapache64.nemo.utils.flow.Resource
+import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -12,7 +12,7 @@ import com.theapache64.nemo.feature.base.BaseActivity
 import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.visible
-import com.theapache64.nemo.utils.flow.Resource
+import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
 import com.theapache64.twinkill.utils.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 
