@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.lifecycle.Observer
 import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivitySplashBinding
@@ -26,11 +27,17 @@ class SplashActivity :
                 val intent = ProductsActivity.getStartIntent(this)
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this,
-                    binding.tvAppName,
-                    getString(R.string.transition_app_logo_to_products_title)
+                    Pair<View, String>(
+                        binding.tvAppName,
+                        getString(R.string.transition_app_logo_to_products_title)
+                    ),
+                    Pair<View, String>(
+                        binding.pbConfigSync,
+                        getString(R.string.transition_splash_loading_to_products_loading)
+                    )
                 )
                 startActivity(intent, options.toBundle())
-                finish()
+                viewModel.shouldFinishAct = true
             }
         })
 
@@ -47,6 +54,13 @@ class SplashActivity :
                 binding.pbConfigSync.visibility = View.INVISIBLE
             }
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (viewModel.shouldFinishAct) {
+            finish()
+        }
     }
 
     private fun showConfigSyncError() {

@@ -25,8 +25,10 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
+        return Moshi.Builder()
+            .build()
     }
+
 
     @Singleton
     @Provides
@@ -36,9 +38,14 @@ object NetworkModule {
                 "products",
                 "id", "title", "image_url", "is_out_of_stock", "rating", "price"
             )
+            .addForm(
+                "app_open",
+                "https://docs.google.com/forms/d/e/1FAIpQLSeFkXRNcPgm1e3SYyMv0OcZJUj_POQJfkVbyFbSiDhVXo_Fkw/viewform?usp=sf_link"
+            )
             .setLogging(true)
             .build()
     }
+
 
     @Singleton
     @Provides

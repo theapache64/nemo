@@ -4,4 +4,5 @@
     <string name="splash_sync_error_title">Sync Error</string>
     <string name="splash_sync_error_message">Failed to sync config. Please check your internet connection</string>
     <string name="transition_app_logo_to_products_title">app_logo_to_products_title</string>
+    <string name="transition_splash_loading_to_products_loading">splash_loading_to_products_loading</string>
 </resources>

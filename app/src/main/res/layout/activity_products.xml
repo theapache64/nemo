@@ -61,6 +61,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:transitionName="@string/transition_splash_loading_to_products_loading"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/apl_products"
                     app:retryCallback="@{()->viewModel.onRetryOrSwipeDown()}" />
