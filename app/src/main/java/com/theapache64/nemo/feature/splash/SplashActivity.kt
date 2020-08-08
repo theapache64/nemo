@@ -30,10 +30,6 @@ class SplashActivity :
                     Pair<View, String>(
                         binding.tvAppName,
                         getString(R.string.transition_app_logo_to_products_title)
-                    ),
-                    Pair<View, String>(
-                        binding.pbConfigSync,
-                        getString(R.string.transition_splash_loading_to_products_loading)
                     )
                 )
                 startActivity(intent, options.toBundle())

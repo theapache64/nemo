@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="@{product.title}"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@id/iv_product_image"
                 app:layout_constraintTop_toBottomOf="@id/iv_product_image"
                 tools:text="@tools:sample/lorem" />
@@ -55,23 +55,23 @@
             <!--Rating-->
             <me.zhanghai.android.materialratingbar.MaterialRatingBar
                 android:id="@+id/mrb_product_rating"
-                style="@style/Widget.MaterialRatingBar.RatingBar.Small"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="6dp"
-                android:isIndicator="true"
                 android:rating="@{product.rating}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_product_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_product_title" />
 
-
+            <!--Price-->
             <TextView
                 fontPath="fonts/GoogleSans-Medium.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                tools:text="@tools:sample/lorem"
                 android:text="@{config.currency + product.price}"
                 app:layout_constraintBottom_toBottomOf="@id/mrb_product_rating"
                 app:layout_constraintEnd_toEndOf="parent"

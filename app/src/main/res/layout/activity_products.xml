@@ -61,7 +61,6 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:transitionName="@string/transition_splash_loading_to_products_loading"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/apl_products"
                     app:retryCallback="@{()->viewModel.onRetryOrSwipeDown()}" />
@@ -70,6 +69,7 @@
                     android:id="@+id/rv_products"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layoutAnimation="@anim/la_fall_down"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"

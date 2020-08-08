@@ -15,14 +15,12 @@
             android:id="@+id/pb_config_sync"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:transitionName="@string/transition_splash_loading_to_products_loading"
             android:layout_marginBottom="18dp"
             app:layout_constraintBottom_toTopOf="@id/tv_app_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:targetApi="lollipop" />
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_app_name"

@@ -15,6 +15,7 @@ import com.theapache64.nemo.utils.extensions.visible
 import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
 import com.theapache64.twinkill.utils.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ProductsActivity :
@@ -70,6 +71,7 @@ class ProductsActivity :
         viewModel.productsResp.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
+                    Timber.d("watchProducts: It's loading")
                     if (productsAdapter.itemCount == 0) {
                         // normal loading
                         binding.lvProducts.showLoading(R.string.products_loading)
@@ -104,6 +106,7 @@ class ProductsActivity :
         })
 
         addScrollEndListener {
+            Timber.d("watchProducts: Scroll end reached")
             viewModel.onScrollEndReached()
         }
     }

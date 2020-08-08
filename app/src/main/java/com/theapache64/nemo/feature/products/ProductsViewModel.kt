@@ -78,7 +78,6 @@ class ProductsViewModel @ViewModelInject constructor(
     fun onRetryOrSwipeDown() {
         products.clear()
         _shouldUpdateRecyclerView.value = true
-        _pageNo.value = 1
         resetPageData()
     }
 
