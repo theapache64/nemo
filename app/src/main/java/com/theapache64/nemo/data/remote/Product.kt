@@ -19,6 +19,8 @@ data class Product(
     val rating: Int,
     @Json(name = "price")
     val price: Int,
+    @Json(name = "thumb_url")
+    val thumbUrl: String,
     @Json(name = "image_url")
     val imageUrl: String
 )
