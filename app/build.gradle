@@ -87,7 +87,6 @@ dependencies {
 	// Core : A simple util package, mainly based on android Jetpack components.
     def twinkill_version = '1.1.1-alpha05'
 	implementation "com.theapache64.twinkill:core:$twinkill_version"
-    implementation "com.theapache64.twinkill:network:$twinkill_version"
 
 
     // Timber : No-nonsense injectable logging.

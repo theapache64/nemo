@@ -1,9 +1,9 @@
 package com.theapache64.nemo.data.remote
 
 
+import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.retrosheet.core.Read
 import com.theapache64.retrosheet.core.Write
-import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.Body
 import retrofit2.http.GET

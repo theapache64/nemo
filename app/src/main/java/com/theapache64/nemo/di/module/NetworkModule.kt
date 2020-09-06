@@ -2,8 +2,8 @@ package com.theapache64.nemo.di.module
 
 import com.squareup.moshi.Moshi
 import com.theapache64.nemo.data.remote.NemoApi
+import com.theapache64.nemo.utils.calladapter.flow.FlowResourceCallAdapterFactory
 import com.theapache64.retrosheet.RetrosheetInterceptor
-import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.FlowResourceCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,7 +42,6 @@ object NetworkModule {
                 "app_open",
                 "https://docs.google.com/forms/d/e/1FAIpQLSeFkXRNcPgm1e3SYyMv0OcZJUj_POQJfkVbyFbSiDhVXo_Fkw/viewform?usp=sf_link"
             )
-            .setLogging(true)
             .build()
     }
 

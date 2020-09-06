@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.theapache64.nemo.data.repositories.AnalyticsRepo
 import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
-import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
+import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ class SplashViewModel @ViewModelInject constructor(
                         }
 
                         is Resource.Error -> {
-                            Timber.e("syncConfig: ${it.message}")
+                            Timber.e("syncConfig: ${it.errorData}")
                             _shouldShowProgress.value = false
                             _shouldShowConfigSyncError.value = true
                         }

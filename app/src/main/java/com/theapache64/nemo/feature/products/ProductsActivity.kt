@@ -10,11 +10,11 @@ import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityProductsBinding
 import com.theapache64.nemo.feature.base.BaseActivity
 import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
-import com.theapache64.nemo.utils.extensions.gone
-import com.theapache64.nemo.utils.extensions.visible
-import com.theapache64.twinkill.network.utils.retrofit.adapters.flow.Resource
+import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.twinkill.utils.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import com.theapache64.nemo.utils.extensions.gone
+import com.theapache64.nemo.utils.extensions.visible
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -96,9 +96,9 @@ class ProductsActivity :
                 is Resource.Error -> {
                     if (productsAdapter.itemCount == 0) {
                         binding.rvProducts.gone()
-                        binding.lvProducts.showError(it.message)
+                        binding.lvProducts.showError(it.errorData)
                     } else {
-                        toast(it.message)
+                        toast(it.errorData)
                         binding.csrlProducts.isRefreshing = false
                     }
                 }
