@@ -2,7 +2,6 @@ package com.theapache64.nemo.feature.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -17,6 +16,10 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutId: Int
 ) : BaseAppCompatActivity() {
+
+    companion object {
+        private const val KEY_IS_DEBUG_ACTIVITY = "is_debug_activity"
+    }
 
     protected lateinit var binding: B
     abstract val viewModel: VM
@@ -56,5 +59,9 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
         })
 
         onCreate()
+    }
+
+    fun isDebugActivity(): Boolean {
+        return intent.getBooleanExtra(KEY_IS_DEBUG_ACTIVITY, false)
     }
 }

@@ -30,7 +30,12 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val productId = intent.getIntExtraOrThrow(KEY_PRODUCT_ID)
+        val productId = if (isDebugActivity()) {
+            1
+        } else {
+            // real
+            intent.getIntExtraOrThrow(KEY_PRODUCT_ID)
+        }
         viewModel.init(productId)
 
         watchProduct()
