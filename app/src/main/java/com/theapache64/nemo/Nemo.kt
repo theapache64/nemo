@@ -2,10 +2,9 @@ package com.theapache64.nemo
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.theapache64.nemo.utils.fonts.GoogleSans
 import com.theapache64.twinkill.TwinKill
-import com.theapache64.twinkill.googlesans.GoogleSans
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.newSingleThreadContext
 import timber.log.Timber
 
 /**
@@ -25,8 +24,6 @@ class Nemo : Application() {
         AppCompatDelegate.setDefaultNightMode(
             AppCompatDelegate.MODE_NIGHT_NO
         )
-
-
 
         TwinKill.init(
             TwinKill.builder()
