@@ -12,6 +12,7 @@
         <variable
             name="product"
             type="com.theapache64.nemo.data.remote.Product" />
+
     </data>
 
 

@@ -3,7 +3,7 @@ package com.theapache64.nemo.feature.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
+import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 
 /**
  * Created by theapache64 : Jul 26 Sun,2020 @ 22:07

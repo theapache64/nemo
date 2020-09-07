@@ -195,6 +195,48 @@
     "name": "Network",
     "description": "Network module for TwinKill"
    }
+  },
+  {
+   "id": 15,
+   "type": "implementation",
+   "installed_name": "preference-ktx",
+   "gpm_dep": {
+    "artifact_id": "preference-ktx",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.preference/preference-ktx",
+    "get_from": "Google",
+    "group_id": "androidx.preference",
+    "name": "Android Preferences KTX",
+    "description": "Kotlin extensions for preferences"
+   }
+  },
+  {
+   "id": 16,
+   "type": "implementation",
+   "installed_name": "calligraphy",
+   "gpm_dep": {
+    "artifact_id": "calligraphy3",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/io.github.inflationx/calligraphy3",
+    "get_from": "Central",
+    "group_id": "io.github.inflationx",
+    "name": "Calligraphy",
+    "description": "Custom Font injection through styles and attributes."
+   }
+  },
+  {
+   "id": 17,
+   "type": "implementation",
+   "installed_name": "viewpump",
+   "gpm_dep": {
+    "artifact_id": "viewpump",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/io.github.inflationx/viewpump",
+    "get_from": "Central",
+    "group_id": "io.github.inflationx",
+    "name": "ViewPump",
+    "description": "View inflation with pre/post-inflation interceptors"
+   }
   }
  ]
 }

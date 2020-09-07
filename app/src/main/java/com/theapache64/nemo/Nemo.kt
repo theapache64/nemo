@@ -1,11 +1,16 @@
 package com.theapache64.nemo
 
+
 import android.app.Application
+import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import com.theapache64.nemo.utils.fonts.GoogleSans
-import com.theapache64.twinkill.TwinKill
 import dagger.hilt.android.HiltAndroidApp
+import io.github.inflationx.calligraphy3.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+import io.github.inflationx.viewpump.ViewPump
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import timber.log.Timber
+
 
 /**
  * Created by theapache64 : Jul 17 Fri,2020 @ 20:24
@@ -14,8 +19,22 @@ import timber.log.Timber
  */
 @HiltAndroidApp
 class Nemo : Application() {
+    
     override fun onCreate() {
         super.onCreate()
+
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
+                        CalligraphyConfig.Builder()
+                            .setDefaultFontPath("fonts/GoogleSans-Regular.ttf")
+                            .setFontAttrId(R.attr.fontPath)
+                            .build()
+                    )
+                )
+                .build()
+        )
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
@@ -23,12 +42,6 @@ class Nemo : Application() {
 
         AppCompatDelegate.setDefaultNightMode(
             AppCompatDelegate.MODE_NIGHT_NO
-        )
-
-        TwinKill.init(
-            TwinKill.builder()
-                .setDefaultFont(GoogleSans.Regular)
-                .build()
         )
     }
 }

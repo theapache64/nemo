@@ -1,13 +1,16 @@
 package com.theapache64.nemo.feature.base
 
+import android.content.Context
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import com.theapache64.twinkill.ui.activities.base.BaseAppCompatActivity
-import com.theapache64.twinkill.utils.extensions.snackBar
-import com.theapache64.twinkill.utils.extensions.toast
+import com.theapache64.nemo.utils.extensions.snackBar
+import com.theapache64.nemo.utils.extensions.toast
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
+
 
 /**
  * Created by theapache64 : Jul 26 Sun,2020 @ 21:57
@@ -15,7 +18,7 @@ import com.theapache64.twinkill.utils.extensions.toast
 abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @LayoutRes
     private val layoutId: Int
-) : BaseAppCompatActivity() {
+) : AppCompatActivity() {
 
     companion object {
         private const val KEY_IS_DEBUG_ACTIVITY = "is_debug_activity"
@@ -24,6 +27,10 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     protected lateinit var binding: B
     abstract val viewModel: VM
     abstract fun onCreate()
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

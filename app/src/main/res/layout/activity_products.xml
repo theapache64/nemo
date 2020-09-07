@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
 
-        <com.theapache64.twinkill.ui.widgets.CustomSwipeRefreshLayout
+        <com.theapache64.nemo.ui.widgets.CustomSwipeRefreshLayout
             android:id="@+id/csrl_products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 
                 </com.google.android.material.appbar.AppBarLayout>
 
-                <com.theapache64.twinkill.ui.widgets.LoadingView
+                <com.theapache64.nemo.ui.widgets.LoadingView
                     android:id="@+id/lv_products"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                     tools:listitem="@layout/item_product" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.theapache64.twinkill.ui.widgets.CustomSwipeRefreshLayout>
+        </com.theapache64.nemo.ui.widgets.CustomSwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -8,7 +8,7 @@ import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.data.repositories.ProductsRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
-import com.theapache64.twinkill.utils.livedata.SingleLiveEvent
+import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
