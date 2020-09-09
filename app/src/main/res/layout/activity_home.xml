@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.theapache64.nemo.feature.home.HomeViewModel" />
+    </data>
+
+    <com.theapache64.nemo.ui.widgets.CustomSwipeRefreshLayout
+        android:id="@+id/csrl_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".feature.home.HomeActivity">
+
+            <include
+                android:id="@+id/apl_home"
+                layout="@layout/any_toolbar" />
+
+            <com.zhpan.bannerview.BannerViewPager
+                android:id="@+id/bvp_home"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apl_home" />
+
+            <com.theapache64.nemo.ui.widgets.LoadingView
+                android:id="@+id/lv_home"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apl_home" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/g_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="bvp_home" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.theapache64.nemo.ui.widgets.CustomSwipeRefreshLayout>
+</layout>

@@ -2,6 +2,7 @@ package com.theapache64.nemo.di.module
 
 import com.squareup.moshi.Moshi
 import com.theapache64.nemo.data.remote.NemoApi
+import com.theapache64.nemo.utils.AppConfig
 import com.theapache64.nemo.utils.calladapter.flow.FlowResourceCallAdapterFactory
 import com.theapache64.retrosheet.RetrosheetInterceptor
 import dagger.Module
@@ -35,11 +36,19 @@ object NetworkModule {
     fun provideRetrosheetInterceptor(): RetrosheetInterceptor {
         return RetrosheetInterceptor.Builder()
             .addSheet(
-                "products",
+                AppConfig.SHEET_BANNERS,
+                "id", "image_url", "product_id", "product_name"
+            )
+            .addSheet(
+                AppConfig.SHEET_CATEGORIES,
+                "id", "category_name", "image_url"
+            )
+            .addSheet(
+                AppConfig.SHEET_CONFIG,
                 "id", "title", "image_url", "is_out_of_stock", "rating", "price"
             )
             .addForm(
-                "app_open",
+                AppConfig.FORM_APP_OPEN,
                 "https://docs.google.com/forms/d/e/1FAIpQLSeFkXRNcPgm1e3SYyMv0OcZJUj_POQJfkVbyFbSiDhVXo_Fkw/viewform?usp=sf_link"
             )
             .build()

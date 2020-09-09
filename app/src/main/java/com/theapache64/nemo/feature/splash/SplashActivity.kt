@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivitySplashBinding
 import com.theapache64.nemo.feature.base.BaseActivity
-import com.theapache64.nemo.feature.products.ProductsActivity
+import com.theapache64.nemo.feature.home.HomeActivity
 import com.theapache64.nemo.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +24,7 @@ class SplashActivity :
         // Go to products
         viewModel.shouldGoToProducts.observe(this, Observer { shouldGoToProducts ->
             if (shouldGoToProducts) {
-                val intent = ProductsActivity.getStartIntent(this)
+                val intent = HomeActivity.getStartIntent(this)
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this,
                     Pair<View, String>(

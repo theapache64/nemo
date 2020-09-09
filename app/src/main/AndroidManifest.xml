@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nemo">
         <activity
+            android:name=".feature.home.HomeActivity"
+            android:exported="true" />
+        <activity
             android:name=".feature.productdetail.ProductDetailActivity"
             android:exported="true" />
         <activity android:name=".feature.splash.SplashActivity">

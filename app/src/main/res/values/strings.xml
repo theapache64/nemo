@@ -5,4 +5,5 @@
     <string name="splash_sync_error_message">Failed to sync config. Please check your internet connection</string>
     <string name="transition_app_logo_to_products_title">app_logo_to_products_title</string>
     <string name="action_retry">RETRY</string>
+    <string name="home_loading_banners">Loading banners...</string>
 </resources>

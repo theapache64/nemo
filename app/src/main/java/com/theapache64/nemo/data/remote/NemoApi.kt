@@ -1,6 +1,7 @@
 package com.theapache64.nemo.data.remote
 
 
+import com.theapache64.nemo.utils.AppConfig
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.retrosheet.core.Read
 import com.theapache64.retrosheet.core.Write
@@ -17,23 +18,31 @@ import retrofit2.http.Query
  */
 interface NemoApi {
 
-    @GET("config")
+    @GET(AppConfig.SHEET_CONFIG)
     fun getConfig(): Flow<Resource<Config>>
 
     @Read("SELECT * ORDER BY id DESC LIMIT :products_per_page OFFSET :offset")
-    @GET("products")
+    @GET(AppConfig.SHEET_PRODUCTS)
     fun getProducts(
         @Query("products_per_page") productsPerPage: Int,
         @Query("offset") offset: Int
     ): Flow<Resource<List<Product>>>
 
     @Read("SELECT * WHERE id = :productId")
-    @GET("products")
+    @GET(AppConfig.SHEET_PRODUCTS)
     fun getProduct(
         @Query("productId") productId: Int
     ): Flow<Resource<Product>>
 
     @Write
-    @POST("app_open")
+    @POST(AppConfig.FORM_APP_OPEN)
     suspend fun reportAppOpen(@Body appOpen: AppOpen): AppOpen
+
+    @Read("SELECT *")
+    @GET(AppConfig.SHEET_CATEGORIES)
+    fun getCategories(): Flow<Resource<List<Category>>>
+
+    @Read("SELECT *")
+    @GET(AppConfig.SHEET_BANNERS)
+    fun getBanners(): Flow<Resource<List<Banner>>>
 }

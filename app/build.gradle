@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.theapache64.nemo"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -100,4 +100,7 @@ dependencies {
 
 	// ViewPump : View inflation with pre/post-inflation interceptors
 	implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    implementation 'com.github.zhpanvip:BannerViewPager:3.1.6'
+
 }
