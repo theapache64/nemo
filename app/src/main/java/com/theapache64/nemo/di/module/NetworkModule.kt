@@ -35,17 +35,22 @@ object NetworkModule {
     @Provides
     fun provideRetrosheetInterceptor(): RetrosheetInterceptor {
         return RetrosheetInterceptor.Builder()
+            .setLogging(true)
             .addSheet(
                 AppConfig.SHEET_BANNERS,
                 "id", "image_url", "product_id", "product_name"
             )
             .addSheet(
                 AppConfig.SHEET_CATEGORIES,
-                "id", "category_name", "image_url"
+                "id", "category_name", "image_url", "total_products"
+            )
+            .addSheet(
+                AppConfig.SHEET_PRODUCTS,
+                "id", "category_name", "title", "image_url", "is_out_of_stock", "rating", "price"
             )
             .addSheet(
                 AppConfig.SHEET_CONFIG,
-                "id", "title", "image_url", "is_out_of_stock", "rating", "price"
+                "total_products", "products_per_page", "total_pages", "currency"
             )
             .addForm(
                 AppConfig.FORM_APP_OPEN,

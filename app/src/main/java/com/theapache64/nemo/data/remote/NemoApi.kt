@@ -21,11 +21,13 @@ interface NemoApi {
     @GET(AppConfig.SHEET_CONFIG)
     fun getConfig(): Flow<Resource<Config>>
 
-    @Read("SELECT * ORDER BY id DESC LIMIT :products_per_page OFFSET :offset")
+
+    @Read("SELECT * WHERE category_name = :category_name ORDER BY id DESC LIMIT :products_per_page OFFSET :offset")
     @GET(AppConfig.SHEET_PRODUCTS)
     fun getProducts(
         @Query("products_per_page") productsPerPage: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
+        @Query("category_name") categoryName : String
     ): Flow<Resource<List<Product>>>
 
     @Read("SELECT * WHERE id = :productId")
@@ -38,7 +40,7 @@ interface NemoApi {
     @POST(AppConfig.FORM_APP_OPEN)
     suspend fun reportAppOpen(@Body appOpen: AppOpen): AppOpen
 
-    @Read("SELECT *")
+    @Read("SELECT * WHERE total_products > 0")
     @GET(AppConfig.SHEET_CATEGORIES)
     fun getCategories(): Flow<Resource<List<Category>>>
 

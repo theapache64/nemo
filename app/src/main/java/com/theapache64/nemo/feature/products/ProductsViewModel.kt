@@ -2,6 +2,7 @@ package com.theapache64.nemo.feature.products
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.data.repositories.ConfigRepo
@@ -23,6 +24,7 @@ class ProductsViewModel @ViewModelInject constructor(
 ) : BaseViewModel(), ProductsAdapter.Callback {
 
     var positionStart: Int = -1
+    private lateinit var category: Category
     val config: LiveData<Config> = MutableLiveData(configRepo.getLocalConfig())
 
     val visibleThreshold = 5
@@ -35,14 +37,17 @@ class ProductsViewModel @ViewModelInject constructor(
     private val _pageNo = SingleLiveEvent<Int>()
     val products = mutableListOf<Product>()
 
-    init {
+
+    fun init(category: Category) {
+        this.category = category
+
 
         // Load first page
         _pageNo.value = 1
     }
 
     val productsResp = _pageNo.switchMap { pageNo ->
-        productsRepo.getProducts(pageNo)
+        productsRepo.getProducts(category, pageNo)
             .onEach {
                 if (it is Resource.Success) {
                     positionStart = products.size
@@ -91,4 +96,6 @@ class ProductsViewModel @ViewModelInject constructor(
             Timber.d("onScrollEndReached: All products loaded.")
         }
     }
+
+
 }

@@ -2,15 +2,18 @@ package com.theapache64.nemo.feature.products
 
 import android.content.Context
 import android.content.Intent
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.theapache64.nemo.R
+import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.databinding.ActivityProductsBinding
 import com.theapache64.nemo.feature.base.BaseActivity
 import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
 import com.theapache64.nemo.utils.calladapter.flow.Resource
+import com.theapache64.nemo.utils.extensions.get
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.toast
 import com.theapache64.nemo.utils.extensions.visible
@@ -22,9 +25,11 @@ class ProductsActivity :
     BaseActivity<ActivityProductsBinding, ProductsViewModel>(R.layout.activity_products) {
 
     companion object {
-        fun getStartIntent(context: Context): Intent {
+        private const val KEY_CATEGORY = "category"
+        fun getStartIntent(context: Context, category: Category): Intent {
             return Intent(context, ProductsActivity::class.java).apply {
                 // data goes here
+                putExtra(KEY_CATEGORY, category)
             }
         }
     }
@@ -34,6 +39,17 @@ class ProductsActivity :
 
     override fun onCreate() {
         binding.viewModel = viewModel
+        setSupportActionBar(binding.mtProducts)
+
+        val category = getParcelableOrThrow<Category>(KEY_CATEGORY)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = category.categoryName
+        binding.root.post {
+            supportActionBar?.subtitle =
+                "${category.totalProducts} ${category.totalProducts.get("item")} available"
+        }
+
+        viewModel.init(category)
         watchConfig()
         watchProductDetail()
     }
@@ -144,4 +160,12 @@ class ProductsActivity :
         })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
 }

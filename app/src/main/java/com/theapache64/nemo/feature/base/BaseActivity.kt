@@ -2,6 +2,7 @@ package com.theapache64.nemo.feature.base
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -71,4 +72,26 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     fun isDebugActivity(): Boolean {
         return intent.getBooleanExtra(KEY_IS_DEBUG_ACTIVITY, false)
     }
+
+    @Throws(IllegalArgumentException::class)
+    protected inline fun <reified T> getSerializableOrThrow(key: String): T {
+
+        val extra = intent.getSerializableExtra(key)
+            ?: throw IllegalArgumentException("No serialized found with key '$key'")
+
+        if (extra is T) {
+            return extra
+        } else {
+            throw IllegalArgumentException("'$key' is not ${T::class.java.simpleName}")
+        }
+    }
+
+    @Throws(IllegalArgumentException::class)
+    protected inline fun <reified T : Parcelable> getParcelableOrThrow(key: String): T {
+
+        return intent.getParcelableExtra(key)
+            ?: throw IllegalArgumentException("No parcelable found with key '$key'")
+    }
+
+
 }

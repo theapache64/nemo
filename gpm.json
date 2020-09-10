@@ -237,6 +237,20 @@
     "name": "ViewPump",
     "description": "View inflation with pre/post-inflation interceptors"
    }
+  },
+  {
+   "id": 18,
+   "type": "implementation",
+   "installed_name": "circleimageview",
+   "gpm_dep": {
+    "artifact_id": "circleimageview",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/de.hdodenhof/circleimageview",
+    "get_from": "Central",
+    "group_id": "de.hdodenhof",
+    "name": "CircleImageView",
+    "description": "A fast circular ImageView for Android"
+   }
   }
  ]
 }

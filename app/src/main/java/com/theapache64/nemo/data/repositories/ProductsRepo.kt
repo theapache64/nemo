@@ -1,5 +1,6 @@
 package com.theapache64.nemo.data.repositories
 
+import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.utils.calladapter.flow.Resource
@@ -20,12 +21,13 @@ class ProductsRepo @Inject constructor(
     /**
      * To get products
      */
-    fun getProducts(page: Int): Flow<Resource<List<Product>>> {
+    fun getProducts(category: Category, page: Int): Flow<Resource<List<Product>>> {
         val config = configRepo.getLocalConfig()!!
         val offset = (page - 1) * config.productsPerPage
         return nemoApi.getProducts(
             config.productsPerPage,
-            offset
+            offset,
+            category.categoryName
         )
     }
 
