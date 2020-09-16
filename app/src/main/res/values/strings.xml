@@ -7,4 +7,7 @@
     <string name="action_retry">RETRY</string>
     <string name="home_loading_banners">Loading…</string>
     <string name="label_categories">CATEGORIES</string>
+    <string name="action_add_to_cart">ADD TO CART</string>
+    <string name="action_go_to_cart">GO TO CART</string>
+    <string name="action_buy_now">BUY NOW</string>
 </resources>

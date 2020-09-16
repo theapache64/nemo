@@ -25,6 +25,7 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
         }
     }
 
+
     override val viewModel: ProductDetailViewModel by viewModels()
     override fun onCreate() {
         binding.viewModel = viewModel
@@ -53,5 +54,6 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
             }
         })
     }
+
 
 }
