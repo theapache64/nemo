@@ -95,7 +95,7 @@ dependencies {
 
     // Timber : No-nonsense injectable logging.
     implementation 'com.jakewharton.timber:timber:4.7.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
 
     // MaterialRatingBar Library : A Material Design RatingBar with consistent appearance
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
@@ -109,9 +109,15 @@ dependencies {
 	// ViewPump : View inflation with pre/post-inflation interceptors
 	implementation 'io.github.inflationx:viewpump:2.0.3'
 
+    // Banner
     implementation 'com.github.zhpanvip:BannerViewPager:3.1.6'
-
 
 	// CircleImageView : A fast circular ImageView for Android
 	implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Room
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }

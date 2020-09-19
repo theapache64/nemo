@@ -4,12 +4,13 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.Product
+import com.theapache64.nemo.data.repositories.CartRepo
 import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.data.repositories.ProductsRepo
-import com.theapache64.nemo.data.repositories.UserRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 /**
  * Created by theapache64 : Jul 26 Sun,2020 @ 22:53
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.onEach
 class ProductDetailViewModel @ViewModelInject constructor(
     private val productsRepo: ProductsRepo,
     private val configRepo: ConfigRepo,
-    private val userRepo: UserRepo
+    private val cartRepo: CartRepo
 ) : BaseViewModel() {
 
     private val _isAddToCartVisible = MutableLiveData<Boolean>()
@@ -37,8 +38,10 @@ class ProductDetailViewModel @ViewModelInject constructor(
                         product.value = it
 
                         // Checking if we want to show or cart buttons
-                        val cart = userRepo.getCart()
-                        val hasProductInCart = cart.contains(it.id)
+                        val cart = cartRepo.getCart()
+                        val hasProductInCart = cart.find { cartItem ->
+                            cartItem.productId == it.id
+                        } != null
 
                         if (hasProductInCart) {
                             onProductExistInCart()
@@ -61,9 +64,11 @@ class ProductDetailViewModel @ViewModelInject constructor(
     }
 
     fun onAddToCartClicked() {
-        userRepo.addToCart(product.value!!.id)
-        onProductExistInCart()
-        _toastMsg.value = R.string.toast_added_to_cart
+        viewModelScope.launch {
+            cartRepo.addToCart(product.value!!.id)
+            onProductExistInCart()
+            _toastMsg.value = R.string.toast_added_to_cart
+        }
     }
 
     private fun onProductExistInCart() {
