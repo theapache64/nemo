@@ -8,6 +8,8 @@
         <variable
             name="viewModel"
             type="com.theapache64.nemo.feature.productdetail.ProductDetailViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <com.theapache64.nemo.ui.widgets.CustomSwipeRefreshLayout
@@ -127,9 +129,11 @@
             <Button
                 android:id="@+id/b_add_to_cart"
                 android:layout_width="0dp"
+                android:onClick="@{()->viewModel.onAddToCartClicked()}"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/product_detail_button_margin"
                 android:text="@string/action_add_to_cart"
+                android:visibility="@{viewModel.isAddToCartVisible() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/gl_center"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -139,6 +143,8 @@
                 android:id="@+id/b_go_to_cart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.onGoToCartClicked()}"
+                android:visibility="@{viewModel.isGoToCartVisible() ? View.VISIBLE : View.GONE}"
                 android:layout_margin="@dimen/product_detail_button_margin"
                 android:text="@string/action_go_to_cart"
                 app:layout_constraintBottom_toBottomOf="parent"

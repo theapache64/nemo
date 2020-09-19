@@ -1,13 +1,12 @@
 package com.theapache64.nemo.feature.productdetail
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.Product
 import com.theapache64.nemo.data.repositories.ConfigRepo
 import com.theapache64.nemo.data.repositories.ProductsRepo
+import com.theapache64.nemo.data.repositories.UserRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import kotlinx.coroutines.flow.onEach
@@ -17,8 +16,15 @@ import kotlinx.coroutines.flow.onEach
  */
 class ProductDetailViewModel @ViewModelInject constructor(
     private val productsRepo: ProductsRepo,
-    private val configRepo: ConfigRepo
+    private val configRepo: ConfigRepo,
+    private val userRepo: UserRepo
 ) : BaseViewModel() {
+
+    private val _isAddToCartVisible = MutableLiveData<Boolean>()
+    val isAddToCartVisible: LiveData<Boolean> = _isAddToCartVisible
+
+    private val _isGoToCartVisible = MutableLiveData<Boolean>()
+    val isGoToCartVisible: LiveData<Boolean> = _isGoToCartVisible
 
     val config = configRepo.getLocalConfig()
     val product = MutableLiveData<Product>()
@@ -29,6 +35,17 @@ class ProductDetailViewModel @ViewModelInject constructor(
                 if (response is Resource.Success) {
                     response.data.let {
                         product.value = it
+
+                        // Checking if we want to show or cart buttons
+                        val cart = userRepo.getCart()
+                        val hasProductInCart = cart.contains(it.id)
+
+                        if (hasProductInCart) {
+                            onProductExistInCart()
+                        } else {
+                            _isAddToCartVisible.value = true
+                            _isGoToCartVisible.value = false
+                        }
                     }
                 }
             }
@@ -41,5 +58,30 @@ class ProductDetailViewModel @ViewModelInject constructor(
 
     fun reload() {
         _productId.value = _productId.value
+    }
+
+    fun onAddToCartClicked() {
+        userRepo.addToCart(product.value!!.id)
+        onProductExistInCart()
+        _toastMsg.value = R.string.toast_added_to_cart
+    }
+
+    private fun onProductExistInCart() {
+        _isAddToCartVisible.value = false
+        _isGoToCartVisible.value = true
+    }
+
+    private val _shouldGoToCart = MutableLiveData<Boolean>()
+    val shouldGoToCart: LiveData<Boolean> = _shouldGoToCart
+
+    private val _shouldBuyNow = MutableLiveData<Int>()
+    val shouldBuyNow: LiveData<Int> = _shouldBuyNow
+
+    fun onGoToCartClicked() {
+        _shouldGoToCart.value = true
+    }
+
+    fun onBuyNowClicked() {
+        _shouldBuyNow.value = product.value!!.id
     }
 }

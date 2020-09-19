@@ -45,10 +45,7 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
             viewModel.reload()
         }
 
-        watchProduct()
-    }
 
-    private fun watchProduct() {
         viewModel.productResp.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
@@ -75,7 +72,12 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
                 }
             }
         })
+
+        viewModel.isAddToCartVisible.observe(this, Observer {
+
+        })
     }
+
 
 
 }

@@ -12,4 +12,6 @@
     <string name="action_buy_now">BUY NOW</string>
     <string name="product_loading">Loading product details...</string>
     <string name="product_label_details">Details</string>
+    <string name="toast_added_to_cart">Added to cart!</string>
+    <string name="my_cart">My Cart</string>
 </resources>
