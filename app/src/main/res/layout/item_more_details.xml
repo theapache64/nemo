@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="detail"
+            type="com.theapache64.nemo.data.remote.Product.Detail" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/item_more_detail_padding_horizontal"
+        android:paddingTop="@dimen/item_more_detail_padding_vertical"
+        android:paddingEnd="@dimen/item_more_detail_padding_horizontal"
+        android:paddingBottom="@dimen/item_more_detail_padding_vertical">
+
+        <!--Key-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{detail.key}"
+            android:textColor="#6C6C6C"
+            tools:text="Color" />
+
+
+        <!--Value-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{detail.value}"
+            android:textColor="@color/cod_grey"
+            tools:text="Green" />
+    </LinearLayout>
+</layout>

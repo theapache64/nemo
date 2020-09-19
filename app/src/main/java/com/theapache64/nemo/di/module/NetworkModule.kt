@@ -46,7 +46,16 @@ object NetworkModule {
             )
             .addSheet(
                 AppConfig.SHEET_PRODUCTS,
-                "id", "category_name", "title", "image_url", "is_out_of_stock", "rating", "price"
+                "id",
+                "category_name",
+                "title",
+                "more_details",
+                "thumb_url",
+                "image_url",
+                "is_out_of_stock",
+                "rating",
+                "no_of_reviews",
+                "price"
             )
             .addSheet(
                 AppConfig.SHEET_CONFIG,

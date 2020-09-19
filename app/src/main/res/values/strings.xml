@@ -10,4 +10,6 @@
     <string name="action_add_to_cart">ADD TO CART</string>
     <string name="action_go_to_cart">GO TO CART</string>
     <string name="action_buy_now">BUY NOW</string>
+    <string name="product_loading">Loading product details...</string>
+    <string name="product_label_details">Details</string>
 </resources>

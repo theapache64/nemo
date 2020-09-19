@@ -4,4 +4,6 @@
     <dimen name="home_banner_item_margin">10dp</dimen>
     <dimen name="home_banner_reveal_width">25dp</dimen>
     <dimen name="product_detail_button_margin">8dp</dimen>
+    <dimen name="item_more_detail_padding_horizontal">8dp</dimen>
+    <dimen name="item_more_detail_padding_vertical">4dp</dimen>
 </resources>

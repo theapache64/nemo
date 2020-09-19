@@ -38,4 +38,8 @@ class ProductDetailViewModel @ViewModelInject constructor(
     fun init(productId: Int) {
         _productId.value = productId
     }
+
+    fun reload() {
+        _productId.value = _productId.value
+    }
 }

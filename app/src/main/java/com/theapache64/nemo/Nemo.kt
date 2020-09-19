@@ -2,13 +2,11 @@ package com.theapache64.nemo
 
 
 import android.app.Application
-import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import dagger.hilt.android.HiltAndroidApp
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import timber.log.Timber
 
 
@@ -22,7 +20,6 @@ class Nemo : Application() {
     
     override fun onCreate() {
         super.onCreate()
-
 
 
         if (BuildConfig.DEBUG) {
