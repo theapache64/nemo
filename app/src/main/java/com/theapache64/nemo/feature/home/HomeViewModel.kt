@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import com.theapache64.nemo.data.repositories.BannersRepo
-import com.theapache64.nemo.data.repositories.CategoriesRepo
+import com.theapache64.nemo.data.repository.BannersRepo
+import com.theapache64.nemo.data.repository.CategoriesRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 

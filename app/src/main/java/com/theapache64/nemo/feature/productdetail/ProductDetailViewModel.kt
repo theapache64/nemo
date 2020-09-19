@@ -4,9 +4,9 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.Product
-import com.theapache64.nemo.data.repositories.CartRepo
-import com.theapache64.nemo.data.repositories.ConfigRepo
-import com.theapache64.nemo.data.repositories.ProductsRepo
+import com.theapache64.nemo.data.repository.CartRepo
+import com.theapache64.nemo.data.repository.ConfigRepo
+import com.theapache64.nemo.data.repository.ProductsRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import kotlinx.coroutines.flow.onEach

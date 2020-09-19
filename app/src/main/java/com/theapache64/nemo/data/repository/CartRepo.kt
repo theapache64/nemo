@@ -1,4 +1,4 @@
-package com.theapache64.nemo.data.repositories
+package com.theapache64.nemo.data.repository
 
 import com.theapache64.nemo.data.local.table.CartDao
 import com.theapache64.nemo.data.local.table.CartProduct

@@ -1,4 +1,4 @@
-package com.theapache64.nemo.data.repositories
+package com.theapache64.nemo.data.repository
 
 import com.theapache64.nemo.data.remote.NemoApi
 import javax.inject.Inject

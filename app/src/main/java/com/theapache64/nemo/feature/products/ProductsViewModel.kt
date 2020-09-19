@@ -5,8 +5,8 @@ import androidx.lifecycle.*
 import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.Product
-import com.theapache64.nemo.data.repositories.ConfigRepo
-import com.theapache64.nemo.data.repositories.ProductsRepo
+import com.theapache64.nemo.data.repository.ConfigRepo
+import com.theapache64.nemo.data.repository.ProductsRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
