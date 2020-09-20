@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{cartItem.product.title}"
-                android:textColor="@color/cod_grey"
+                android:textColor="@color/grey_900"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem" />
@@ -43,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@{config.currency + cartItem.product.price}"
-                android:textColor="@color/cod_grey"
+                android:text="@{config.currency + (cartItem.product.price * cartItem.cartProduct.count)}"
+                android:textColor="@color/grey_900"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
@@ -63,11 +63,15 @@
             <!--Quantity Adjuster-->
             <me.himanshusoni.quantityview.QuantityView
                 android:id="@+id/qv_cart_quantity"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_price"
+                app:qv_addButtonBackground="@drawable/quantity_button_bg"
+                app:qv_quantityBackground="@android:color/transparent"
+                app:qv_quantityPadding="15dp"
                 android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="@id/iv_product_image"
-                app:layout_constraintTop_toBottomOf="@id/iv_product_image"
+                app:qv_removeButtonBackground="@drawable/quantity_button_bg"
                 app:quantity="@{cartItem.cartProduct.count}"
                 app:qv_minQuantity="1" />
 
@@ -77,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:textColor="@color/red_500"
                 android:drawableStart="@drawable/ic_baseline_delete_outline_24"
                 android:text="@string/action_remove"
                 app:layout_constraintEnd_toEndOf="parent"

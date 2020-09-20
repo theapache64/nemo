@@ -26,7 +26,7 @@ class CartViewModel @ViewModelInject constructor(
         loadCart()
     }
 
-    private fun loadCart() {
+    fun loadCart() {
         _shouldLoadCart.value = true
     }
 }

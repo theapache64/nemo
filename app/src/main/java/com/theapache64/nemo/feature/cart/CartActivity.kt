@@ -7,6 +7,8 @@ import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityCartBinding
 import com.theapache64.nemo.feature.base.BaseActivity
 import com.theapache64.nemo.utils.calladapter.flow.Resource
+import com.theapache64.nemo.utils.extensions.gone
+import com.theapache64.nemo.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,10 +22,15 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        binding.csrlCart.setOnRefreshListener {
+            viewModel.loadCart()
+        }
+
         viewModel.cartItems.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
                     binding.lvCart.showLoading(R.string.cart_loading_cart)
+                    binding.rvCart.gone()
                 }
                 is Resource.Success -> {
                     binding.lvCart.hideLoading()
@@ -31,6 +38,7 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
                         viewModel.config,
                         it.data
                     )
+                    binding.rvCart.visible()
                 }
                 is Resource.Error -> {
                     binding.lvCart.showError(it.errorData)
