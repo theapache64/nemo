@@ -27,7 +27,14 @@ interface NemoApi {
     fun getProducts(
         @Query("products_per_page") productsPerPage: Int,
         @Query("offset") offset: Int,
-        @Query("category_name") categoryName : String
+        @Query("category_name") categoryName: String
+    ): Flow<Resource<List<Product>>>
+
+
+    @Read("SELECT * WHERE id matches '(:ids)'")
+    @GET(AppConfig.SHEET_PRODUCTS)
+    fun getProducts(
+        @Query("ids") ids: String
     ): Flow<Resource<List<Product>>>
 
     @Read("SELECT * WHERE id = :productId")
@@ -47,4 +54,5 @@ interface NemoApi {
     @Read("SELECT *")
     @GET(AppConfig.SHEET_BANNERS)
     fun getBanners(): Flow<Resource<List<Banner>>>
+
 }

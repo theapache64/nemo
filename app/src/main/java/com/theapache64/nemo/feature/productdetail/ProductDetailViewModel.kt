@@ -38,7 +38,7 @@ class ProductDetailViewModel @ViewModelInject constructor(
                         product.value = it
 
                         // Checking if we want to show or cart buttons
-                        val cart = cartRepo.getCart()
+                        val cart = cartRepo.getCartProducts()
                         val hasProductInCart = cart.find { cartItem ->
                             cartItem.productId == it.id
                         } != null

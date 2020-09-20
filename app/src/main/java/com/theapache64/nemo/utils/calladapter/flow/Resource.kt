@@ -13,6 +13,7 @@ sealed class Resource<T> {
     ) : Resource<T>()
 
     data class Error<T>(
-        val errorData: String
+        val errorData: String,
+        val errorCode: Int = -1
     ) : Resource<T>()
 }

@@ -14,4 +14,6 @@
     <string name="product_label_details">Details</string>
     <string name="toast_added_to_cart">Added to cart!</string>
     <string name="my_cart">My Cart</string>
+    <string name="action_remove">REMOVE</string>
+    <string name="cart_loading_cart">Loading cart...</string>
 </resources>
