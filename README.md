@@ -1,6 +1,20 @@
 # nemo
 Nemo is a simple E-Commerce app engine. Powered by [Retrosheet](https://github.com/theapache64/retrosheet) library.
 
+## TODO
+
+- [x] Splash
+- [x] Banner (Home)
+- [x] Categories (Home)
+- [x] Products
+- [x] Product Detail
+- [ ] Cart
+- [ ] Address
+- [ ] UPI-Payment
+- [ ] Favorites
+- [ ] Search
+- [ ] Reviews
+
 ## Status
 
 - Under active development 👷
@@ -14,3 +28,4 @@ Nemo is a simple E-Commerce app engine. Powered by [Retrosheet](https://github.c
 **Products**
 
 ![products](https://i.imgur.com/P1XOjrA.png)
+
