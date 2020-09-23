@@ -8,7 +8,7 @@ Nemo is a simple E-Commerce app engine. Powered by [Retrosheet](https://github.c
 - [x] Categories (Home)
 - [x] Products
 - [x] Product Detail
-- [ ] Cart
+- [ ] Cart - :green_heart: On Going...
 - [ ] Address
 - [ ] UPI-Payment
 - [ ] Favorites

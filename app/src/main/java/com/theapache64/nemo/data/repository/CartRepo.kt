@@ -51,7 +51,7 @@ class CartRepo @Inject constructor(
         if (cartProducts.isNotEmpty()) {
 
             val ids = cartProducts.map { it.productId }.joinToString("|")
-            nemoApi.getProducts(ids)
+            nemoApi.getProducts("($ids)")
                 .collect {
                     when (it) {
 

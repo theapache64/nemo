@@ -31,7 +31,7 @@ interface NemoApi {
     ): Flow<Resource<List<Product>>>
 
 
-    @Read("SELECT * WHERE id matches '(:ids)'")
+    @Read("SELECT * WHERE id matches :ids")
     @GET(AppConfig.SHEET_PRODUCTS)
     fun getProducts(
         @Query("ids") ids: String
