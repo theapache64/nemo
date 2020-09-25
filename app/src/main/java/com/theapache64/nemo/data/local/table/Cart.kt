@@ -15,7 +15,7 @@ data class CartProduct(
     @ColumnInfo(name = "product_id")
     val productId: Int,
     @ColumnInfo(name = "count")
-    val count: Int
+    var count: Int
 ) {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
@@ -29,4 +29,10 @@ interface CartDao {
 
     @Insert
     suspend fun addToCart(cartProduct: CartProduct)
+
+    @Update
+    suspend fun updateCart(cartProduct: CartProduct)
+
+    @Delete
+    fun remove(cartProduct: CartProduct)
 }

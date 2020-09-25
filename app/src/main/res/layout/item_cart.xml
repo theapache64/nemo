@@ -65,6 +65,7 @@
                 android:id="@+id/qv_cart_quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="wrap_content"
+                app:qv_quantityDialog="false"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_price"
                 app:qv_addButtonBackground="@drawable/quantity_button_bg"
@@ -77,6 +78,7 @@
 
             <!--Remove from cart-->
             <Button
+                android:id="@+id/b_remove"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

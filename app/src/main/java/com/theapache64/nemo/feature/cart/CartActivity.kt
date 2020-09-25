@@ -26,7 +26,7 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
             viewModel.loadCart()
         }
 
-        viewModel.cartItems.observe(this, Observer {
+        viewModel.cartItemResponse.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
                     binding.lvCart.showLoading(R.string.cart_loading_cart)
@@ -36,7 +36,8 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
                     binding.lvCart.hideLoading()
                     binding.rvCart.adapter = CartAdapter(
                         viewModel.config,
-                        it.data
+                        it.data,
+                        viewModel
                     )
                     binding.rvCart.visible()
                 }
@@ -44,6 +45,14 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
                     binding.lvCart.showError(it.errorData)
                 }
             }
+        })
+
+        viewModel.shouldNotifyItemChanged.observe(this, Observer { position ->
+            binding.rvCart.adapter?.notifyItemChanged(position)
+        })
+
+        viewModel.shouldNotifyItemRemoved.observe(this, Observer { position ->
+            binding.rvCart.adapter?.notifyItemRemoved(position)
         })
     }
 

@@ -97,4 +97,12 @@ class CartRepo @Inject constructor(
             emit(Resource.Error("Cart is empty", ERROR_CART_EMPTY))
         }
     }
+
+    suspend fun update(cartProduct: CartProduct) {
+        cartDao.updateCart(cartProduct)
+    }
+
+    fun remove(cartProduct: CartProduct) {
+        cartDao.remove(cartProduct)
+    }
 }
