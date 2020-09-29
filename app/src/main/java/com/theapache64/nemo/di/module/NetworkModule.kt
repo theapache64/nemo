@@ -59,7 +59,11 @@ object NetworkModule {
             )
             .addSheet(
                 AppConfig.SHEET_CONFIG,
-                "total_products", "products_per_page", "total_pages", "currency"
+                "total_products",
+                "products_per_page",
+                "total_pages",
+                "currency",
+                "delivery_charge"
             )
             .addForm(
                 AppConfig.FORM_APP_OPEN,

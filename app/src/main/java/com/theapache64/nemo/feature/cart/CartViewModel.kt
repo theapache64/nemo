@@ -35,9 +35,17 @@ class CartViewModel @ViewModelInject constructor(
             .onEach {
                 if (it is Resource.Success) {
                     cartItems = it.data
+
+                    // Calculating amountPayable
+                    refreshPrice()
                 }
             }
             .asLiveData(viewModelScope.coroutineContext)
+    }
+
+    private fun refreshPrice() {
+        _amountPayable.value =
+            cartItems?.sumBy { product -> product.product.price * product.cartProduct.count } ?: 0
     }
 
     init {
@@ -55,6 +63,7 @@ class CartViewModel @ViewModelInject constructor(
             viewModelScope.launch {
                 cartRepo.update(cartItem.cartProduct)
                 _shouldNotifyItemChanged.value = position
+                refreshPrice()
             }
         }
     }

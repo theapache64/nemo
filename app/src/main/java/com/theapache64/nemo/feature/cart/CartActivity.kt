@@ -18,6 +18,8 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
 
     override fun onCreate() {
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
         setSupportActionBar(binding.mtCart)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -30,7 +32,7 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
             when (it) {
                 is Resource.Loading -> {
                     binding.lvCart.showLoading(R.string.cart_loading_cart)
-                    binding.rvCart.gone()
+                    binding.gContent.gone()
                 }
                 is Resource.Success -> {
                     binding.lvCart.hideLoading()
@@ -39,7 +41,7 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
                         it.data,
                         viewModel
                     )
-                    binding.rvCart.visible()
+                    binding.gContent.visible()
                 }
                 is Resource.Error -> {
                     binding.lvCart.showError(it.errorData)
