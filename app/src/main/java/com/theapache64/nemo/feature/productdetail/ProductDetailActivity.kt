@@ -2,11 +2,13 @@ package com.theapache64.nemo.feature.productdetail
 
 import android.content.Context
 import android.content.Intent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityProductDetailBinding
 import com.theapache64.nemo.feature.base.BaseActivity
+import com.theapache64.nemo.feature.cart.CartActivity
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.getIntExtraOrThrow
 import com.theapache64.nemo.utils.extensions.gone
@@ -23,6 +25,17 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
             return Intent(context, ProductDetailActivity::class.java).apply {
                 // data goes here
                 putExtra(KEY_PRODUCT_ID, productId)
+            }
+        }
+    }
+
+    private val cartActivityLauncher by lazy {
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == CartActivity.RESULT_CART_UPDATED) {
+                // Something happened in cart. So let's just refresh the page
+                viewModel.reload()
             }
         }
     }
@@ -73,8 +86,16 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
             }
         })
 
-        viewModel.isAddToCartVisible.observe(this, Observer {
 
+        // Launch Cart
+        viewModel.shouldGoToCart.observe(this, Observer {
+            if (it) {
+                cartActivityLauncher.launch(CartActivity.getStartIntent(this))
+            }
+        })
+
+        viewModel.shouldBuyNow.observe(this, Observer { productId ->
+            // TODO:
         })
     }
 
