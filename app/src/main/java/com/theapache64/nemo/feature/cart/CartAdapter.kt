@@ -12,7 +12,7 @@ import me.himanshusoni.quantityview.QuantityView
  */
 class CartAdapter(
     private val config: Config,
-    private val cartItems: List<CartItem>,
+    private val cartItems: MutableList<CartItem>,
     private val callback: Callback
 ) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
@@ -33,6 +33,9 @@ class CartAdapter(
     }
 
     override fun getItemCount(): Int = cartItems.size
+    fun removeData(position: Int) {
+        cartItems.removeAt(position)
+    }
 
 
     inner class ViewHolder(val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root),

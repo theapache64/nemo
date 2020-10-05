@@ -34,5 +34,5 @@ interface CartDao {
     suspend fun updateCart(cartProduct: CartProduct)
 
     @Delete
-    fun remove(cartProduct: CartProduct)
+    suspend fun remove(cartProduct: CartProduct)
 }

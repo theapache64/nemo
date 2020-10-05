@@ -9,6 +9,7 @@ import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.data.repository.ProductsRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
+import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -76,10 +77,10 @@ class ProductDetailViewModel @ViewModelInject constructor(
         _isGoToCartVisible.value = true
     }
 
-    private val _shouldGoToCart = MutableLiveData<Boolean>()
+    private val _shouldGoToCart = SingleLiveEvent<Boolean>()
     val shouldGoToCart: LiveData<Boolean> = _shouldGoToCart
 
-    private val _shouldBuyNow = MutableLiveData<Int>()
+    private val _shouldBuyNow = SingleLiveEvent<Int>()
     val shouldBuyNow: LiveData<Int> = _shouldBuyNow
 
     fun onGoToCartClicked() {
