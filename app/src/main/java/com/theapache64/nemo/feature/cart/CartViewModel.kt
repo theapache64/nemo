@@ -97,9 +97,9 @@ class CartViewModel @ViewModelInject constructor(
         }
     }
 
-    private val _shouldLaunchOrderSummary = SingleLiveEvent<Boolean>()
-    val shouldLaunchOrderSummary: LiveData<Boolean> = _shouldLaunchOrderSummary
+    private val _shouldLaunchAddressList = SingleLiveEvent<Boolean>()
+    val shouldLaunchAddressList: LiveData<Boolean> = _shouldLaunchAddressList
     fun onPlaceOrderClicked() {
-        _shouldLaunchOrderSummary.value = true
+        _shouldLaunchAddressList.value = true
     }
 }

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nemo">
-        <activity android:name=".feature.ordersummary.OrderSummaryActivity"></activity>
+        <activity android:name=".feature.address.AddressListActivity"></activity>
+        <activity android:name=".feature.ordersummary.OrderSummaryActivity" />
         <activity
             android:name=".feature.cart.CartActivity"
             android:exported="true" />

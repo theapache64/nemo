@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityCartBinding
+import com.theapache64.nemo.feature.address.AddressListActivity
 import com.theapache64.nemo.feature.base.BaseActivity
-import com.theapache64.nemo.feature.ordersummary.OrderSummaryActivity
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.invisible
@@ -82,9 +82,9 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
             }
         })
 
-        viewModel.shouldLaunchOrderSummary.observe(this, Observer {
+        viewModel.shouldLaunchAddressList.observe(this, Observer {
             if (it) {
-                startActivity(OrderSummaryActivity.getStartIntent(this))
+                startActivity(AddressListActivity.getStartIntent(this))
             }
         })
 
