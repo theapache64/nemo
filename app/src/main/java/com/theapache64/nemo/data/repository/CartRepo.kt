@@ -105,4 +105,6 @@ class CartRepo @Inject constructor(
     suspend fun remove(cartProduct: CartProduct) {
         cartDao.remove(cartProduct)
     }
+
+    suspend fun getCartCount(): Int = cartDao.getCount()
 }
