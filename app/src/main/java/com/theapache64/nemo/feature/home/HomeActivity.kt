@@ -2,12 +2,15 @@ package com.theapache64.nemo.feature.home
 
 import android.content.Context
 import android.content.Intent
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityHomeBinding
 import com.theapache64.nemo.feature.base.BaseActivity
+import com.theapache64.nemo.feature.cart.CartActivity
 import com.theapache64.nemo.feature.home.banner.BannerAdapter
 import com.theapache64.nemo.feature.home.category.CategoriesAdapter
 import com.theapache64.nemo.feature.products.ProductsActivity
@@ -18,9 +21,12 @@ import com.theapache64.nemo.utils.extensions.visible
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
-class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.activity_home) {
+class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.activity_home),
+    BottomNavigationView.OnNavigationItemReselectedListener,
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         fun getStartIntent(context: Context): Intent {
@@ -50,6 +56,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
             .setIndicatorStyle(IndicatorSlideMode.SCALE)
             .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             .create()
+
+        binding.bnvHome.setOnNavigationItemSelectedListener(this)
 
         watchBanners()
         watchCategories()
@@ -129,5 +137,20 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                 binding.bnvHome.removeBadge(R.id.mi_home_cart)
             }
         })
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        Timber.d("onNavigationItemSelected: Selected")
+        when (item.itemId) {
+            R.id.mi_home_cart -> {
+                startActivity(CartActivity.getStartIntent(this))
+            }
+        }
+        return false
+    }
+
+    override fun onNavigationItemReselected(item: MenuItem) {
+        // nothing
+        onNavigationItemSelected(item)
     }
 }
