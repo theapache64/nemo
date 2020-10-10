@@ -2,6 +2,7 @@ package com.theapache64.nemo.data.local.table.addresses
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 
 /**
  * Created by theapache64 : Oct 10 Sat,2020 @ 13:41
@@ -31,6 +32,9 @@ class AddressEntity(
     @ColumnInfo(name = "type")
     val type: Type
 ) {
+    @Ignore
+    var isSelected: Boolean = false
+
     enum class Type {
         HOME, OFFICE
     }

@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nemo">
-        <activity android:name=".feature.address.AddressListActivity"></activity>
+
         <activity android:name=".feature.ordersummary.OrderSummaryActivity" />
         <activity
             android:name=".feature.cart.CartActivity"
@@ -32,6 +32,10 @@
         </activity>
         <activity
             android:name=".feature.products.ProductsActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".feature.address.AddressListActivity"
             android:exported="true" />
     </application>
 

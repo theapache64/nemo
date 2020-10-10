@@ -19,4 +19,8 @@
     <string name="cart_error_empty_cart">Cart is empty!</string>
     <string name="cart_action_place_order">PLACE ORDER</string>
     <string name="mi_home_action_cart">Cart</string>
+    <string name="address_list_title">Choose Address</string>
+    <string name="address_type_home">HOME</string>
+    <string name="address_type_office">OFFICE</string>
+    <string name="address_action_edit">EDIT</string>
 </resources>

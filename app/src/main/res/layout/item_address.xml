@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="address"
+            type="com.theapache64.nemo.data.local.table.addresses.AddressEntity" />
+
+        <variable
+            name="callback"
+            type="com.theapache64.nemo.feature.address.AddressesAdapter.Callback" />
+
+        <import type="com.theapache64.nemo.utils.AddressUtils" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{()->callback.onAddressClicked(position)}"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--Selection-->
+            <RadioButton
+                android:id="@+id/rb_is_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{address.selected}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--Name-->
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{address.name}"
+                android:textColor="@color/grey_900"
+                app:layout_constraintStart_toEndOf="@id/rb_is_selected"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem" />
+
+            <!--Type-->
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/address_type_bg"
+                android:text="@{AddressUtils.INSTANCE.getType(address)}"
+                android:textColor="@color/grey_800"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@id/tv_name"
+                app:layout_constraintTop_toTopOf="@id/tv_name"
+                tools:ignore="SmallSp"
+                tools:text="HOME" />
+
+            <!--Full address-->
+            <TextView
+                android:id="@+id/tv_full_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/grey_800"
+                app:layout_constraintEnd_toStartOf="@id/b_edit_address"
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                tools:text="@tools:sample/lorem" />
+
+
+            <!--Edit-->
+            <Button
+                android:id="@+id/b_edit_address"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->callback.onEditAddressClicked(position)}"
+                android:text="@string/address_action_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
