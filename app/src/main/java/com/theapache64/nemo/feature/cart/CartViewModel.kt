@@ -58,7 +58,7 @@ class CartViewModel @ViewModelInject constructor(
 
     private fun refreshPrice() {
         _amountPayable.value =
-            cartItems?.sumBy { product -> product.product.price * product.cartProduct.count } ?: 0
+            cartItems?.sumBy { product -> product.product.price * product.cartEntity.count } ?: 0
     }
 
     init {
@@ -72,9 +72,9 @@ class CartViewModel @ViewModelInject constructor(
 
     override fun onQuantityChanged(position: Int, count: Int) {
         cartItems?.get(position)?.let { cartItem ->
-            cartItem.cartProduct.count = count
+            cartItem.cartEntity.count = count
             viewModelScope.launch {
-                cartRepo.update(cartItem.cartProduct)
+                cartRepo.update(cartItem.cartEntity)
                 _shouldNotifyItemChanged.value = position
                 refreshPrice()
             }
@@ -84,7 +84,7 @@ class CartViewModel @ViewModelInject constructor(
     override fun onRemoveClicked(position: Int) {
         viewModelScope.launch {
             cartItems?.get(position)?.let { cartItem ->
-                cartRepo.remove(cartItem.cartProduct)
+                cartRepo.remove(cartItem.cartEntity)
                 cartItems?.removeAt(position)
                 _shouldNotifyItemRemoved.value = position
                 refreshPrice()

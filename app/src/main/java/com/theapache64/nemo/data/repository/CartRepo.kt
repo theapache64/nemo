@@ -1,7 +1,7 @@
 package com.theapache64.nemo.data.repository
 
-import com.theapache64.nemo.data.local.table.CartDao
-import com.theapache64.nemo.data.local.table.CartProduct
+import com.theapache64.nemo.data.local.table.cart.CartDao
+import com.theapache64.nemo.data.local.table.cart.CartEntity
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.feature.cart.CartItem
 import com.theapache64.nemo.utils.calladapter.flow.Resource
@@ -27,7 +27,7 @@ class CartRepo @Inject constructor(
      *
      * @return Set<Int>
      */
-    suspend fun getCartProducts(): List<CartProduct> {
+    suspend fun getCartProducts(): List<CartEntity> {
         return cartDao.getCart()
     }
 
@@ -38,7 +38,7 @@ class CartRepo @Inject constructor(
      * @param productId
      */
     suspend fun addToCart(productId: Int) {
-        cartDao.addToCart(CartProduct(productId, 1))
+        cartDao.addToCart(CartEntity(productId, 1))
     }
 
     fun getCartItems() = flow<Resource<List<CartItem>>> {
@@ -98,12 +98,12 @@ class CartRepo @Inject constructor(
         }
     }
 
-    suspend fun update(cartProduct: CartProduct) {
-        cartDao.updateCart(cartProduct)
+    suspend fun update(cartEntity: CartEntity) {
+        cartDao.updateCart(cartEntity)
     }
 
-    suspend fun remove(cartProduct: CartProduct) {
-        cartDao.remove(cartProduct)
+    suspend fun remove(cartEntity: CartEntity) {
+        cartDao.remove(cartEntity)
     }
 
     suspend fun getCartCount(): Int = cartDao.getCount()

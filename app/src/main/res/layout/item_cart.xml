@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@{config.currency + (cartItem.product.price * cartItem.cartProduct.count)}"
+                android:text="@{config.currency + (cartItem.product.price * cartItem.cartEntity.count)}"
                 android:textColor="@color/grey_900"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/tv_title"
@@ -73,7 +73,7 @@
                 app:qv_quantityPadding="15dp"
                 android:layout_marginTop="4dp"
                 app:qv_removeButtonBackground="@drawable/quantity_button_bg"
-                app:quantity="@{cartItem.cartProduct.count}"
+                app:quantity="@{cartItem.cartEntity.count}"
                 app:qv_minQuantity="1" />
 
             <!--Remove from cart-->

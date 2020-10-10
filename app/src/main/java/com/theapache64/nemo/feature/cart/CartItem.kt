@@ -1,6 +1,6 @@
 package com.theapache64.nemo.feature.cart
 
-import com.theapache64.nemo.data.local.table.CartProduct
+import com.theapache64.nemo.data.local.table.cart.CartEntity
 import com.theapache64.nemo.data.remote.Product
 
 /**
@@ -8,5 +8,5 @@ import com.theapache64.nemo.data.remote.Product
  */
 class CartItem(
     val product: Product,
-    val cartProduct: CartProduct
+    val cartEntity: CartEntity
 )
