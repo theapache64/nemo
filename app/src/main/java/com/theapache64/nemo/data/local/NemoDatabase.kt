@@ -2,6 +2,7 @@ package com.theapache64.nemo.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.theapache64.nemo.data.local.table.addresses.AddressesDao
 import com.theapache64.nemo.data.local.table.cart.CartDao
 import com.theapache64.nemo.data.local.table.cart.CartEntity
 
@@ -11,4 +12,5 @@ import com.theapache64.nemo.data.local.table.cart.CartEntity
 @Database(entities = [CartEntity::class], version = 1)
 abstract class NemoDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao
+    abstract fun addressesDao(): AddressesDao
 }
