@@ -9,5 +9,5 @@ import javax.inject.Inject
 class AddressRepo @Inject constructor(
     private val addressesDao: AddressesDao
 ) {
-    suspend fun getAddresses() = addressesDao.getAddressed()
+    suspend fun getAddresses() = addressesDao.getAddresses()
 }

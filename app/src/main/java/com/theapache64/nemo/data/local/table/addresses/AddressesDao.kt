@@ -10,5 +10,5 @@ import androidx.room.Query
 interface AddressesDao {
 
     @Query("SELECT * FROM addresses")
-    suspend fun getAddressed(): List<AddressEntity>
+    suspend fun getAddresses(): List<AddressEntity>
 }

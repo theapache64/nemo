@@ -3,6 +3,7 @@ package com.theapache64.nemo.data.local.table.addresses
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
+import androidx.room.PrimaryKey
 
 /**
  * Created by theapache64 : Oct 10 Sat,2020 @ 13:41
@@ -10,7 +11,7 @@ import androidx.room.Ignore
 @Entity(
     tableName = "addresses"
 )
-class AddressEntity(
+data class AddressEntity(
     @ColumnInfo(name = "pin_code")
     val pinCode: Int,
     @ColumnInfo(name = "address")
@@ -32,6 +33,11 @@ class AddressEntity(
     @ColumnInfo(name = "type")
     val type: Type
 ) {
+
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
     @Ignore
     var isSelected: Boolean = false
 
