@@ -34,7 +34,17 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <!--Add address-->
-        <!--TODO : Add address here-->
+        <Button
+            android:id="@+id/b_add_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_add_24"
+            android:text="@string/addresses_action_add_address"
+            android:textColor="@android:color/black"
+            app:backgroundTint="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/apl_addresses" />
 
         <!--Addresses-->
         <androidx.recyclerview.widget.RecyclerView
@@ -43,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/apl_addresses"
+            app:layout_constraintTop_toBottomOf="@id/b_add_address"
             tools:listitem="@layout/item_address" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

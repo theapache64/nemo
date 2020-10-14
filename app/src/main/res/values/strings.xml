@@ -23,4 +23,5 @@
     <string name="address_type_home">HOME</string>
     <string name="address_type_office">OFFICE</string>
     <string name="address_action_edit">EDIT</string>
+    <string name="addresses_action_add_address">Add a new address</string>
 </resources>

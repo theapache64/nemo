@@ -7,7 +7,9 @@ import androidx.lifecycle.Observer
 import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityAddressListBinding
 import com.theapache64.nemo.feature.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddressListActivity :
     BaseActivity<ActivityAddressListBinding, AddressListViewModel>(R.layout.activity_address_list) {
 
