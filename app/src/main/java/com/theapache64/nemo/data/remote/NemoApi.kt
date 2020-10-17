@@ -3,6 +3,7 @@ package com.theapache64.nemo.data.remote
 
 import com.theapache64.nemo.utils.AppConfig
 import com.theapache64.nemo.utils.calladapter.flow.Resource
+import com.theapache64.retrosheet.core.KeyValue
 import com.theapache64.retrosheet.core.Read
 import com.theapache64.retrosheet.core.Write
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +19,7 @@ import retrofit2.http.Query
  */
 interface NemoApi {
 
+    @KeyValue
     @GET(AppConfig.SHEET_CONFIG)
     fun getConfig(): Flow<Resource<Config>>
 
