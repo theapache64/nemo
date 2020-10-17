@@ -72,7 +72,6 @@ object NetworkModule {
             .build()
     }
 
-
     @Singleton
     @Provides
     fun provideOkHttpClient(retrosheetInterceptor: RetrosheetInterceptor): OkHttpClient {

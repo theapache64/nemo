@@ -93,7 +93,7 @@ dependencies {
 	implementation 'com.google.android.material:material:1.3.0-alpha02'
 
     // To turn spreadsheet to JSON endpoint
-    implementation 'com.theapache64:retrosheet:1.2.1'
+    implementation 'com.theapache64:retrosheet:1.2.2'
 
     // Timber : No-nonsense injectable logging.
     implementation 'com.jakewharton.timber:timber:4.7.1'
