@@ -1,4 +1,4 @@
-package com.theapache64.topcorn.utils.test
+package com.theapache64.nemo.utils.test
 
 import org.junit.rules.TestRule
 import org.junit.runner.Description

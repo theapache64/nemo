@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.theapache64.expekt.should
 import com.theapache64.nemo.data.repository.AnalyticsRepo
 import com.theapache64.nemo.data.repository.ConfigRepo
-import com.theapache64.topcorn.utils.test.MainCoroutineRule
+import com.theapache64.nemo.utils.test.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule

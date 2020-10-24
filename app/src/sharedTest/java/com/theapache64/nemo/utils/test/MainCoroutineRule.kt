@@ -1,4 +1,4 @@
-package com.theapache64.topcorn.utils.test
+package com.theapache64.nemo.utils.test
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,4 +1,4 @@
-package com.theapache64.topcorn.utils.test
+package com.theapache64.nemo.utils.test
 
 import androidx.test.espresso.idling.CountingIdlingResource
 

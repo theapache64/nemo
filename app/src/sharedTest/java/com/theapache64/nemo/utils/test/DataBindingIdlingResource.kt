@@ -1,4 +1,4 @@
-package com.theapache64.topcorn.utils.test
+package com.theapache64.nemo.utils.test
 
 import android.view.View
 import androidx.databinding.DataBindingUtil
