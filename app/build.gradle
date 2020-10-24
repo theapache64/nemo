@@ -41,22 +41,36 @@ android {
         experimental = true
     }
 
+    // Setting sharedTest file should be shared with both `test` and `androidTest`
+    sourceSets {
+        String sharedTestDir = 'src/sharedTest/java'
+        String resourceDir = 'src/sharedTest/resources'
+        test {
+            java.srcDir sharedTestDir
+            res.srcDirs resourceDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
+            res.srcDirs resourceDir
+        }
+    }
+
 }
 
 
 
 dependencies {
 
+    // Core
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.activity:activity-ktx:1.2.0-alpha07'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.activity:activity-ktx:1.2.0-beta01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'androidx.fragment:fragment-ktx:1.3.0-alpha08'
-
-
+    implementation 'androidx.fragment:fragment-ktx:1.3.0-beta01'
+    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -65,10 +79,6 @@ dependencies {
     kapt "androidx.hilt:hilt-lifecycle-viewmodel:$androidx_hilt_version"
     kapt "androidx.hilt:hilt-compiler:$androidx_hilt_version"
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 	// Retrofit : A type-safe HTTP client for Android and Java.
 	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
@@ -76,16 +86,16 @@ dependencies {
 	implementation 'com.github.bumptech.glide:glide:4.11.0'
 
 	// Moshi : Moshi
-	implementation 'com.squareup.moshi:moshi:1.9.3'
+	implementation 'com.squareup.moshi:moshi:1.10.0'
 
     // Converter: Moshi : A Retrofit Converter which uses Moshi for serialization.
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 
     // Moshi Kotlin Codegen : Moshi Kotlin Codegen
-    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.3'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.10.0'
 
 	// LiveData Kotlin Extensions : Kotlin extensions for 'livedata' artifact
-	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06'
+	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01'
 
 	// Material Components For Android : Material Components for Android is a static library that you can add to your Android
 	// application in order to use APIs that provide implementations of the Material Design
@@ -125,4 +135,30 @@ dependencies {
 
     // QuantityView
     implementation 'me.himanshusoni.quantityview:quantity-view:1.2.0'
+
+    // **************************** UNIT TEST ****************************
+
+    // Mockito Core : Mockito mock objects library core API and implementation
+    testImplementation 'org.mockito:mockito-core:3.5.15'
+
+    testImplementation 'junit:junit:4.13.1'
+    testImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    testImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
+    testImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "androidx.test:core:1.3.0"
+
+
+    // Mockito Inline : Mockito preconfigured inline mock maker (intermediate and to be superseeded by automatic
+	// usage in a future version)
+    testImplementation 'org.mockito:mockito-inline:3.5.15'
+
+    // Expekt : An assertion library for Kotlin
+    testImplementation 'com.theapache64:expekt:0.0.1'
+
+    // **************************** INSTRUMENTATION TEST ****************************
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 }

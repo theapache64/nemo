@@ -22,8 +22,8 @@ class SplashViewModel @ViewModelInject constructor(
 
 
     var shouldFinishAct: Boolean = false
-    private val _shouldGoToProducts = SingleLiveEvent<Boolean>()
-    val shouldGoToProducts: LiveData<Boolean> = _shouldGoToProducts
+    private val _shouldGoToHome = SingleLiveEvent<Boolean>()
+    val shouldGoToHome: LiveData<Boolean> = _shouldGoToHome
 
     private val _shouldShowConfigSyncError = SingleLiveEvent<Boolean>()
     val shouldShowConfigSyncError: LiveData<Boolean> = _shouldShowConfigSyncError
@@ -31,11 +31,8 @@ class SplashViewModel @ViewModelInject constructor(
     private val _shouldShowProgress = SingleLiveEvent<Boolean>()
     val shouldShowProgress: LiveData<Boolean> = _shouldShowProgress
 
-    init {
-        syncConfig()
-    }
-
     private fun syncConfig() {
+
         viewModelScope.launch {
             configRepo
                 .getRemoteConfig()
@@ -52,7 +49,7 @@ class SplashViewModel @ViewModelInject constructor(
                             } catch (e: Exception) {
                                 e.printStackTrace()
                             }
-                            _shouldGoToProducts.value = true
+                            _shouldGoToHome.value = true
                         }
 
                         is Resource.Error -> {
@@ -66,6 +63,10 @@ class SplashViewModel @ViewModelInject constructor(
     }
 
     fun onRetryClicked() {
+        syncConfig()
+    }
+
+    fun init() {
         syncConfig()
     }
 }

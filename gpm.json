@@ -251,6 +251,48 @@
     "name": "CircleImageView",
     "description": "A fast circular ImageView for Android"
    }
+  },
+  {
+   "id": 19,
+   "type": "implementation",
+   "installed_name": "mockito",
+   "gpm_dep": {
+    "artifact_id": "mockito-core",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/org.mockito/mockito-core",
+    "get_from": "Central",
+    "group_id": "org.mockito",
+    "name": "Mockito Core",
+    "description": "Mockito mock objects library core API and implementation"
+   }
+  },
+  {
+   "id": 20,
+   "type": "testImplementation",
+   "installed_name": "mockito-inline",
+   "gpm_dep": {
+    "artifact_id": "mockito-inline",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/org.mockito/mockito-inline",
+    "get_from": "Central",
+    "group_id": "org.mockito",
+    "name": "Mockito Inline",
+    "description": "Mockito preconfigured inline mock maker (intermediate and to be superseeded by automatic usage in a future version)"
+   }
+  },
+  {
+   "id": 21,
+   "type": "testImplementation",
+   "installed_name": "expekt",
+   "gpm_dep": {
+    "artifact_id": "expekt",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.theapache64/expekt",
+    "get_from": "JCenter",
+    "group_id": "com.theapache64",
+    "name": "Expekt",
+    "description": "An assertion library for Kotlin"
+   }
   }
  ]
 }

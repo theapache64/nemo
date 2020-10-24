@@ -22,7 +22,7 @@ class SplashActivity :
         binding.executePendingBindings()
 
         // Go to products
-        viewModel.shouldGoToProducts.observe(this, Observer { shouldGoToProducts ->
+        viewModel.shouldGoToHome.observe(this, Observer { shouldGoToProducts ->
             if (shouldGoToProducts) {
                 val intent = HomeActivity.getStartIntent(this)
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -50,6 +50,8 @@ class SplashActivity :
                 binding.pbConfigSync.visibility = View.INVISIBLE
             }
         })
+
+        viewModel.init()
     }
 
     override fun onStop() {
