@@ -161,4 +161,12 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+
+    // Coroutines Test
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5"
+
+    // Barista
+    androidTestImplementation('com.schibsted.spain:barista:3.4.0') {
+        exclude group: 'org.jetbrains.kotlin'
+    }
 }
