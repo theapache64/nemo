@@ -29,17 +29,14 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
         }
     }
 
-    private val cartActivityLauncher by lazy {
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == CartActivity.RESULT_CART_UPDATED) {
-                // Something happened in cart. So let's just refresh the page
-                viewModel.reload()
-            }
+    private val cartActivityLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == CartActivity.RESULT_CART_UPDATED) {
+            // Something happened in cart. So let's just refresh the page
+            viewModel.reload()
         }
     }
-
 
     override val viewModel: ProductDetailViewModel by viewModels()
     override fun onCreate() {

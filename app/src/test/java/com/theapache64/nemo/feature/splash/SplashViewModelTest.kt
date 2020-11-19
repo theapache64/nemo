@@ -38,7 +38,7 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun `On splash, If config success, app should go to home`() {
+    fun `In splash, If config success, app should go to home`() {
 
         // Prepare success data
         `when`(fakeConfigRepo.getRemoteConfig()).thenReturn(fakeSuccessConfigFlow)
@@ -49,7 +49,7 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun `On splash, if config error, app should not go to home and should show sync error`() {
+    fun `In splash, if config error, app should not go to home and should show sync error`() {
 
 
         // Prepare fake error data
