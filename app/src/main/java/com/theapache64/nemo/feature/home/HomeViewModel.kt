@@ -6,7 +6,10 @@ import com.theapache64.nemo.data.repository.BannersRepo
 import com.theapache64.nemo.data.repository.CartRepo
 import com.theapache64.nemo.data.repository.CategoriesRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
+import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 /**
@@ -28,6 +31,19 @@ class HomeViewModel @ViewModelInject constructor(
 
     val banners = shouldRefreshPage.switchMap {
         bannersRepo.getBanners()
+            .onEach {
+                when (it) {
+                    is Resource.Loading -> {
+                        EspressoIdlingResource.increment()
+                    }
+                    is Resource.Success -> {
+                        EspressoIdlingResource.decrement()
+                    }
+                    is Resource.Error -> {
+                        EspressoIdlingResource.decrement()
+                    }
+                }
+            }
             .asLiveData(viewModelScope.coroutineContext)
     }
 

@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.theapache64.expekt.should
 import com.theapache64.nemo.data.repository.AnalyticsRepo
 import com.theapache64.nemo.data.repository.ConfigRepo
-import com.theapache64.nemo.fakeErrorConfigFlow
-import com.theapache64.nemo.fakeSuccessConfigFlow
+import com.theapache64.nemo.configErrorFlow
+import com.theapache64.nemo.configSuccessFlow
 import com.theapache64.nemo.utils.test.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -43,7 +43,7 @@ class SplashViewModelTest {
     fun `In splash, If config success, app should go to home`() {
 
         // Prepare success data
-        `when`(fakeConfigRepo.getRemoteConfig()).thenReturn(fakeSuccessConfigFlow)
+        `when`(fakeConfigRepo.getRemoteConfig()).thenReturn(configSuccessFlow)
         splashViewModel.init()
 
         val actualResult = splashViewModel.shouldGoToHome.value
@@ -55,7 +55,7 @@ class SplashViewModelTest {
 
 
         // Prepare fake error data
-        `when`(fakeConfigRepo.getRemoteConfig()).thenReturn(fakeErrorConfigFlow)
+        `when`(fakeConfigRepo.getRemoteConfig()).thenReturn(configErrorFlow)
         splashViewModel.init()
 
         // Not moved

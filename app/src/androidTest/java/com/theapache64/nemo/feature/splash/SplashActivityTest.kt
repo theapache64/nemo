@@ -8,8 +8,8 @@ import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertD
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
-import com.theapache64.nemo.fakeErrorConfigFlow
-import com.theapache64.nemo.fakeSuccessConfigFlow
+import com.theapache64.nemo.configErrorFlow
+import com.theapache64.nemo.configSuccessFlow
 import com.theapache64.nemo.feature.home.HomeActivity
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.monitorActivity
@@ -42,7 +42,7 @@ class SplashActivityTest {
 
     @Test
     fun givenSplash_whenGoodConfig_thenHome() {
-        `when`(fakeNemoApi.getConfig()).thenReturn(fakeSuccessConfigFlow)
+        `when`(fakeNemoApi.getConfig()).thenReturn(configSuccessFlow)
 
         // Fix for home to not to crash
         `when`(fakeNemoApi.getBanners()).thenReturn(flowOf())
@@ -57,7 +57,7 @@ class SplashActivityTest {
 
     @Test
     fun givenSplash_whenBadConfig_thenConfigSyncError() {
-        `when`(fakeNemoApi.getConfig()).thenReturn(fakeErrorConfigFlow)
+        `when`(fakeNemoApi.getConfig()).thenReturn(configErrorFlow)
         val splashActivity = ActivityScenario.launch(SplashActivity::class.java)
         idlingRule.dataBindingIdlingResource.monitorActivity(splashActivity)
         assertDisplayed(R.string.splash_sync_error_title)

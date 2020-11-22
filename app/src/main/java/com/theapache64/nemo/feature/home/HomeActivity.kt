@@ -69,7 +69,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         viewModel.banners.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
-                    EspressoIdlingResource.increment()
                     binding.lvHome.showLoading(R.string.home_loading_banners)
                     binding.bvpHome.invisible()
                 }
@@ -85,10 +84,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                         binding.bvpHome.visible()
                         binding.bvpHome.refreshData(it.data)
                     }
-                    EspressoIdlingResource.decrement()
                 }
                 is Resource.Error -> {
-                    EspressoIdlingResource.decrement()
                     binding.lvHome.showError(it.errorData)
                 }
             }
@@ -114,7 +111,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                 }
 
                 is Resource.Error -> {
-
+                    binding.lvHome.showError(it.errorData)
                 }
             }
         })

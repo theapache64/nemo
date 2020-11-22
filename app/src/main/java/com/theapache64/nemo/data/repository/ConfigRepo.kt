@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * Created by theapache64 : Aug 02 Sun,2020 @ 16:33
  */
-class ConfigRepo @Inject constructor(
+open class ConfigRepo @Inject constructor(
     private val nemoApi: NemoApi,
     private val moshi: Moshi,
     private val sharedPreferences: SharedPreferences
