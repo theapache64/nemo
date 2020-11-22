@@ -8,6 +8,7 @@ import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -39,10 +40,12 @@ class SplashViewModel @ViewModelInject constructor(
                 .collect {
                     when (it) {
                         is Resource.Loading -> {
+                            EspressoIdlingResource.increment()
                             _shouldShowProgress.value = true
                         }
 
                         is Resource.Success -> {
+                            EspressoIdlingResource.decrement()
                             configRepo.saveConfigToLocal(it.data)
                             try {
                                 analyticsRepo.reportAppOpen()
@@ -53,6 +56,7 @@ class SplashViewModel @ViewModelInject constructor(
                         }
 
                         is Resource.Error -> {
+                            EspressoIdlingResource.decrement()
                             Timber.e("syncConfig: ${it.errorData}")
                             _shouldShowProgress.value = false
                             _shouldShowConfigSyncError.value = true

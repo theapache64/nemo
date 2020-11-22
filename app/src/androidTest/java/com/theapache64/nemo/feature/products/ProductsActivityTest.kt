@@ -7,8 +7,5 @@ import org.junit.Test
  * Created by theapache64 : Nov 19 Thu,2020 @ 23:59
  */
 class ProductsActivityTest {
-    @Test
-    fun ifBannerLoads(){
 
-    }
 }

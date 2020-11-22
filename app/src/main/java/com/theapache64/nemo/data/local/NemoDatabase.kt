@@ -11,7 +11,7 @@ import com.theapache64.nemo.data.local.table.cart.CartEntity
 /**
  * Created by theapache64 : Sep 19 Sat,2020 @ 15:10
  */
-@Database(entities = [CartEntity::class, AddressEntity::class], version = 1)
+@Database(entities = [CartEntity::class, AddressEntity::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class NemoDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao

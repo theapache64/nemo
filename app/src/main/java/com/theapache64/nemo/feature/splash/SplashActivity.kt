@@ -21,9 +21,9 @@ class SplashActivity :
     override fun onCreate() {
         binding.executePendingBindings()
 
-        // Go to products
-        viewModel.shouldGoToHome.observe(this, Observer { shouldGoToProducts ->
-            if (shouldGoToProducts) {
+        // Go to home
+        viewModel.shouldGoToHome.observe(this, Observer { shouldGoToHome ->
+            if (shouldGoToHome) {
                 val intent = HomeActivity.getStartIntent(this)
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this,
