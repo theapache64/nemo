@@ -293,6 +293,20 @@
     "name": "Expekt",
     "description": "An assertion library for Kotlin"
    }
+  },
+  {
+   "id": 22,
+   "type": "testImplementation",
+   "installed_name": "nhaarman",
+   "gpm_dep": {
+    "artifact_id": "mockito-kotlin",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.nhaarman.mockitokotlin2/mockito-kotlin",
+    "get_from": "Central",
+    "group_id": "com.nhaarman.mockitokotlin2",
+    "name": "Mockito Kotlin",
+    "description": "Using Mockito with Kotlin."
+   }
   }
  ]
 }

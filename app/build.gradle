@@ -182,6 +182,9 @@ dependencies {
     // Mockito Inline : Mockito preconfigured inline mock maker (intermediate and to be superseeded by automatic
     // usage in a future version)
     androidTestImplementation "org.mockito:mockito-android:3.5.15"
+
+    // Mockito Kotlin : Using Mockito with Kotlin.
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 }
 
 hilt {
