@@ -60,7 +60,7 @@ class HomeViewModel @ViewModelInject constructor(
         shouldRefreshPage.value = true
     }
 
-    fun refreshCartCount() {
+    private fun refreshCartCount() {
         viewModelScope.launch {
             cartRepo.getCartCount().let { cartCount->
                 if (cartCount > 0) {
