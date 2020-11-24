@@ -13,12 +13,12 @@ import com.theapache64.nemo.feature.base.BaseActivity
 import com.theapache64.nemo.feature.cart.CartActivity
 import com.theapache64.nemo.feature.home.banner.BannerAdapter
 import com.theapache64.nemo.feature.home.category.CategoriesAdapter
+import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
 import com.theapache64.nemo.feature.products.ProductsActivity
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.invisible
 import com.theapache64.nemo.utils.extensions.visible
-import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,6 +54,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
             .setIndicatorSlideMode(IndicatorSlideMode.WORM)
             .setPageMargin(resources.getDimensionPixelOffset(R.dimen.home_banner_item_margin))
             .setRevealWidth(resources.getDimensionPixelOffset(R.dimen.home_banner_reveal_width))
+            .setOnPageClickListener {
+                viewModel.onBannerClicked(it)
+            }
             .setIndicatorStyle(IndicatorSlideMode.SCALE)
             .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             .create()
@@ -66,6 +69,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
     }
 
     private fun watchBanners() {
+        // Loading
         viewModel.banners.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
@@ -89,6 +93,16 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                     binding.lvHome.showError(it.errorData)
                 }
             }
+        })
+
+        // Click listener : Category
+        viewModel.shouldLaunchCategory.observe(this, {
+            ProductsActivity.getStartIntent(this, it)
+        })
+
+        // Click listener : Product
+        viewModel.shouldLaunchProduct.observe(this, { productId ->
+            ProductDetailActivity.getStartIntent(this, productId)
         })
     }
 

@@ -16,7 +16,10 @@ val bannerEmptySuccessFlow = getBanners(0)
 
 private fun getBanners(count: Int): Flow<Resource<List<Banner>>> {
     return flow<Resource<List<Banner>>> {
+        // Loading
         emit(Resource.Loading())
+
+
         val fakeBanners = mutableListOf<Banner>().apply {
             repeat(count) {
                 add(
@@ -24,11 +27,13 @@ private fun getBanners(count: Int): Flow<Resource<List<Banner>>> {
                         it,
                         "https://picsum.photos/id/1%${it}/300/300",
                         it,
+                        it,
                         "Product $it"
                     )
                 )
             }
         }
+        // then success
         emit(Resource.Success(null, fakeBanners))
     }
 }

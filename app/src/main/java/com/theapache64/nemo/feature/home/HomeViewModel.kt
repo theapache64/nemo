@@ -2,6 +2,7 @@ package com.theapache64.nemo.feature.home
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.data.repository.BannersRepo
 import com.theapache64.nemo.data.repository.CartRepo
 import com.theapache64.nemo.data.repository.CategoriesRepo
@@ -28,6 +29,12 @@ class HomeViewModel @ViewModelInject constructor(
 
     private val _shouldRemoveCartCountBadge = MutableLiveData<Boolean>()
     val shouldRemoveCartCountBadge: LiveData<Boolean> = _shouldRemoveCartCountBadge
+
+    private val _shouldLaunchCategory = SingleLiveEvent<Category>()
+    val shouldLaunchCategory: LiveData<Category> = _shouldLaunchCategory
+
+    private val _shouldLaunchProduct = SingleLiveEvent<Int>()
+    val shouldLaunchProduct: LiveData<Int> = _shouldLaunchProduct
 
     val banners = shouldRefreshPage.switchMap {
         bannersRepo.getBanners()
@@ -75,5 +82,22 @@ class HomeViewModel @ViewModelInject constructor(
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onLifecycleResumed() {
         refreshCartCount()
+    }
+
+
+    fun onBannerClicked(position: Int) {
+        val banner = (banners.value as Resource.Success).data[position]
+
+        if (banner.categoryId != null && categories.value is Resource.Success) {
+            // Finding category
+            (categories.value as Resource.Success).data.find {
+                it.id == banner.categoryId
+            }?.let { category ->
+                // Found category
+                _shouldLaunchCategory.value = category
+            }
+        } else if (banner.productId != null) {
+            _shouldLaunchProduct.value = banner.productId!!
+        }
     }
 }
