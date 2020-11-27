@@ -19,9 +19,11 @@ import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.invisible
 import com.theapache64.nemo.utils.extensions.visible
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -75,9 +77,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                 is Resource.Loading -> {
                     binding.lvHome.showLoading(R.string.home_loading_banners)
                     binding.bvpHome.invisible()
+                    EspressoIdlingResource.increment()
                 }
                 is Resource.Success -> {
-
                     binding.lvHome.hideLoading()
 
                     if (it.data.isEmpty()) {
@@ -88,9 +90,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                         binding.bvpHome.visible()
                         binding.bvpHome.refreshData(it.data)
                     }
+
+                    EspressoIdlingResource.decrement()
                 }
                 is Resource.Error -> {
                     binding.lvHome.showError(it.errorData)
+                    EspressoIdlingResource.decrement()
                 }
             }
         })

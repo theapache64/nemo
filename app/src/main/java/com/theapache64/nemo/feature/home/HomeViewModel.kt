@@ -38,19 +38,6 @@ class HomeViewModel @ViewModelInject constructor(
 
     val banners = shouldRefreshPage.switchMap {
         bannersRepo.getBanners()
-            .onEach {
-                when (it) {
-                    is Resource.Loading -> {
-                        EspressoIdlingResource.increment()
-                    }
-                    is Resource.Success -> {
-                        EspressoIdlingResource.decrement()
-                    }
-                    is Resource.Error -> {
-                        EspressoIdlingResource.decrement()
-                    }
-                }
-            }
             .asLiveData(viewModelScope.coroutineContext)
     }
 

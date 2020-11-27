@@ -6,8 +6,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.theapache64.expekt.should
 import com.theapache64.nemo.bannerSuccessFlow
 import com.theapache64.nemo.data.repository.BannersRepo
-import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
+import com.theapache64.nemo.utils.test.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +21,8 @@ class HomeViewModelTest {
     @get:Rule
     val instantRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    val coroutineRule = MainCoroutineRule()
 
     @Test
     fun `Click on banner launch product`() {
@@ -32,8 +34,12 @@ class HomeViewModelTest {
             mock(),
             mock()
         )
-        homeViewModel.onBannerClicked(0)
-        homeViewModel.shouldLaunchCategory.value?.id.should.equal(0)
+        homeViewModel.banners.getOrAwaitValue {
+            // clicking 5th item
+            homeViewModel.onBannerClicked(5)
+            // checking launch for 5th item has fired
+            homeViewModel.shouldLaunchProduct.value.should.equal(5)
+        }
     }
 
 }
