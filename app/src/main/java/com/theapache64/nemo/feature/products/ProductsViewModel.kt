@@ -46,7 +46,7 @@ class ProductsViewModel @ViewModelInject constructor(
         _pageNo.value = 1
     }
 
-    val productsResp = _pageNo.switchMap { pageNo ->
+    val productsResp :LiveData<Resource<List<Product>>> = _pageNo.switchMap { pageNo ->
         productsRepo.getProducts(category, pageNo)
             .onEach {
                 if (it is Resource.Success) {

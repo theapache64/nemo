@@ -9,8 +9,6 @@ import com.theapache64.nemo.data.repository.CategoriesRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
-import com.theapache64.nemo.utils.test.EspressoIdlingResource
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 /**
@@ -58,9 +56,9 @@ class HomeViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             cartRepo.getCartCount().let { cartCount->
                 if (cartCount > 0) {
-                    _addCartCountBadge.value = cartCount
+                    _addCartCountBadge.postValue(cartCount)
                 } else {
-                    _shouldRemoveCartCountBadge.value = true
+                    _shouldRemoveCartCountBadge.postValue(true)
                 }
             }
         }
@@ -85,6 +83,13 @@ class HomeViewModel @ViewModelInject constructor(
             }
         } else if (banner.productId != null) {
             _shouldLaunchProduct.value = banner.productId!!
+        }
+    }
+
+    fun onCategoryClicked(position: Int) {
+        if (categories.value is Resource.Success) {
+            val category = (categories.value as Resource.Success).data[position]
+            _shouldLaunchCategory.value = category
         }
     }
 }

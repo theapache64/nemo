@@ -9,10 +9,14 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.theapache64.nemo.databinding.LoadingViewBinding
 
 @Suppress("MemberVisibilityCanBePrivate")
 class LoadingView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
+
+    val isShowingError: Boolean
+        get() = binding.ivError.isVisible
 
     private var hasRetryCallback: Boolean = false
     private val binding: LoadingViewBinding

@@ -16,7 +16,7 @@ data class Product(
     @Json(name = "title")
     val title: String, // Guppy
     @Json(name = "more_details")
-    val moreDetailsString: String,
+    val moreDetailsString: String?,
     @Json(name = "rating")
     val rating: Int,
     @Json(name = "price")
@@ -32,7 +32,7 @@ data class Product(
 
     init {
         // Parsing more details
-        if (moreDetailsString.isNotBlank()) {
+        if (!moreDetailsString.isNullOrBlank()) {
             val lines = moreDetailsString.split("\n")
             for (line in lines) {
                 val s1 = line.split(":")

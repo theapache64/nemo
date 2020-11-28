@@ -25,7 +25,7 @@
                 layout="@layout/any_toolbar" />
 
             <com.zhpan.bannerview.BannerViewPager
-                android:id="@+id/bvp_home"
+                android:id="@+id/bvp_home_banner"
                 android:layout_width="0dp"
                 android:layout_height="220dp"
                 android:layout_marginTop="10dp"
@@ -43,7 +43,7 @@
                 app:layout_constraintBottom_toTopOf="@id/rv_categories"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bvp_home" />
+                app:layout_constraintTop_toBottomOf="@id/bvp_home_banner" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_categories"
@@ -51,7 +51,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/bnv_home"
+                app:layout_constraintBottom_toTopOf="@id/bnv_home_bottom_menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_categories"
@@ -59,7 +59,7 @@
                 tools:listitem="@layout/item_category" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bnv_home"
+                android:id="@+id/bnv_home_bottom_menu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,6 +76,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/apl_home" />
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/g_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="bvp_home_banner,tv_label_categories,bnv_home_bottom_menu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.theapache64.nemo.ui.widgets.CustomSwipeRefreshLayout>
 </layout>

@@ -55,6 +55,12 @@ android {
         }
     }
 
+    // Always show the result of every unit test when running via command line, even if it passes.
+    testOptions.unitTests {
+        includeAndroidResources true
+        returnDefaultValues true
+    }
+
 }
 
 
@@ -103,7 +109,7 @@ dependencies {
 	implementation 'com.google.android.material:material:1.3.0-alpha03'
 
     // To turn spreadsheet to JSON endpoint
-    implementation 'com.theapache64:retrosheet:1.2.2'
+    implementation 'com.theapache64:retrosheet:1.2.3'
 
     // Timber : No-nonsense injectable logging.
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -185,6 +191,10 @@ dependencies {
 
     // Mockito Kotlin : Using Mockito with Kotlin.
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+    androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+
+    // Expekt : An assertion library for Kotlin
+    androidTestImplementation 'com.theapache64:expekt:0.0.1'
 }
 
 hilt {

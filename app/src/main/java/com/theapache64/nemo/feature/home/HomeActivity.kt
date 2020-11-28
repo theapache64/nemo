@@ -23,7 +23,6 @@ import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -50,7 +49,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
             viewModel.refreshPage()
         }
 
-        binding.bvpHome
+        binding.bvpHomeBanner
             .setAdapter(BannerAdapter())
             .setLifecycleRegistry(lifecycle)
             .setIndicatorSlideMode(IndicatorSlideMode.WORM)
@@ -63,7 +62,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
             .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
             .create()
 
-        binding.bnvHome.setOnNavigationItemSelectedListener(this)
+        binding.bnvHomeBottomMenu.setOnNavigationItemSelectedListener(this)
 
         watchBanners()
         watchCategories()
@@ -75,39 +74,43 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         viewModel.banners.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
-                    binding.lvHome.showLoading(R.string.home_loading_banners)
-                    binding.bvpHome.invisible()
                     EspressoIdlingResource.increment()
+                    binding.lvHome.showLoading(R.string.home_loading_banners)
+                    binding.bvpHomeBanner.invisible()
                 }
                 is Resource.Success -> {
+
+                    EspressoIdlingResource.decrement()
                     binding.lvHome.hideLoading()
 
-                    if (it.data.isEmpty()) {
-                        // hide
-                        binding.bvpHome.gone()
-                    } else {
-                        // render
-                        binding.bvpHome.visible()
-                        binding.bvpHome.refreshData(it.data)
+                    if (binding.lvHome.isShowingError.not()) {
+                        if (it.data.isEmpty()) {
+                            // hide
+                            binding.bvpHomeBanner.gone()
+                        } else {
+                            // render
+                            binding.bvpHomeBanner.visible()
+                            binding.bvpHomeBanner.refreshData(it.data)
+                        }
                     }
 
-                    EspressoIdlingResource.decrement()
                 }
                 is Resource.Error -> {
-                    binding.lvHome.showError(it.errorData)
                     EspressoIdlingResource.decrement()
+                    binding.gContent.gone()
+                    binding.lvHome.showError(it.errorData)
                 }
             }
         })
 
         // Click listener : Category
         viewModel.shouldLaunchCategory.observe(this, {
-            ProductsActivity.getStartIntent(this, it)
+            startActivity(ProductsActivity.getStartIntent(this, it))
         })
 
         // Click listener : Product
         viewModel.shouldLaunchProduct.observe(this, { productId ->
-            ProductDetailActivity.getStartIntent(this, productId)
+            startActivity(ProductDetailActivity.getStartIntent(this, productId))
         })
     }
 
@@ -120,16 +123,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                 }
 
                 is Resource.Success -> {
-                    val adapter = CategoriesAdapter(this, it.data) { position ->
-                        val category = it.data[position]
-                        startActivity(ProductsActivity.getStartIntent(this, category))
+                    if (binding.lvHome.isShowingError.not()) {
+                        val adapter = CategoriesAdapter(this, it.data) { position ->
+                            viewModel.onCategoryClicked(position)
+                        }
+                        binding.rvCategories.adapter = adapter
+                        binding.rvCategories.visible()
+                        binding.tvLabelCategories.visible()
                     }
-                    binding.rvCategories.adapter = adapter
-                    binding.rvCategories.visible()
-                    binding.tvLabelCategories.visible()
                 }
 
                 is Resource.Error -> {
+                    binding.gContent.gone()
                     binding.lvHome.showError(it.errorData)
                 }
             }
@@ -138,10 +143,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
     private fun watchCartCount() {
         // Cart count
-        viewModel.addCartCountBadge.observe(this, Observer { count ->
+        viewModel.addCartCountBadge.observe(this, { count ->
 
             // Add badge
-            val miCart = binding.bnvHome.getOrCreateBadge(R.id.mi_home_cart).apply {
+            val miCart = binding.bnvHomeBottomMenu.getOrCreateBadge(R.id.mi_home_cart).apply {
                 backgroundColor = ContextCompat.getColor(this@HomeActivity, R.color.orange_900)
             }
 
@@ -154,7 +159,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         viewModel.shouldRemoveCartCountBadge.observe(this, Observer {
             if (it) {
                 // Remove badge
-                binding.bnvHome.removeBadge(R.id.mi_home_cart)
+                binding.bnvHomeBottomMenu.removeBadge(R.id.mi_home_cart)
             }
         })
     }

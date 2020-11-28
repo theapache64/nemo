@@ -5,7 +5,9 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.theapache64.expekt.should
 import com.theapache64.nemo.bannerSuccessFlow
+import com.theapache64.nemo.categoriesSuccessFlow
 import com.theapache64.nemo.data.repository.BannersRepo
+import com.theapache64.nemo.data.repository.CategoriesRepo
 import com.theapache64.nemo.utils.test.MainCoroutineRule
 import com.theapache64.nemo.utils.test.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,7 +27,7 @@ class HomeViewModelTest {
     val coroutineRule = MainCoroutineRule()
 
     @Test
-    fun `Click on banner launch product`() {
+    fun `Click on banner, launch product details screen`() {
         val bannersRepo: BannersRepo = mock()
         whenever(bannersRepo.getBanners()).thenReturn(bannerSuccessFlow)
 
@@ -39,6 +41,24 @@ class HomeViewModelTest {
             homeViewModel.onBannerClicked(5)
             // checking launch for 5th item has fired
             homeViewModel.shouldLaunchProduct.value.should.equal(5)
+        }
+    }
+
+    @Test
+    fun `Click on category, launch product list`() {
+        val categoriesRepo: CategoriesRepo = mock()
+        whenever(categoriesRepo.getCategories()).thenReturn(categoriesSuccessFlow)
+
+        val homeViewModel = HomeViewModel(
+            mock(),
+            categoriesRepo,
+            mock()
+        )
+        homeViewModel.categories.getOrAwaitValue {
+            // clicking 5th item
+            homeViewModel.onCategoryClicked(5)
+            // checking launch for 5th item has fired
+            homeViewModel.shouldLaunchCategory.value!!.id.should.equal(5)
         }
     }
 

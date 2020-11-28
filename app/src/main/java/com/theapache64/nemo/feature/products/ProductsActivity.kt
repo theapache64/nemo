@@ -17,6 +17,7 @@ import com.theapache64.nemo.utils.extensions.get
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.toast
 import com.theapache64.nemo.utils.extensions.visible
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -25,7 +26,7 @@ class ProductsActivity :
     BaseActivity<ActivityProductsBinding, ProductsViewModel>(R.layout.activity_products) {
 
     companion object {
-        private const val KEY_CATEGORY = "category"
+        const val KEY_CATEGORY = "category"
         fun getStartIntent(context: Context, category: Category): Intent {
             return Intent(context, ProductsActivity::class.java).apply {
                 // data goes here
@@ -39,6 +40,7 @@ class ProductsActivity :
 
     override fun onCreate() {
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         setSupportActionBar(binding.mtProducts)
 
         val category = getParcelableOrThrow<Category>(KEY_CATEGORY)
@@ -84,10 +86,11 @@ class ProductsActivity :
             }
         })
 
-        viewModel.productsResp.observe(this, Observer {
+        viewModel.productsResp.observe(this, {
             when (it) {
                 is Resource.Loading -> {
                     Timber.d("watchProducts: It's loading")
+                    EspressoIdlingResource.increment()
                     if (productsAdapter.itemCount == 0) {
                         // normal loading
                         binding.lvProducts.showLoading(R.string.products_loading)
@@ -98,6 +101,7 @@ class ProductsActivity :
                     }
                 }
                 is Resource.Success -> {
+                    EspressoIdlingResource.decrement()
                     if (viewModel.positionStart == 0) {
                         binding.lvProducts.hideLoading()
                         binding.rvProducts.visible()
@@ -110,6 +114,7 @@ class ProductsActivity :
                     )
                 }
                 is Resource.Error -> {
+                    EspressoIdlingResource.decrement()
                     if (productsAdapter.itemCount == 0) {
                         binding.rvProducts.gone()
                         binding.lvProducts.showError(it.errorData)
