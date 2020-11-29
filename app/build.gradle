@@ -85,14 +85,14 @@ dependencies {
     kapt "androidx.hilt:hilt-lifecycle-viewmodel:$androidx_hilt_version"
     kapt "androidx.hilt:hilt-compiler:$androidx_hilt_version"
 
-	// Retrofit : A type-safe HTTP client for Android and Java.
-	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // Retrofit : A type-safe HTTP client for Android and Java.
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
-	// Glide : A fast and efficient image loading library for Android focused on smooth scrolling.
-	implementation 'com.github.bumptech.glide:glide:4.11.0'
+    // Glide : A fast and efficient image loading library for Android focused on smooth scrolling.
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 
-	// Moshi : Moshi
-	implementation 'com.squareup.moshi:moshi:1.11.0'
+    // Moshi : Moshi
+    implementation 'com.squareup.moshi:moshi:1.11.0'
 
     // Converter: Moshi : A Retrofit Converter which uses Moshi for serialization.
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
@@ -100,13 +100,13 @@ dependencies {
     // Moshi Kotlin Codegen : Moshi Kotlin Codegen
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.11.0'
 
-	// LiveData Kotlin Extensions : Kotlin extensions for 'livedata' artifact
-	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01'
+    // LiveData Kotlin Extensions : Kotlin extensions for 'livedata' artifact
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01'
 
-	// Material Components For Android : Material Components for Android is a static library that you can add to your Android
-	// application in order to use APIs that provide implementations of the Material Design
-	// specification. Compatible on devices running API 14 or later.
-	implementation 'com.google.android.material:material:1.3.0-alpha03'
+    // Material Components For Android : Material Components for Android is a static library that you can add to your Android
+    // application in order to use APIs that provide implementations of the Material Design
+    // specification. Compatible on devices running API 14 or later.
+    implementation 'com.google.android.material:material:1.3.0-alpha03'
 
     // To turn spreadsheet to JSON endpoint
     implementation 'com.theapache64:retrosheet:1.2.3'
@@ -121,17 +121,17 @@ dependencies {
     // Android Preferences KTX : Kotlin extensions for preferences
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
-	// Calligraphy : Custom Font injection through styles and attributes.
-	implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    // Calligraphy : Custom Font injection through styles and attributes.
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
 
-	// ViewPump : View inflation with pre/post-inflation interceptors
-	implementation 'io.github.inflationx:viewpump:2.0.3'
+    // ViewPump : View inflation with pre/post-inflation interceptors
+    implementation 'io.github.inflationx:viewpump:2.0.3'
 
     // Banner
     implementation 'com.github.zhpanvip:BannerViewPager:3.1.6'
 
-	// CircleImageView : A fast circular ImageView for Android
-	implementation 'de.hdodenhof:circleimageview:3.1.0'
+    // CircleImageView : A fast circular ImageView for Android
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     // Room
     def room_version = "2.2.5"
@@ -157,7 +157,7 @@ dependencies {
 
 
     // Mockito Inline : Mockito preconfigured inline mock maker (intermediate and to be superseeded by automatic
-	// usage in a future version)
+    // usage in a future version)
     testImplementation 'org.mockito:mockito-inline:3.5.15'
 
     // Expekt : An assertion library for Kotlin
@@ -177,6 +177,7 @@ dependencies {
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
 
     // ...with Kotlin.
+    kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // Barista
@@ -201,7 +202,7 @@ dependencies {
     // Expekt : An assertion library for Kotlin
     androidTestImplementation 'com.theapache64:expekt:0.0.1'
 
-    testImplementation "org.robolectric:robolectric:4.5-alpha-2"
+    testImplementation "org.robolectric:robolectric:4.4"
 }
 
 hilt {

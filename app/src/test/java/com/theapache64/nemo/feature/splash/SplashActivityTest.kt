@@ -4,22 +4,23 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
-import com.theapache64.nemo.R
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
+import com.theapache64.nemo.configSuccessFlow
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
-import com.theapache64.nemo.configErrorFlow
-import com.theapache64.nemo.configSuccessFlow
 import com.theapache64.nemo.feature.home.HomeActivity
 import com.theapache64.nemo.utils.test.IdlingRule
-import com.theapache64.nemo.utils.test.monitorActivity
+import com.theapache64.nemo.utils.test.MainCoroutineRule
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
@@ -28,17 +29,23 @@ import org.mockito.Mockito.mock
  */
 @UninstallModules(ApiModule::class)
 @HiltAndroidTest
+@LargeTest
+@RunWith(AndroidJUnit4::class)
+@ExperimentalCoroutinesApi
 class SplashActivityTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
-    @get:Rule
-    val idlingRule = IdlingRule()
-
     @BindValue
     @JvmField
     val fakeNemoApi: NemoApi = mock(NemoApi::class.java)
+
+    @get:Rule
+    val idlingRule = IdlingRule()
+
+    @get:Rule
+    val coroutineRule = MainCoroutineRule()
 
     @Test
     fun givenSplash_whenGoodConfig_thenHome() {
@@ -55,6 +62,8 @@ class SplashActivityTest {
         splashActivity.close()
     }
 
+    /*
+
     @Test
     fun givenSplash_whenBadConfig_thenConfigSyncError() {
         `when`(fakeNemoApi.getConfig()).thenReturn(configErrorFlow)
@@ -63,5 +72,9 @@ class SplashActivityTest {
         assertDisplayed(R.string.splash_sync_error_title)
         splashActivity.close()
     }
-
+*/
+    @Test
+    fun test() {
+        println("He")
+    }
 }
