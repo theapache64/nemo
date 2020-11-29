@@ -82,6 +82,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$androidx_hilt_version"
     kapt "androidx.hilt:hilt-lifecycle-viewmodel:$androidx_hilt_version"
@@ -91,7 +92,7 @@ dependencies {
     kaptTest "androidx.hilt:hilt-compiler:$androidx_hilt_version"
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+
 
     // Retrofit : A type-safe HTTP client for Android and Java.
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
