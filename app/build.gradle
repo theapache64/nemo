@@ -76,10 +76,11 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.2.0-beta01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.fragment:fragment-ktx:1.3.0-beta01'
-    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
 
     // Hilt
+    def androidx_hilt_version = '1.0.0-alpha02'
     implementation "com.google.dagger:hilt-android:$hilt_version"
+
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
@@ -90,6 +91,7 @@ dependencies {
 
     kapt "androidx.hilt:hilt-compiler:$androidx_hilt_version"
     kaptTest "androidx.hilt:hilt-compiler:$androidx_hilt_version"
+
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
 
@@ -97,17 +99,19 @@ dependencies {
     // Retrofit : A type-safe HTTP client for Android and Java.
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
-    // Glide : A fast and efficient image loading library for Android focused on smooth scrolling.
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    // Converter: Moshi : A Retrofit Converter which uses Moshi for serialization.
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
 
     // Moshi : Moshi
     implementation 'com.squareup.moshi:moshi:1.11.0'
 
-    // Converter: Moshi : A Retrofit Converter which uses Moshi for serialization.
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-
     // Moshi Kotlin Codegen : Moshi Kotlin Codegen
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.11.0'
+
+
+    // Glide : A fast and efficient image loading library for Android focused on smooth scrolling.
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
 
     // LiveData Kotlin Extensions : Kotlin extensions for 'livedata' artifact
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01'
@@ -151,58 +155,56 @@ dependencies {
     // QuantityView
     implementation 'me.himanshusoni.quantityview:quantity-view:1.2.0'
 
-    // **************************** UNIT TEST ****************************
 
     // Mockito Core : Mockito mock objects library core API and implementation
-    testImplementation 'org.mockito:mockito-core:3.5.15'
-    testImplementation 'androidx.test.ext:junit:1.1.2'
-    testImplementation 'junit:junit:4.13.1'
-    testImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    testImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
-    testImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "androidx.test:core:1.3.0"
+    def mockito_version = '3.5.15'
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
 
-
-    // Mockito Inline : Mockito preconfigured inline mock maker (intermediate and to be superseeded by automatic
-    // usage in a future version)
-    testImplementation 'org.mockito:mockito-inline:3.5.15'
-
-    // Expekt : An assertion library for Kotlin
-    testImplementation 'com.theapache64:expekt:0.0.1'
-
-    // **************************** INSTRUMENTATION TEST ****************************
-
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-
-    // Coroutines Test
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5"
-
-    // Barista
-    androidTestImplementation('com.schibsted.spain:barista:3.7.0') {
-        exclude group: 'org.jetbrains.kotlin'
-    }
-
-    testImplementation('com.schibsted.spain:barista:3.7.0') {
-        exclude group: 'org.jetbrains.kotlin'
-    }
-
-    // Mockito
-    androidTestImplementation 'org.mockito:mockito-core:3.5.15'
-    // Mockito Inline : Mockito preconfigured inline mock maker (intermediate and to be superseeded by automatic
-    // usage in a future version)
-    androidTestImplementation "org.mockito:mockito-android:3.5.15"
-
-    // Mockito Kotlin : Using Mockito with Kotlin.
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 
-    // Expekt : An assertion library for Kotlin
-    androidTestImplementation 'com.theapache64:expekt:0.0.1'
+    testImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
 
+    testImplementation 'junit:junit:4.13.1'
+
+    // Espresso
+    def espresso_version = '3.3.0'
+    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
+    testImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    testImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
+    testImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+
+    def coroutines_test_version = '1.3.5'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
+    testImplementation "androidx.test:core:1.3.0"
+
+    def androidx_test_version = '2.1.0'
+    testImplementation "androidx.arch.core:core-testing:$androidx_test_version"
+    androidTestImplementation "androidx.arch.core:core-testing:$androidx_test_version"
+
+
+    // Expekt : An assertion library for Kotlin
+    def expekt_version = '0.0.1'
+    testImplementation "com.theapache64:expekt:$expekt_version"
+    androidTestImplementation "com.theapache64:expekt:$expekt_version"
+
+    // Barista
+    def barista_version = '3.7.0'
+    androidTestImplementation("com.schibsted.spain:barista:$barista_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    testImplementation("com.schibsted.spain:barista:$barista_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    // Robolectric
     testImplementation "org.robolectric:robolectric:4.4"
 }
 
