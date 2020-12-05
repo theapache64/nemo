@@ -16,7 +16,7 @@ import timber.log.Timber
 /**
  * Created by theapache64 : Jul 26 Sun,2020 @ 22:07
  */
-class SplashViewModel @ViewModelInject constructor(
+class SplashViewModel @ViewModelInject public constructor(
     private val configRepo: ConfigRepo,
     private val analyticsRepo: AnalyticsRepo
 ) : BaseViewModel() {

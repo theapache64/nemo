@@ -8,7 +8,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
-import com.schibsted.spain.barista.internal.viewaction.SleepViewAction.sleep
+import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
+import com.theapache64.nemo.R
 import com.theapache64.nemo.configErrorFlow
 import com.theapache64.nemo.configSuccessFlow
 import com.theapache64.nemo.data.remote.NemoApi
@@ -37,7 +38,7 @@ import org.mockito.Mockito.mock
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
-class SplashActivityTest {
+class SplashActivityTestInst {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
@@ -53,18 +54,11 @@ class SplashActivityTest {
     val coroutineRule = MainCoroutineRule()
 
     @Test
-    fun givenSplash_whenGoodConfig_thenHome() {
-        `when`(fakeNemoApi.getConfig()).thenReturn(configSuccessFlow)
-
-        // Fix for home to not to crash
-        `when`(fakeNemoApi.getBanners()).thenReturn(flowOf())
-        `when`(fakeNemoApi.getCategories()).thenReturn(flowOf())
-
-        Intents.init()
+    fun givenSplash_whenBadConfig_thenConfigSyncError() {
+        whenever(fakeNemoApi.getConfig()).thenReturn(configErrorFlow)
         val splashActivity = ActivityScenario.launch(SplashActivity::class.java)
-        intended(hasComponent(HomeActivity::class.java.name))
-        Intents.release()
+        idlingRule.dataBindingIdlingResource.monitorActivity(splashActivity)
+        assertDisplayed(R.string.splash_sync_error_title)
         splashActivity.close()
     }
-
 }
