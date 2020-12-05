@@ -13,10 +13,7 @@ import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertD
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
-import com.theapache64.nemo.R
-import com.theapache64.nemo.bannerEmptySuccessFlow
-import com.theapache64.nemo.bannerSuccessFlow
-import com.theapache64.nemo.categoriesSuccessFlow
+import com.theapache64.nemo.*
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.feature.products.ProductsActivity
@@ -96,5 +93,34 @@ class HomeActivityTest {
         intended(hasComponent(ProductsActivity::class.java.name))
         intended(hasExtraWithKey(ProductsActivity.KEY_CATEGORY))
         Intents.release()
+    }
+
+    @Test
+    fun givenCategories_whenGoodCategories_thenCategoriesDisplayed() {
+
+        // Fake nemo api
+        whenever(nemoApi.getBanners()).thenReturn(bannerSuccessFlow)
+        whenever(nemoApi.getCategories()).thenReturn(categoriesSuccessFlow)
+
+        val homeActivity = ActivityScenario.launch(HomeActivity::class.java)
+        idlingRule.dataBindingIdlingResource.monitorActivity(homeActivity)
+
+        assertDisplayed(R.id.rv_categories)
+        assertDisplayed(R.id.tv_label_categories)
+    }
+
+    @Test
+    fun givenCategories_whenBadCategories_thenBothCategoriesAndBannerNotDisplayed() {
+
+        // Fake nemo api
+        whenever(nemoApi.getBanners()).thenReturn(bannerSuccessFlow)
+        whenever(nemoApi.getCategories()).thenReturn(categoriesErrorFlow)
+
+        val homeActivity = ActivityScenario.launch(HomeActivity::class.java)
+        idlingRule.dataBindingIdlingResource.monitorActivity(homeActivity)
+
+        assertNotDisplayed(R.id.rv_categories)
+        assertNotDisplayed(R.id.tv_label_categories)
+        assertNotDisplayed(R.id.bvp_home_banner)
     }
 }
