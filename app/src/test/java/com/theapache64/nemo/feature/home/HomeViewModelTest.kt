@@ -47,7 +47,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `Click on category, launch product list`() {
+    fun `Click on category banner, launch product list`() {
         val categoriesRepo: CategoriesRepo = mock()
         whenever(categoriesRepo.getCategories()).thenReturn(categoriesSuccessFlow)
 
@@ -63,5 +63,4 @@ class HomeViewModelTest {
             homeViewModel.shouldLaunchCategory.value!!.id.should.equal(BANNER_ITEM_CATEGORY_POSITION)
         }
     }
-
 }

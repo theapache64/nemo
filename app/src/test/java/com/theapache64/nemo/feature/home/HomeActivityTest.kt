@@ -12,10 +12,10 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
-import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
 import com.theapache64.nemo.*
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
+import com.theapache64.nemo.feature.cart.CartActivity
 import com.theapache64.nemo.feature.products.ProductsActivity
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
@@ -122,5 +122,23 @@ class HomeActivityTest {
         assertNotDisplayed(R.id.rv_categories)
         assertNotDisplayed(R.id.tv_label_categories)
         assertNotDisplayed(R.id.bvp_home_banner)
+    }
+
+    @Test
+    fun givenBottomMenu_whenCartClicked_thenCartActivityLaunched() {
+
+        // Fake nemo api
+        whenever(nemoApi.getBanners()).thenReturn(bannerSuccessFlow)
+        whenever(nemoApi.getCategories()).thenReturn(categoriesSuccessFlow)
+
+        ActivityScenario.launch(HomeActivity::class.java).run {
+            idlingRule.dataBindingIdlingResource.monitorActivity(this)
+            assertDisplayed(R.id.bnv_home_bottom_menu)
+
+            Intents.init()
+            clickOn(R.id.mi_home_cart)
+            intended(hasComponent(CartActivity::class.java.name))
+            Intents.release()
+        }
     }
 }
