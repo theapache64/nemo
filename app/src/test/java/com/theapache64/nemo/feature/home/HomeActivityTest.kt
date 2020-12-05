@@ -79,7 +79,7 @@ class HomeActivityTest {
     }
 
     @Test
-    fun givenBanners_whenClicked_thenProductDetailLaunched() {
+    fun givenBanners_whenClicked_thenProductsLaunched() {
         // Fake nemo api
         whenever(nemoApi.getBanners()).thenReturn(bannerSuccessFlow)
         whenever(nemoApi.getCategories()).thenReturn(categoriesSuccessFlow)

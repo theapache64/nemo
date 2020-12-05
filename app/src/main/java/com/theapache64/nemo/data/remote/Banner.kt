@@ -18,5 +18,5 @@ data class Banner(
     @Json(name = "category_id")
     val categoryId: Int?, // 1
     @Json(name = "product_name")
-    val productName: String
+    val productName: String?
 )

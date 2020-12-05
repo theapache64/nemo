@@ -4,6 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.theapache64.expekt.should
+import com.theapache64.nemo.BANNER_ITEM_CATEGORY_POSITION
+import com.theapache64.nemo.BANNER_ITEM_PRODUCT_POSITION
 import com.theapache64.nemo.bannerSuccessFlow
 import com.theapache64.nemo.categoriesSuccessFlow
 import com.theapache64.nemo.data.repository.BannersRepo
@@ -27,7 +29,7 @@ class HomeViewModelTest {
     val coroutineRule = MainCoroutineRule()
 
     @Test
-    fun `Click on banner, launch product details screen`() {
+    fun `Click on product banner, launch product details screen`() {
         val bannersRepo: BannersRepo = mock()
         whenever(bannersRepo.getBanners()).thenReturn(bannerSuccessFlow)
 
@@ -38,9 +40,9 @@ class HomeViewModelTest {
         )
         homeViewModel.banners.getOrAwaitValue {
             // clicking 5th item
-            homeViewModel.onBannerClicked(5)
+            homeViewModel.onBannerClicked(BANNER_ITEM_PRODUCT_POSITION)
             // checking launch for 5th item has fired
-            homeViewModel.shouldLaunchProduct.value.should.equal(5)
+            homeViewModel.shouldLaunchProduct.value.should.equal(BANNER_ITEM_PRODUCT_POSITION)
         }
     }
 
@@ -56,9 +58,9 @@ class HomeViewModelTest {
         )
         homeViewModel.categories.getOrAwaitValue {
             // clicking 5th item
-            homeViewModel.onCategoryClicked(5)
+            homeViewModel.onCategoryClicked(BANNER_ITEM_CATEGORY_POSITION)
             // checking launch for 5th item has fired
-            homeViewModel.shouldLaunchCategory.value!!.id.should.equal(5)
+            homeViewModel.shouldLaunchCategory.value!!.id.should.equal(BANNER_ITEM_CATEGORY_POSITION)
         }
     }
 
