@@ -97,7 +97,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                 }
                 is Resource.Error -> {
                     EspressoIdlingResource.decrement()
-                    binding.gContent.gone()
+                    binding.bvpHomeBanner.gone()
+                    binding.rvCategories.gone()
+                    binding.tvLabelCategories.gone()
                     binding.lvHome.showError(it.errorData)
                 }
             }
@@ -134,7 +136,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
                 }
 
                 is Resource.Error -> {
-                    binding.gContent.gone()
+                    binding.rvCategories.gone()
+                    binding.tvLabelCategories.gone()
+                    binding.bvpHomeBanner.gone()
                     binding.lvHome.showError(it.errorData)
                 }
             }

@@ -76,11 +76,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/apl_home" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/g_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="bvp_home_banner,tv_label_categories,bnv_home_bottom_menu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.theapache64.nemo.ui.widgets.CustomSwipeRefreshLayout>
 </layout>
