@@ -7,16 +7,12 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.nhaarman.mockitokotlin2.whenever
-import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
-import com.schibsted.spain.barista.internal.viewaction.SleepViewAction.sleep
-import com.theapache64.nemo.configErrorFlow
 import com.theapache64.nemo.configSuccessFlow
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.feature.home.HomeActivity
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
-import com.theapache64.nemo.utils.test.monitorActivity
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -26,7 +22,6 @@ import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 /**
@@ -54,11 +49,11 @@ class SplashActivityTest {
 
     @Test
     fun givenSplash_whenGoodConfig_thenHome() {
-        `when`(fakeNemoApi.getConfig()).thenReturn(configSuccessFlow)
+        whenever(fakeNemoApi.getConfig()).thenReturn(configSuccessFlow)
 
         // Fix for home to not to crash
-        `when`(fakeNemoApi.getBanners()).thenReturn(flowOf())
-        `when`(fakeNemoApi.getCategories()).thenReturn(flowOf())
+        whenever(fakeNemoApi.getBanners()).thenReturn(flowOf())
+        whenever(fakeNemoApi.getCategories()).thenReturn(flowOf())
 
         Intents.init()
         val splashActivity = ActivityScenario.launch(SplashActivity::class.java)
