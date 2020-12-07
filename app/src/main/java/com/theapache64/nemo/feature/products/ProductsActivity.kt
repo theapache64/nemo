@@ -65,7 +65,7 @@ class ProductsActivity :
     private fun watchConfig() {
 
         // Waiting for config
-        viewModel.config.observe(this, Observer {
+        viewModel.config.observe(this, {
             val productsAdapter = ProductsAdapter(
                 products = viewModel.products,
                 callback = viewModel,
@@ -80,7 +80,7 @@ class ProductsActivity :
 
     private fun watchProducts(productsAdapter: ProductsAdapter) {
 
-        viewModel.shouldClearProducts.observe(this, Observer { shouldClear ->
+        viewModel.shouldClearProducts.observe(this, { shouldClear ->
             if (shouldClear) {
                 productsAdapter.notifyDataSetChanged()
             }
