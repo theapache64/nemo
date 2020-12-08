@@ -38,3 +38,9 @@ val productsSuccessFlow = flow<Resource<List<Product>>> {
     emit(Resource.Loading())
     emit(Resource.Success(null, fakeProducts))
 }
+const val PRODUCTS_ERROR_MESSAGE = "This is some error data"
+
+val productsErrorFlow = flow<Resource<List<Product>>> {
+    emit(Resource.Loading())
+    emit(Resource.Error(PRODUCTS_ERROR_MESSAGE))
+}

@@ -14,8 +14,8 @@ const val FAKE_BANNER_COUNT = 10
 val bannerSuccessFlow = getBanners(FAKE_BANNER_COUNT)
 val bannerEmptySuccessFlow = getBanners(0)
 
-const val BANNER_ITEM_PRODUCT_POSITION = 2
-const val BANNER_ITEM_CATEGORY_POSITION = 4
+const val BANNER_ITEM_CATEGORY_POSITION = 0
+const val BANNER_ITEM_PRODUCT_POSITION = 1
 
 private fun getBanners(count: Int): Flow<Resource<List<Banner>>> {
     return flow<Resource<List<Banner>>> {
@@ -41,7 +41,7 @@ private fun getBanners(count: Int): Flow<Resource<List<Banner>>> {
                 add(
                     Banner(
                         id = it,
-                        imageUrl = "https://picsum.photos/id/1%${it}/300/300",
+                        imageUrl = "https://picsum.photos/id/1${it}/300/300",
                         productId = productId,
                         categoryId = categoryId,
                         productName = "Product $it"

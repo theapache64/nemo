@@ -18,6 +18,7 @@ import com.theapache64.nemo.feature.products.ProductsActivity
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.invisible
+import com.theapache64.nemo.utils.extensions.toast
 import com.theapache64.nemo.utils.extensions.visible
 import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import com.zhpan.bannerview.constants.PageStyle
@@ -56,6 +57,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
             .setPageMargin(resources.getDimensionPixelOffset(R.dimen.home_banner_item_margin))
             .setRevealWidth(resources.getDimensionPixelOffset(R.dimen.home_banner_reveal_width))
             .setOnPageClickListener {
+                toast("Clicked $it")
                 viewModel.onBannerClicked(it)
             }
             .setIndicatorStyle(IndicatorSlideMode.SCALE)

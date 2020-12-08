@@ -7,12 +7,16 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
+import com.schibsted.spain.barista.interaction.BaristaListInteractions.scrollListToPosition
+import com.theapache64.nemo.PRODUCTS_ERROR_MESSAGE
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.di.module.ApiModule
+import com.theapache64.nemo.productsErrorFlow
 import com.theapache64.nemo.productsSuccessFlow
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
@@ -22,6 +26,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,6 +41,21 @@ import org.mockito.Mockito
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
 class ProductsActivityTest {
+
+    companion object {
+        private const val PRODUCTS_PER_PAGE = 10
+        private const val TOTAL_PRODUCTS_IN_CATEGORY = 100
+
+        val category =
+            Category(
+                1,
+                "Category 1",
+                "https://picsum.photos/id/1/300/300",
+                TOTAL_PRODUCTS_IN_CATEGORY
+            )
+
+    }
+
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
@@ -54,38 +74,80 @@ class ProductsActivityTest {
     @get:Rule
     val coroutineRule = MainCoroutineRule()
 
-    @Test
-    fun givenProducts_whenGoodProducts_thenProductsShown() {
 
-        val productsPerPage = 10
+    @Before
+    fun init() {
 
         whenever(configRepo.getLocalConfig()).thenReturn(
             Config(
                 totalProducts = 1000,
-                productsPerPage = productsPerPage,
+                productsPerPage = PRODUCTS_PER_PAGE,
                 currency = "$",
                 deliveryCharge = 10,
                 totalPages = 10
             )
         )
+    }
 
-        whenever(fakeNemoApi.getProducts(productsPerPage, 0, "Category 1"))
+    @Test
+    fun givenProducts_whenGoodProducts_thenProductsShownAndPaginationWorks() {
+
+
+        // First page
+        whenever(fakeNemoApi.getProducts(PRODUCTS_PER_PAGE, 0, category.categoryName))
+            .thenReturn(productsSuccessFlow)
+
+        // Second page
+        whenever(
+            fakeNemoApi.getProducts(
+                PRODUCTS_PER_PAGE,
+                PRODUCTS_PER_PAGE,
+                category.categoryName
+            )
+        )
             .thenReturn(productsSuccessFlow)
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val totalProducts = 100
-        val category =
-            Category(1, "Category 1", "https://picsum.photos/id/1/300/300", totalProducts)
         val intent = ProductsActivity.getStartIntent(context, category)
         ActivityScenario.launch<ProductsActivity>(intent).run {
             idlingRule.dataBindingIdlingResource.monitorActivity(this)
 
             assertDisplayed(R.id.rv_products)
-            assertRecyclerViewItemCount(R.id.rv_products, 10)
-            assertDisplayed("$totalProducts items available")
+            assertRecyclerViewItemCount(R.id.rv_products, PRODUCTS_PER_PAGE)
+            assertDisplayed("${category.totalProducts} items available")
+
+            // Checking if pagination works
+
+            // Scroll to last item
+            scrollListToPosition(R.id.rv_products, PRODUCTS_PER_PAGE - 1)
+
+            // Checking count
+            assertRecyclerViewItemCount(R.id.rv_products, PRODUCTS_PER_PAGE * 2)
+
+            // Checking loading not showing
+            assertNotDisplayed(R.id.lv_products)
         }
     }
+
     // Error products shows error
+    @Test
+    fun givenProducts_whenBadProducts_thenErrorShown() {
+
+        // Setting mock data
+        whenever(fakeNemoApi.getProducts(PRODUCTS_PER_PAGE, 0, category.categoryName))
+            .thenReturn(productsErrorFlow)
+
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val intent = ProductsActivity.getStartIntent(context, category)
+        ActivityScenario.launch<ProductsActivity>(intent).run {
+            idlingRule.dataBindingIdlingResource.monitorActivity(this)
+
+            // Check error displayed
+            assertDisplayed(PRODUCTS_ERROR_MESSAGE)
+            assertNotDisplayed(R.id.rv_products)
+        }
+    }
+
     // Empty products shows empty
     // Scroll down and pagination should work
 }

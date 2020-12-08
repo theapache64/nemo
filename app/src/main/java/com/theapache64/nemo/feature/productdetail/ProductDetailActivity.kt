@@ -20,7 +20,7 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
     R.layout.activity_product_detail
 ) {
     companion object {
-        private const val KEY_PRODUCT_ID = "product_id"
+        const val KEY_PRODUCT_ID = "product_id"
         fun getStartIntent(context: Context, productId: Int): Intent {
             return Intent(context, ProductDetailActivity::class.java).apply {
                 // data goes here
