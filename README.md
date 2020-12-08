@@ -1,9 +1,15 @@
+![](montage.png)
+
 # nemo
 Nemo is a simple E-Commerce app engine. Powered by [Retrosheet](https://github.com/theapache64/retrosheet) library.
 
+## Status
+
+- Under active development 👷
+
 ## Google Sheet
 
-- [Nemo Public](https://docs.google.com/spreadsheets/d/1IcZTH6-g7cZeht_xr82SHJOuJXD_p55QueMrZcnsAvQ/edit?usp=sharing)
+- [Nemo Data Source](https://docs.google.com/spreadsheets/d/1IcZTH6-g7cZeht_xr82SHJOuJXD_p55QueMrZcnsAvQ/edit?usp=sharing)
 
 ## TODO
 
@@ -18,18 +24,3 @@ Nemo is a simple E-Commerce app engine. Powered by [Retrosheet](https://github.c
 - [ ] Favorites
 - [ ] Search
 - [ ] Reviews
-
-## Status
-
-- Under active development 👷
-
-![](montage.png)
-
-**Config**
-
-![config](https://i.imgur.com/iOGZEoX.png)
-
-**Products**
-
-![products](https://i.imgur.com/P1XOjrA.png)
-
