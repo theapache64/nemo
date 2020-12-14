@@ -147,7 +147,4 @@ class ProductsActivityTest {
             assertNotDisplayed(R.id.rv_products)
         }
     }
-
-    // Empty products shows empty
-    // Scroll down and pagination should work
 }

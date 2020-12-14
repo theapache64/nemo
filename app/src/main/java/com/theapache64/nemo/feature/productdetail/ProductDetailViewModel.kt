@@ -10,6 +10,8 @@ import com.theapache64.nemo.data.repository.ProductsRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -22,10 +24,10 @@ class ProductDetailViewModel @ViewModelInject constructor(
     private val cartRepo: CartRepo
 ) : BaseViewModel() {
 
-    private val _isAddToCartVisible = MutableLiveData<Boolean>()
+    private val _isAddToCartVisible = MutableLiveData(false)
     val isAddToCartVisible: LiveData<Boolean> = _isAddToCartVisible
 
-    private val _isGoToCartVisible = MutableLiveData<Boolean>()
+    private val _isGoToCartVisible = MutableLiveData(false)
     val isGoToCartVisible: LiveData<Boolean> = _isGoToCartVisible
 
     val config = configRepo.getLocalConfig()
@@ -34,27 +36,40 @@ class ProductDetailViewModel @ViewModelInject constructor(
     val productResp = _productId.switchMap { productId ->
         productsRepo.getProduct(productId)
             .onEach { response ->
-                if (response is Resource.Success) {
-                    response.data.let {
-                        product.value = it
+                when (response) {
+                    is Resource.Loading -> {
+                        EspressoIdlingResource.increment()
+                    }
 
-                        // Checking if we want to show or cart buttons
-                        val cart = cartRepo.getCartProducts()
-                        val hasProductInCart = cart.find { cartItem ->
-                            cartItem.productId == it.id
-                        } != null
+                    is Resource.Success -> {
+                        response.data.let {
+                            product.postValue(it)
 
-                        if (hasProductInCart) {
-                            onProductExistInCart()
-                        } else {
-                            _isAddToCartVisible.value = true
-                            _isGoToCartVisible.value = false
+                            // Checking if we want to show or cart buttons
+                            cartRepo.getCartProductsFlow()
+                                .collect { cart ->
+                                    val hasProductInCart = cart.find { cartItem ->
+                                        cartItem.productId == it.id
+                                    } != null
+
+                                    if (hasProductInCart) {
+                                        onProductExistInCart()
+                                    } else {
+                                        onProductNotExistInCart()
+                                    }
+
+                                    EspressoIdlingResource.decrement()
+                                }
                         }
+                    }
+                    is Resource.Error -> {
+                        EspressoIdlingResource.decrement()
                     }
                 }
             }
             .asLiveData(viewModelScope.coroutineContext)
     }
+
 
     fun init(productId: Int) {
         _productId.value = productId
@@ -73,8 +88,15 @@ class ProductDetailViewModel @ViewModelInject constructor(
     }
 
     private fun onProductExistInCart() {
-        _isAddToCartVisible.value = false
-        _isGoToCartVisible.value = true
+        println("Product exist in cart")
+        _isAddToCartVisible.postValue(false)
+        _isGoToCartVisible.postValue(true)
+    }
+
+    private fun onProductNotExistInCart() {
+        println("Product doesn't exist in cart")
+        _isAddToCartVisible.postValue(true)
+        _isGoToCartVisible.postValue(false)
     }
 
     private val _shouldGoToCart = SingleLiveEvent<Boolean>()

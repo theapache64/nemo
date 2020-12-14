@@ -1,11 +1,13 @@
 package com.theapache64.nemo.data.local.table.cart
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CartDao {
+
     @Query("SELECT * FROM cart")
-    suspend fun getCart(): List<CartEntity>
+    fun getCartFlow(): Flow<List<CartEntity>>
 
     @Insert
     suspend fun addToCart(cartEntity: CartEntity)

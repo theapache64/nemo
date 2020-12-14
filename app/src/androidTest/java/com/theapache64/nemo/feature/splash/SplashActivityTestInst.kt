@@ -3,6 +3,7 @@ package com.theapache64.nemo.feature.splash
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.theapache64.nemo.R
@@ -20,7 +21,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
 
 /**
  * Created by theapache64 : Oct 25 Sun,2020 @ 14:05
@@ -37,7 +37,7 @@ class SplashActivityTestInst {
 
     @BindValue
     @JvmField
-    val fakeNemoApi: NemoApi = mock(NemoApi::class.java)
+    val fakeNemoApi: NemoApi = mock()
 
     @get:Rule
     val idlingRule = IdlingRule()

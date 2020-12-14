@@ -14,6 +14,7 @@ import com.theapache64.nemo.utils.extensions.getIntExtraOrThrow
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, ProductDetailViewModel>(
@@ -56,14 +57,16 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
         }
 
 
-        viewModel.productResp.observe(this, Observer {
+        viewModel.productResp.observe(this, {
             when (it) {
                 is Resource.Loading -> {
+                    Timber.d("onCreate: Loading")
                     binding.gContent.gone()
                     binding.gButtons.gone()
                     binding.lvProduct.showLoading(R.string.product_loading)
                 }
                 is Resource.Success -> {
+                    Timber.d("onCreate: Success")
                     binding.gContent.visible()
                     binding.gButtons.visible()
                     binding.lvProduct.hideLoading()
@@ -73,11 +76,13 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
                         binding.tvLabelProductDetails.visible()
                         binding.rvDetails.adapter = MoreDetailsAdapter(it.data.moreDetails)
                     } else {
-                        binding.rvDetails.gone()
+                        // binding.rvDetails.gone()
                         binding.tvLabelProductDetails.gone()
                     }
+
                 }
                 is Resource.Error -> {
+                    Timber.d("onCreate: Failed")
                     binding.lvProduct.showError(it.errorData)
                 }
             }
