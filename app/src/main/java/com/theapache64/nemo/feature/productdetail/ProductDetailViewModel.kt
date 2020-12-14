@@ -1,5 +1,6 @@
 package com.theapache64.nemo.feature.productdetail
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.theapache64.nemo.R
@@ -12,6 +13,7 @@ import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -46,8 +48,10 @@ class ProductDetailViewModel @ViewModelInject constructor(
                             product.postValue(it)
 
                             // Checking if we want to show or cart buttons
+                            Log.d("X", "Poda Product : $it")
                             cartRepo.getCartProductsFlow()
                                 .collect { cart ->
+                                    Log.d("X", "Poda Cart : -> $cart")
                                     val hasProductInCart = cart.find { cartItem ->
                                         cartItem.productId == it.id
                                     } != null
@@ -58,6 +62,7 @@ class ProductDetailViewModel @ViewModelInject constructor(
                                         onProductNotExistInCart()
                                     }
 
+                                    Log.d("X", "Poda done")
                                     EspressoIdlingResource.decrement()
                                 }
                         }

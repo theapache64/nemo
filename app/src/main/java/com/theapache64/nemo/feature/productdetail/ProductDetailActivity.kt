@@ -13,6 +13,7 @@ import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.getIntExtraOrThrow
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.visible
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

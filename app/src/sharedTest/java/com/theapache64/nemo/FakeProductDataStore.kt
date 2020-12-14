@@ -7,11 +7,14 @@ import kotlinx.coroutines.flow.flow
 /**
  * Created by theapache64 : Dec 06 Sun,2020 @ 18:51
  */
-val productSuccessFlow = flow {
+val productSuccessFlow = getProduct(1)
+val productSuccessFlow2 = getProduct(2)
+
+fun getProduct(id: Int)= flow {
 
     val fakeProduct = Product(
-        1,
-        "Product 1",
+        id,
+        "Product $id",
         """Color : Black
            Size : Large
            Total Reviews : 10,200""".trimIndent(),
