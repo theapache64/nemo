@@ -6,8 +6,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CartDao {
 
+
     @Query("SELECT * FROM cart")
-    fun getCartFlow(): Flow<List<CartEntity>>
+    fun getCartProductsFlow(): Flow<List<CartEntity>>
 
     @Insert
     suspend fun addToCart(cartEntity: CartEntity)

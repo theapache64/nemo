@@ -5,7 +5,6 @@ import com.theapache64.nemo.data.local.table.cart.CartEntity
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.feature.cart.CartItem
 import com.theapache64.nemo.utils.calladapter.flow.Resource
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -24,9 +23,6 @@ open class CartRepo @Inject constructor(
     }
 
 
-    fun getCartProductsFlow(): Flow<List<CartEntity>> {
-        return cartDao.getCartFlow()
-    }
 
 
     /**
@@ -105,4 +101,5 @@ open class CartRepo @Inject constructor(
     }
 
     suspend fun getCartCount(): Int = cartDao.getCount()
+    fun getCartProductsFlow() = cartDao.getCartProductsFlow()
 }

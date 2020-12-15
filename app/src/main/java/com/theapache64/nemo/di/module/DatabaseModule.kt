@@ -19,8 +19,14 @@ object DatabaseModule {
     fun provideDatabase(@ApplicationContext context: Context): NemoDatabase {
         return Room.databaseBuilder(context, NemoDatabase::class.java, "nemo.db")
             .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
             .build()
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+object DaoModule {
 
     @Provides
     fun provideCartDao(nemoDatabase: NemoDatabase) = nemoDatabase.cartDao()
