@@ -19,7 +19,6 @@ object DatabaseModule {
     fun provideDatabase(@ApplicationContext context: Context): NemoDatabase {
         return Room.databaseBuilder(context, NemoDatabase::class.java, "nemo.db")
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
             .build()
     }
 }
