@@ -1,9 +1,12 @@
 package com.theapache64.nemo.feature.productdetail
 
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -12,6 +15,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
+import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
 import com.schibsted.spain.barista.interaction.BaristaSwipeRefreshInteractions.refresh
 import com.theapache64.nemo.FakeProductDataStore
 import com.theapache64.nemo.R
@@ -53,11 +57,11 @@ class ProductDetailActivityTest {
 
     @BindValue
     @JvmField
-    val fakeNemoApi: NemoApi = Mockito.mock(NemoApi::class.java)
+    val fakeNemoApi: NemoApi = mock()
 
     @BindValue
     @JvmField
-    val configRepo: ConfigRepo = Mockito.mock(ConfigRepo::class.java)
+    val configRepo: ConfigRepo = mock()
 
     @BindValue
     @JvmField
@@ -215,34 +219,6 @@ class ProductDetailActivityTest {
             clickOn(R.id.b_go_to_cart)
             intended(hasComponent(CartActivity::class.java.name))
             Intents.release()
-        }
-    }
-
-    // Swipe top to down should refresh page
-    @Test
-    fun givenProductDetailPage_whenSwipeDown_thenPageRefreshed() {
-        val productId = 1
-
-        whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(FakeProductDataStore.productSuccessFlow)
-
-        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
-
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        ActivityScenario.launch<ProductDetailActivity>(
-            ProductDetailActivity.getStartIntent(
-                context,
-                productId
-            )
-        ).run {
-            idlingRule.dataBindingIdlingResource.monitorActivity(this)
-            assertDisplayed("Product 1")
-
-            // Now change data
-            whenever(fakeNemoApi.getProduct(productId))
-                .thenReturn(FakeProductDataStore.productSuccessFlow2)
-            refresh(R.id.csrl_product)
-            assertDisplayed("Product 2")
         }
     }
 

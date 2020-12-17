@@ -7,8 +7,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
-import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
-import com.schibsted.spain.barista.interaction.BaristaSwipeRefreshInteractions.refresh
 import com.theapache64.nemo.FakeConfigDataStore
 import com.theapache64.nemo.FakeProductDataStore
 import com.theapache64.nemo.R
@@ -38,7 +36,7 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
-class SplashActivityTestInst {
+class SplashActivityInstTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
@@ -66,5 +64,7 @@ class SplashActivityTestInst {
         splashActivity.close()
     }
 
-  
+
+
+
 }

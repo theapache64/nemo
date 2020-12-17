@@ -17,7 +17,7 @@ import timber.log.Timber
  */
 @HiltAndroidApp
 class Nemo : Application() {
-    
+
     override fun onCreate() {
         super.onCreate()
 
