@@ -25,7 +25,4 @@ object DatabaseModule {
 
     @Provides
     fun provideAddressesDao(nemoDatabase: NemoDatabase) = nemoDatabase.addressesDao()
-
-    @Provides
-    fun provideCartDao(nemoDatabase: NemoDatabase) = nemoDatabase.cartDao()
 }

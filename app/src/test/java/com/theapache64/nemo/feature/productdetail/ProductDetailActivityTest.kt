@@ -21,6 +21,7 @@ import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.di.module.ApiModule
+import com.theapache64.nemo.di.module.CartModule
 import com.theapache64.nemo.feature.cart.CartActivity
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
@@ -225,12 +226,7 @@ class ProductDetailActivityTest {
         whenever(fakeNemoApi.getProduct(productId))
             .thenReturn(FakeProductDataStore.productSuccessFlow)
 
-        whenever(cartDao.getCartProductsFlow()).thenReturn(
-            flowOf(
-                listOf(
-                )
-            )
-        )
+        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<ProductDetailActivity>(
@@ -251,5 +247,6 @@ class ProductDetailActivityTest {
     }
 
     // Clicking buy now should go to order summary
+
 
 }

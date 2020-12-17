@@ -15,7 +15,7 @@ import com.theapache64.nemo.R
 import com.theapache64.nemo.data.local.table.cart.CartDao
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
-import com.theapache64.nemo.di.module.DatabaseModule
+import com.theapache64.nemo.di.module.CartModule
 import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
@@ -33,7 +33,7 @@ import org.junit.runner.RunWith
 /**
  * Created by theapache64 : Oct 25 Sun,2020 @ 14:05
  */
-@UninstallModules(ApiModule::class, DatabaseModule::class)
+@UninstallModules(ApiModule::class, CartModule::class)
 @HiltAndroidTest
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -66,31 +66,5 @@ class SplashActivityTestInst {
         splashActivity.close()
     }
 
-    @Test
-    fun givenProductDetailPage_whenSwipeDown_thenPageRefreshed() {
-        val productId = 1
-
-        whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(FakeProductDataStore.productSuccessFlow)
-
-        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
-
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        ActivityScenario.launch<ProductDetailActivity>(
-            ProductDetailActivity.getStartIntent(
-                context,
-                productId
-            )
-        ).run {
-            idlingRule.dataBindingIdlingResource.monitorActivity(this)
-            sleep(5000)
-            assertDisplayed("Product 1")
-
-            // Now change data
-            whenever(fakeNemoApi.getProduct(productId))
-                .thenReturn(FakeProductDataStore.productSuccessFlow2)
-            refresh(R.id.csrl_product)
-            assertDisplayed("Product 2")
-        }
-    }
+  
 }
