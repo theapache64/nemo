@@ -21,15 +21,11 @@ object DatabaseModule {
             .fallbackToDestructiveMigration()
             .build()
     }
-}
 
-@Module
-@InstallIn(ApplicationComponent::class)
-object DaoModule {
-
-    @Provides
-    fun provideCartDao(nemoDatabase: NemoDatabase) = nemoDatabase.cartDao()
 
     @Provides
     fun provideAddressesDao(nemoDatabase: NemoDatabase) = nemoDatabase.addressesDao()
+
+    @Provides
+    fun provideCartDao(nemoDatabase: NemoDatabase) = nemoDatabase.cartDao()
 }

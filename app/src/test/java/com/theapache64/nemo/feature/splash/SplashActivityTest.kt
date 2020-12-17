@@ -7,7 +7,7 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.nhaarman.mockitokotlin2.whenever
-import com.theapache64.nemo.configSuccessFlow
+import com.theapache64.nemo.FakeConfigDataStore
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.feature.home.HomeActivity
@@ -49,7 +49,7 @@ class SplashActivityTest {
 
     @Test
     fun givenSplash_whenGoodConfig_thenHome() {
-        whenever(fakeNemoApi.getConfig()).thenReturn(configSuccessFlow)
+        whenever(fakeNemoApi.getConfig()).thenReturn(FakeConfigDataStore.configSuccessFlow)
 
         // Fix for home to not to crash
         whenever(fakeNemoApi.getBanners()).thenReturn(flowOf())

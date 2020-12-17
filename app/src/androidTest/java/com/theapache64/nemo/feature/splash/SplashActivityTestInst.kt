@@ -1,8 +1,6 @@
 package com.theapache64.nemo.feature.splash
 
-import androidx.room.Room
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -11,15 +9,14 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
 import com.schibsted.spain.barista.interaction.BaristaSwipeRefreshInteractions.refresh
+import com.theapache64.nemo.FakeConfigDataStore
+import com.theapache64.nemo.FakeProductDataStore
 import com.theapache64.nemo.R
-import com.theapache64.nemo.configErrorFlow
-import com.theapache64.nemo.data.local.NemoDatabase
+import com.theapache64.nemo.data.local.table.cart.CartDao
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.di.module.DatabaseModule
 import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
-import com.theapache64.nemo.productSuccessFlow
-import com.theapache64.nemo.productSuccessFlow2
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
 import com.theapache64.nemo.utils.test.monitorActivity
@@ -28,6 +25,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,14 +49,7 @@ class SplashActivityTestInst {
 
     @BindValue
     @JvmField
-    val databaseModule: NemoDatabase = getDatabaseModule()
-
-    private fun getDatabaseModule(): NemoDatabase {
-        return Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            NemoDatabase::class.java
-        ).allowMainThreadQueries().build()
-    }
+    val cartDao: CartDao = mock()
 
     @get:Rule
     val idlingRule = IdlingRule()
@@ -68,7 +59,7 @@ class SplashActivityTestInst {
 
     @Test
     fun givenSplash_whenBadConfig_thenConfigSyncError() {
-        whenever(fakeNemoApi.getConfig()).thenReturn(configErrorFlow)
+        whenever(fakeNemoApi.getConfig()).thenReturn(FakeConfigDataStore.configErrorFlow)
         val splashActivity = ActivityScenario.launch(SplashActivity::class.java)
         idlingRule.dataBindingIdlingResource.monitorActivity(splashActivity)
         assertDisplayed(R.string.splash_sync_error_title)
@@ -80,7 +71,9 @@ class SplashActivityTestInst {
         val productId = 1
 
         whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(productSuccessFlow)
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
+
+        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<ProductDetailActivity>(
@@ -95,7 +88,7 @@ class SplashActivityTestInst {
 
             // Now change data
             whenever(fakeNemoApi.getProduct(productId))
-                .thenReturn(productSuccessFlow2)
+                .thenReturn(FakeProductDataStore.productSuccessFlow2)
             refresh(R.id.csrl_product)
             assertDisplayed("Product 2")
         }

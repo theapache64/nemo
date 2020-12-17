@@ -48,6 +48,10 @@ class ProductDetailViewModel @ViewModelInject constructor(
                             // Checking if we want to show or cart buttons
                             cartRepo.getCartProductsFlow()
                                 .collect { cart ->
+
+                                    println("Okay  MX")
+                                    EspressoIdlingResource.decrement()
+
                                     val hasProductInCart = cart.find { cartItem ->
                                         cartItem.productId == it.id
                                     } != null
@@ -58,7 +62,7 @@ class ProductDetailViewModel @ViewModelInject constructor(
                                         onProductNotExistInCart()
                                     }
 
-                                    EspressoIdlingResource.decrement()
+
                                 }
 
                         }
@@ -68,7 +72,7 @@ class ProductDetailViewModel @ViewModelInject constructor(
                     }
                 }
             }
-            .asLiveData(viewModelScope.coroutineContext)
+            .asLiveData()
     }
 
 

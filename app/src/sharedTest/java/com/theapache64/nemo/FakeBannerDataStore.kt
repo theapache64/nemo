@@ -8,59 +8,61 @@ import kotlinx.coroutines.flow.flow
 /**
  * Created by theapache64 : Oct 24 Sat,2020 @ 17:52
  */
+object FakeBannerDataStore {
 
-const val FAKE_BANNER_COUNT = 10
+    const val FAKE_BANNER_COUNT = 10
 
-val bannerSuccessFlow = getBanners(FAKE_BANNER_COUNT)
-val bannerEmptySuccessFlow = getBanners(0)
+    val bannerSuccessFlow = getBanners(FAKE_BANNER_COUNT)
+    val bannerEmptySuccessFlow = getBanners(0)
 
-const val BANNER_ITEM_CATEGORY_POSITION = 0
-const val BANNER_ITEM_PRODUCT_POSITION = 1
+    const val BANNER_ITEM_CATEGORY_POSITION = 0
+    const val BANNER_ITEM_PRODUCT_POSITION = 1
 
-private fun getBanners(count: Int): Flow<Resource<List<Banner>>> {
-    return flow<Resource<List<Banner>>> {
-        // Loading
-        emit(Resource.Loading())
+    private fun getBanners(count: Int): Flow<Resource<List<Banner>>> {
+        return flow<Resource<List<Banner>>> {
+            // Loading
+            emit(Resource.Loading())
 
 
-        val fakeBanners = mutableListOf<Banner>().apply {
-            repeat(count) {
+            val fakeBanners = mutableListOf<Banner>().apply {
+                repeat(count) {
 
-                val productId = if (it == BANNER_ITEM_PRODUCT_POSITION) {
-                    it
-                } else {
-                    null
-                }
+                    val productId = if (it == BANNER_ITEM_PRODUCT_POSITION) {
+                        it
+                    } else {
+                        null
+                    }
 
-                val categoryId = if (it == BANNER_ITEM_CATEGORY_POSITION) {
-                    it
-                } else {
-                    null
-                }
+                    val categoryId = if (it == BANNER_ITEM_CATEGORY_POSITION) {
+                        it
+                    } else {
+                        null
+                    }
 
-                add(
-                    Banner(
-                        id = it,
-                        imageUrl = "https://picsum.photos/id/1${it}/300/300",
-                        productId = productId,
-                        categoryId = categoryId,
-                        productName = "Product $it"
+                    add(
+                        Banner(
+                            id = it,
+                            imageUrl = "https://picsum.photos/id/1${it}/300/300",
+                            productId = productId,
+                            categoryId = categoryId,
+                            productName = "Product $it"
+                        )
                     )
-                )
+                }
             }
+            // then success
+            emit(Resource.Success(null, fakeBanners))
         }
-        // then success
-        emit(Resource.Success(null, fakeBanners))
     }
+
+    val bannerErrorFlow = flow<Resource<List<Banner>>> {
+        emit(Resource.Loading())
+        emit(Resource.Error("This is some fake banner error"))
+    }
+
+
+
 }
-
-val bannerErrorFlow = flow<Resource<List<Banner>>> {
-    emit(Resource.Loading())
-    emit(Resource.Error("This is some fake banner error"))
-}
-
-
-
 
 
 

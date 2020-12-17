@@ -7,21 +7,21 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import com.schibsted.spain.barista.interaction.BaristaSwipeRefreshInteractions.refresh
+import com.theapache64.nemo.FakeProductDataStore
 import com.theapache64.nemo.R
+import com.theapache64.nemo.data.local.table.cart.CartDao
 import com.theapache64.nemo.data.local.table.cart.CartEntity
 import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.NemoApi
-import com.theapache64.nemo.data.repository.CartRepo
 import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.feature.cart.CartActivity
-import com.theapache64.nemo.productSuccessFlow
-import com.theapache64.nemo.productSuccessFlow2
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
 import com.theapache64.nemo.utils.test.monitorActivity
@@ -40,7 +40,7 @@ import org.mockito.Mockito
 /**
  * Created by theapache64 : Dec 08 Tue,2020 @ 08:09
  */
-@UninstallModules(ApiModule::class)
+@UninstallModules(ApiModule::class, CartModule::class)
 @HiltAndroidTest
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -60,15 +60,13 @@ class ProductDetailActivityTest {
 
     @BindValue
     @JvmField
-    val cartRepo: CartRepo = Mockito.mock(CartRepo::class.java)
-
+    val cartDao: CartDao = mock()
 
     @get:Rule
     val idlingRule = IdlingRule()
 
     @get:Rule
     val coroutineRule = MainCoroutineRule()
-
 
     @Before
     fun init() {
@@ -90,9 +88,9 @@ class ProductDetailActivityTest {
         val productId = 1
 
         whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(productSuccessFlow)
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
 
-        whenever(cartRepo.getCartProductsFlow()).thenReturn(flowOf(listOf()))
+        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<ProductDetailActivity>(
@@ -116,9 +114,9 @@ class ProductDetailActivityTest {
         val productId = 1
 
         whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(productSuccessFlow)
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
 
-        whenever(cartRepo.getCartProductsFlow()).thenReturn(
+        whenever(cartDao.getCartProductsFlow()).thenReturn(
             flowOf(listOf(CartEntity(productId, 10)))
         )
 
@@ -142,10 +140,10 @@ class ProductDetailActivityTest {
         val productId = 1
 
         whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(productSuccessFlow)
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
 
         // empty products in cart
-        whenever(cartRepo.getCartProductsFlow()).thenReturn(flowOf(listOf()))
+        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<ProductDetailActivity>(
@@ -166,10 +164,10 @@ class ProductDetailActivityTest {
         val productId = 1
 
         whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(productSuccessFlow)
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
 
         // empty products in cart
-        whenever(cartRepo.getCartProductsFlow()).thenReturn(flowOf(listOf()))
+        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<ProductDetailActivity>(
@@ -192,10 +190,10 @@ class ProductDetailActivityTest {
         val productId = 1
 
         whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(productSuccessFlow)
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
 
         // 1 product in cart
-        whenever(cartRepo.getCartProductsFlow()).thenReturn(
+        whenever(cartDao.getCartProductsFlow()).thenReturn(
             flowOf(
                 listOf(
                     CartEntity(productId, 10)
@@ -225,9 +223,9 @@ class ProductDetailActivityTest {
         val productId = 1
 
         whenever(fakeNemoApi.getProduct(productId))
-            .thenReturn(productSuccessFlow)
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
 
-        whenever(cartRepo.getCartProductsFlow()).thenReturn(
+        whenever(cartDao.getCartProductsFlow()).thenReturn(
             flowOf(
                 listOf(
                 )
@@ -246,7 +244,7 @@ class ProductDetailActivityTest {
 
             // Now change data
             whenever(fakeNemoApi.getProduct(productId))
-                .thenReturn(productSuccessFlow2)
+                .thenReturn(FakeProductDataStore.productSuccessFlow2)
             refresh(R.id.csrl_product)
             assertDisplayed("Product 2")
         }

@@ -4,10 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.theapache64.expekt.should
-import com.theapache64.nemo.BANNER_ITEM_CATEGORY_POSITION
-import com.theapache64.nemo.BANNER_ITEM_PRODUCT_POSITION
-import com.theapache64.nemo.bannerSuccessFlow
-import com.theapache64.nemo.categoriesSuccessFlow
+import com.theapache64.nemo.FakeBannerDataStore
+import com.theapache64.nemo.FakeCategoryDataStore
 import com.theapache64.nemo.data.repository.BannersRepo
 import com.theapache64.nemo.data.repository.CategoriesRepo
 import com.theapache64.nemo.utils.test.MainCoroutineRule
@@ -31,7 +29,7 @@ class HomeViewModelTest {
     @Test
     fun `Click on product banner, launch product details screen`() {
         val bannersRepo: BannersRepo = mock()
-        whenever(bannersRepo.getBanners()).thenReturn(bannerSuccessFlow)
+        whenever(bannersRepo.getBanners()).thenReturn(FakeBannerDataStore.bannerSuccessFlow)
 
         val homeViewModel = HomeViewModel(
             bannersRepo,
@@ -40,16 +38,17 @@ class HomeViewModelTest {
         )
         homeViewModel.banners.getOrAwaitValue {
             // clicking 5th item
-            homeViewModel.onBannerClicked(BANNER_ITEM_PRODUCT_POSITION)
+            homeViewModel.onBannerClicked(FakeBannerDataStore.BANNER_ITEM_PRODUCT_POSITION)
             // checking launch for 5th item has fired
-            homeViewModel.shouldLaunchProduct.value.should.equal(BANNER_ITEM_PRODUCT_POSITION)
+            homeViewModel.shouldLaunchProduct.value.should
+                .equal(FakeBannerDataStore.BANNER_ITEM_PRODUCT_POSITION)
         }
     }
 
     @Test
     fun `Click on category banner, launch product list`() {
         val categoriesRepo: CategoriesRepo = mock()
-        whenever(categoriesRepo.getCategories()).thenReturn(categoriesSuccessFlow)
+        whenever(categoriesRepo.getCategories()).thenReturn(FakeCategoryDataStore.categoriesSuccessFlow)
 
         val homeViewModel = HomeViewModel(
             mock(),
@@ -58,9 +57,10 @@ class HomeViewModelTest {
         )
         homeViewModel.categories.getOrAwaitValue {
             // clicking 5th item
-            homeViewModel.onCategoryClicked(BANNER_ITEM_CATEGORY_POSITION)
+            homeViewModel.onCategoryClicked(FakeBannerDataStore.BANNER_ITEM_CATEGORY_POSITION)
             // checking launch for 5th item has fired
-            homeViewModel.shouldLaunchCategory.value!!.id.should.equal(BANNER_ITEM_CATEGORY_POSITION)
+            homeViewModel.shouldLaunchCategory.value!!.id.should
+                .equal(FakeBannerDataStore.BANNER_ITEM_CATEGORY_POSITION)
         }
     }
 }

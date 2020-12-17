@@ -3,8 +3,7 @@ package com.theapache64.nemo.feature.splash
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.whenever
 import com.theapache64.expekt.should
-import com.theapache64.nemo.configErrorFlow
-import com.theapache64.nemo.configSuccessFlow
+import com.theapache64.nemo.FakeConfigDataStore
 import com.theapache64.nemo.data.repository.AnalyticsRepo
 import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.utils.test.MainCoroutineRule
@@ -43,7 +42,7 @@ class SplashViewModelTest {
     fun `In splash, If config success, app should go to home`() {
 
         // Prepare success data
-        whenever(fakeConfigRepo.getRemoteConfig()).thenReturn(configSuccessFlow)
+        whenever(fakeConfigRepo.getRemoteConfig()).thenReturn(FakeConfigDataStore.configSuccessFlow)
         splashViewModel.init()
 
         val actualResult = splashViewModel.shouldGoToHome.value
@@ -55,7 +54,7 @@ class SplashViewModelTest {
 
 
         // Prepare fake error data
-        whenever(fakeConfigRepo.getRemoteConfig()).thenReturn(configErrorFlow)
+        whenever(fakeConfigRepo.getRemoteConfig()).thenReturn(FakeConfigDataStore.configErrorFlow)
         splashViewModel.init()
 
         // Not moved

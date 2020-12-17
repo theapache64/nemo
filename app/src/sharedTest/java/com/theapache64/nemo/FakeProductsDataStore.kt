@@ -7,40 +7,44 @@ import kotlinx.coroutines.flow.flow
 /**
  * Created by theapache64 : Dec 06 Sun,2020 @ 18:51
  */
-const val PAGE_1_PRODUCTS_COUNT = 10
-val productsSuccessFlow = flow<Resource<List<Product>>> {
+object FakeProductsDataStore {
 
-    val fakeProducts = mutableListOf<Product>().apply {
+    const val PAGE_1_PRODUCTS_COUNT = 10
 
-        val moreDetails = """
+    val productsSuccessFlow = flow<Resource<List<Product>>> {
+
+        val fakeProducts = mutableListOf<Product>().apply {
+
+            val moreDetails = """
                         Color : Black
                         Size : Large
                         Total Reviews : 10,200
                     """.trimIndent()
 
-        repeat(PAGE_1_PRODUCTS_COUNT) { repIndex ->
-            val isEven = repIndex % 2 == 0
-            add(
-                Product(
-                    repIndex,
-                    "Product $repIndex",
-                    moreDetails.takeIf { isEven },
-                    3,
-                    repIndex * 100,
-                    "https://picsum.photos/id/1%${repIndex}/300/300",
-                    "https://picsum.photos/id/1%${repIndex}/300/300",
-                    repIndex * 3
+            repeat(PAGE_1_PRODUCTS_COUNT) { repIndex ->
+                val isEven = repIndex % 2 == 0
+                add(
+                    Product(
+                        repIndex,
+                        "Product $repIndex",
+                        moreDetails.takeIf { isEven },
+                        3,
+                        repIndex * 100,
+                        "https://picsum.photos/id/1%${repIndex}/300/300",
+                        "https://picsum.photos/id/1%${repIndex}/300/300",
+                        repIndex * 3
+                    )
                 )
-            )
+            }
         }
+
+        emit(Resource.Loading())
+        emit(Resource.Success(null, fakeProducts))
     }
+    const val PRODUCTS_ERROR_MESSAGE = "This is some error data"
 
-    emit(Resource.Loading())
-    emit(Resource.Success(null, fakeProducts))
-}
-const val PRODUCTS_ERROR_MESSAGE = "This is some error data"
-
-val productsErrorFlow = flow<Resource<List<Product>>> {
-    emit(Resource.Loading())
-    emit(Resource.Error(PRODUCTS_ERROR_MESSAGE))
+    val productsErrorFlow = flow<Resource<List<Product>>> {
+        emit(Resource.Loading())
+        emit(Resource.Error(PRODUCTS_ERROR_MESSAGE))
+    }
 }

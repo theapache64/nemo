@@ -9,15 +9,14 @@ import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.asser
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.interaction.BaristaListInteractions.scrollListToPosition
-import com.theapache64.nemo.PRODUCTS_ERROR_MESSAGE
+import com.theapache64.nemo.FakeProductDataStore
+import com.theapache64.nemo.FakeProductsDataStore
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.di.module.ApiModule
-import com.theapache64.nemo.productsErrorFlow
-import com.theapache64.nemo.productsSuccessFlow
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
 import com.theapache64.nemo.utils.test.monitorActivity
@@ -95,7 +94,7 @@ class ProductsActivityTest {
 
         // First page
         whenever(fakeNemoApi.getProducts(PRODUCTS_PER_PAGE, 0, category.categoryName))
-            .thenReturn(productsSuccessFlow)
+            .thenReturn(FakeProductsDataStore.productsSuccessFlow)
 
         // Second page
         whenever(
@@ -105,7 +104,7 @@ class ProductsActivityTest {
                 category.categoryName
             )
         )
-            .thenReturn(productsSuccessFlow)
+            .thenReturn(FakeProductsDataStore.productsSuccessFlow)
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val intent = ProductsActivity.getStartIntent(context, category)
@@ -135,7 +134,7 @@ class ProductsActivityTest {
 
         // Setting mock data
         whenever(fakeNemoApi.getProducts(PRODUCTS_PER_PAGE, 0, category.categoryName))
-            .thenReturn(productsErrorFlow)
+            .thenReturn(FakeProductsDataStore.productsErrorFlow)
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val intent = ProductsActivity.getStartIntent(context, category)
@@ -143,7 +142,7 @@ class ProductsActivityTest {
             idlingRule.dataBindingIdlingResource.monitorActivity(this)
 
             // Check error displayed
-            assertDisplayed(PRODUCTS_ERROR_MESSAGE)
+            assertDisplayed(FakeProductsDataStore.PRODUCTS_ERROR_MESSAGE)
             assertNotDisplayed(R.id.rv_products)
         }
     }
