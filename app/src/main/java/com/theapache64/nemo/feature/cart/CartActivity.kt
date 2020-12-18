@@ -13,6 +13,7 @@ import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.invisible
 import com.theapache64.nemo.utils.extensions.visible
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,6 +45,7 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
         viewModel.cartItemResponse.observe(this, Observer {
             when (it) {
                 is Resource.Loading -> {
+                    EspressoIdlingResource.increment()
                     binding.lvCart.showLoading(R.string.cart_loading_cart)
                     binding.gContent.gone()
                 }
@@ -56,9 +58,11 @@ class CartActivity : BaseActivity<ActivityCartBinding, CartViewModel>(R.layout.a
                     )
                     binding.rvCart.adapter = cartAdapter
                     binding.gContent.visible()
+                    EspressoIdlingResource.decrement()
                 }
                 is Resource.Error -> {
                     binding.lvCart.showError(it.errorData)
+                    EspressoIdlingResource.decrement()
                 }
             }
         })
