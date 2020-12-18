@@ -13,9 +13,11 @@ class OrderSummaryActivity :
     BaseActivity<ActivityOrderSummaryBinding, OrderSummaryViewModel>(R.layout.activity_order_summary) {
 
     companion object {
-        fun getStartIntent(context: Context): Intent {
+        private const val KEY_PRODUCT_ID = "product_id"
+        fun getStartIntent(context: Context, productId: Int): Intent {
             return Intent(context, OrderSummaryActivity::class.java).apply {
                 // data goes here
+                putExtra(KEY_PRODUCT_ID, productId)
             }
         }
     }

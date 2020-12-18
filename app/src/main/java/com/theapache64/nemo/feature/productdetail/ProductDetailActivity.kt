@@ -9,11 +9,11 @@ import com.theapache64.nemo.R
 import com.theapache64.nemo.databinding.ActivityProductDetailBinding
 import com.theapache64.nemo.feature.base.BaseActivity
 import com.theapache64.nemo.feature.cart.CartActivity
+import com.theapache64.nemo.feature.ordersummary.OrderSummaryActivity
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.extensions.getIntExtraOrThrow
 import com.theapache64.nemo.utils.extensions.gone
 import com.theapache64.nemo.utils.extensions.visible
-import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -97,8 +97,8 @@ class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding, Product
             }
         })
 
-        viewModel.shouldBuyNow.observe(this, Observer { productId ->
-            // TODO:
+        viewModel.shouldBuyNow.observe(this, { theProductId ->
+            startActivity(OrderSummaryActivity.getStartIntent(this, theProductId))
         })
     }
 

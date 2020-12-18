@@ -1,12 +1,9 @@
 package com.theapache64.nemo.feature.productdetail
 
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
@@ -15,8 +12,6 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
-import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
-import com.schibsted.spain.barista.interaction.BaristaSwipeRefreshInteractions.refresh
 import com.theapache64.nemo.FakeProductDataStore
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.local.table.cart.CartDao
@@ -27,6 +22,7 @@ import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.di.module.CartModule
 import com.theapache64.nemo.feature.cart.CartActivity
+import com.theapache64.nemo.feature.ordersummary.OrderSummaryActivity
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
 import com.theapache64.nemo.utils.test.monitorActivity
@@ -40,7 +36,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 
 /**
  * Created by theapache64 : Dec 08 Tue,2020 @ 08:09
@@ -223,6 +218,30 @@ class ProductDetailActivityTest {
     }
 
     // Clicking buy now should go to order summary
+    @Test
+    fun givenProductDetailPage_whenBuyNowClicked_thenOrderSummaryLaunched() {
+        val productId = 1
 
+        whenever(fakeNemoApi.getProduct(productId))
+            .thenReturn(FakeProductDataStore.productSuccessFlow)
+
+        // 1 product in cart
+        whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf())
+
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        ActivityScenario.launch<ProductDetailActivity>(
+            ProductDetailActivity.getStartIntent(
+                context,
+                productId
+            )
+        ).run {
+            idlingRule.dataBindingIdlingResource.monitorActivity(this)
+            assertDisplayed(R.id.b_buy_now)
+            Intents.init()
+            clickOn(R.id.b_buy_now)
+            intended(hasComponent(OrderSummaryActivity::class.java.name))
+            Intents.release()
+        }
+    }
 
 }

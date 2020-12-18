@@ -11,7 +11,7 @@ import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 import com.theapache64.nemo.utils.test.EspressoIdlingResource
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -46,11 +46,8 @@ class ProductDetailViewModel @ViewModelInject constructor(
                             product.postValue(it)
 
                             // Checking if we want to show or cart buttons
-                            cartRepo.getCartProductsFlow()
-                                .collect { cart ->
-
-                                    println("Okay  MX")
-                                    EspressoIdlingResource.decrement()
+                            cartRepo.getCartProductsFlow().firstOrNull()
+                                ?.let { cart ->
 
                                     val hasProductInCart = cart.find { cartItem ->
                                         cartItem.productId == it.id
@@ -61,11 +58,10 @@ class ProductDetailViewModel @ViewModelInject constructor(
                                     } else {
                                         onProductNotExistInCart()
                                     }
-
-
                                 }
-
                         }
+
+                        EspressoIdlingResource.decrement()
                     }
                     is Resource.Error -> {
                         EspressoIdlingResource.decrement()
