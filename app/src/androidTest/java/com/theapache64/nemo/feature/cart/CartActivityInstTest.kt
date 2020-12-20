@@ -4,12 +4,14 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.theapache64.nemo.FakeCartDataStore
+import com.theapache64.nemo.FakeProductsDataStore
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.local.table.cart.CartDao
 import com.theapache64.nemo.data.remote.NemoApi
@@ -78,6 +80,7 @@ class CartActivityInstTest {
     fun givenCart_whenGiven10Products_then10ProductsShown() {
 
         whenever(cartDao.getCartProductsFlow()).thenReturn(FakeCartDataStore.cart10Products)
+        whenever(fakeNemoApi.getProducts(any())).thenReturn(FakeProductsDataStore.productsSuccessFlow)
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         ActivityScenario.launch<CartActivity>(CartActivity.getStartIntent(context))

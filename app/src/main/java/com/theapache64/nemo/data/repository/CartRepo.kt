@@ -6,6 +6,7 @@ import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.feature.cart.CartItem
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,55 +40,57 @@ open class CartRepo @Inject constructor(
         // Loading
         emit(Resource.Loading())
 
-        getCartProductsFlow().collect { cartProducts ->
-            if (cartProducts.isNotEmpty()) {
+        val cartProducts = getCartProductsFlow().firstOrNull() ?: listOf()
 
-                val ids = cartProducts.map { it.productId }.joinToString("|")
-                nemoApi.getProducts("($ids)")
-                    .collect {
-                        when (it) {
+        if (cartProducts.isNotEmpty()) {
 
-                            is Resource.Loading -> {
-                                Timber.d("getCartItems: Loading remote cart items")
-                            }
+            val ids = cartProducts.map { it.productId }.joinToString("|")
+            val productIds = "($ids)"
+            Timber.d("getCartItems: Ids are $productIds")
+            nemoApi.getProducts(productIds)
+                .collect {
+                    when (it) {
 
-                            is Resource.Success -> {
-                                val remoteProducts = it.data
-                                if (remoteProducts.isEmpty()) {
-                                    // Remote ids are changed TSH.
-                                    emit(
-                                        Resource.Error(
-                                            "Uhh ho!! Cart broken. Please try again",
-                                            ERROR_REMOTE_UPDATED
-                                        )
-                                    )
-                                } else {
-                                    // Got products
-                                    val cartItems = remoteProducts.map { product ->
-
-                                        val cartProduct =
-                                            cartProducts.find { cartProduct -> cartProduct.productId == product.id }!!
-
-                                        CartItem(
-                                            product,
-                                            cartProduct
-                                        )
-                                    }
-
-                                    emit(Resource.Success("OK", cartItems))
-                                }
-                            }
-
-                            is Resource.Error -> {
-                                emit(Resource.Error(it.errorData, it.errorCode))
-                            }
-
+                        is Resource.Loading -> {
+                            Timber.d("getCartItems: Loading remote cart items")
                         }
-                    }
 
-            } else {
-                emit(Resource.Error("Cart is empty!", ERROR_CART_EMPTY))
-            }
+                        is Resource.Success -> {
+                            val remoteProducts = it.data
+                            if (remoteProducts.isEmpty()) {
+                                // Remote ids are changed TSH.
+                                emit(
+                                    Resource.Error(
+                                        "Uhh ho!! Cart broken. Please try again",
+                                        ERROR_REMOTE_UPDATED
+                                    )
+                                )
+                            } else {
+                                // Got products
+                                val cartItems = remoteProducts.map { product ->
+
+                                    val cartProduct =
+                                        cartProducts.find { cartProduct -> cartProduct.productId == product.id }!!
+
+                                    CartItem(
+                                        product,
+                                        cartProduct
+                                    )
+                                }
+
+                                emit(Resource.Success("OK", cartItems))
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            emit(Resource.Error(it.errorData, it.errorCode))
+                        }
+
+                    }
+                }
+
+        } else {
+            emit(Resource.Error("Cart is empty!", ERROR_CART_EMPTY))
         }
 
     }

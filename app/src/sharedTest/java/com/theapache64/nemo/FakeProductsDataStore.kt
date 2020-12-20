@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
  */
 object FakeProductsDataStore {
 
-    const val PAGE_1_PRODUCTS_COUNT = 10
+    private const val PAGE_1_PRODUCTS_COUNT = 10
 
     val productsSuccessFlow = flow<Resource<List<Product>>> {
 
