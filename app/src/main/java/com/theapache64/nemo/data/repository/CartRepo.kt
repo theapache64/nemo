@@ -1,4 +1,4 @@
-package com.theapache64.nemo.data.repository
+ package com.theapache64.nemo.data.repository
 
 import com.theapache64.nemo.data.local.table.cart.CartDao
 import com.theapache64.nemo.data.local.table.cart.CartEntity
@@ -46,7 +46,7 @@ open class CartRepo @Inject constructor(
 
             val ids = cartProducts.map { it.productId }.joinToString("|")
             val productIds = "($ids)"
-            Timber.d("getCartItems: Ids are $productIds")
+            println("getCartItems: Ids are $productIds")
             nemoApi.getProducts(productIds)
                 .collect {
                     when (it) {

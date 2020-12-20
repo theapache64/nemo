@@ -10,6 +10,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
+import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
+import com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep
 import com.theapache64.nemo.FakeCartDataStore
 import com.theapache64.nemo.FakeProductsDataStore
 import com.theapache64.nemo.R
@@ -88,11 +90,27 @@ class CartActivityInstTest {
                 idlingRule.dataBindingIdlingResource.monitorActivity(cartActivity)
                 assertDisplayed(R.id.rv_cart)
                 assertDisplayed(R.id.mcv_amount_payable)
-                assertRecyclerViewItemCount(R.id.rv_cart, 10)
+                assertRecyclerViewItemCount(R.id.rv_cart, FakeCartDataStore.PRODUCTS_COUNT)
             }
     }
 
     // Click on plus button increments the item price and cart price
+    @Test
+    fun givenCart_whenPlusClicked_thenItemPriceAndCartPriceIncremented() {
+
+        whenever(cartDao.getCartProductsFlow()).thenReturn(FakeCartDataStore.cart1Product)
+        whenever(fakeNemoApi.getProducts(any())).thenReturn(FakeProductsDataStore.getProducts(1))
+
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        ActivityScenario.launch<CartActivity>(CartActivity.getStartIntent(context))
+            .let { cartActivity ->
+                idlingRule.dataBindingIdlingResource.monitorActivity(cartActivity)
+                sleep(2000)
+                clickOn("+")
+                sleep(2000)
+            }
+    }
+
     // Click on minus button decrements the item price and cart price
     // Click on remove item from the list
     // Click on remove on last item shows no items in cart
