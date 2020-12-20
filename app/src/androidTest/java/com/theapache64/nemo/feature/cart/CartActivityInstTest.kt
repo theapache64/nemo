@@ -6,16 +6,13 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.theapache64.nemo.FakeCartDataStore
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.local.table.cart.CartDao
-import com.theapache64.nemo.data.remote.Config
 import com.theapache64.nemo.data.remote.NemoApi
-import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.di.module.CartModule
 import com.theapache64.nemo.utils.test.IdlingRule
@@ -27,20 +24,19 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Created by theapache64 : Dec 19 Sat,2020 @ 01:49
+ * Created by theapache64 : Dec 19 Sat,2020 @ 16:07
  */
 @UninstallModules(ApiModule::class, CartModule::class)
 @HiltAndroidTest
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
-class CartActivityTest {
+class CartActivityInstTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
@@ -49,9 +45,6 @@ class CartActivityTest {
     @JvmField
     val fakeNemoApi: NemoApi = mock()
 
-    @BindValue
-    @JvmField
-    val configRepo: ConfigRepo = mock()
 
     @BindValue
     @JvmField
@@ -63,24 +56,12 @@ class CartActivityTest {
     @get:Rule
     val coroutineRule = MainCoroutineRule()
 
-    @Before
-    fun init() {
-
-        whenever(configRepo.getLocalConfig()).thenReturn(
-            Config(
-                totalProducts = 1000,
-                productsPerPage = 10,
-                currency = "$",
-                deliveryCharge = 10,
-                totalPages = 10
-            )
-        )
-    }
 
     // No products show no products UI
     @Test
     fun givenCart_whenCartIsEmpty_thenCartEmptyShown() {
         whenever(cartDao.getCartProductsFlow()).thenReturn(flowOf(listOf()))
+
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val cartEmptyString = context.getString(R.string.cart_error_empty_cart)
         ActivityScenario.launch<CartActivity>(CartActivity.getStartIntent(context))

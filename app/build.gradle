@@ -64,7 +64,11 @@ android {
 
 }
 
-
+lolGradle {
+    dirName = "nemo"
+    captureOn = ['preBuild']
+    style = 'MODERN'
+}
 
 dependencies {
 

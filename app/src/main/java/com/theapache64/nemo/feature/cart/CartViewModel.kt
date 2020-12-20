@@ -7,6 +7,7 @@ import com.theapache64.nemo.data.repository.ConfigRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
+import com.theapache64.nemo.utils.test.EspressoIdlingResource
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -38,11 +39,20 @@ class CartViewModel @ViewModelInject constructor(
     val cartItemResponse: LiveData<Resource<List<CartItem>>> = _shouldLoadCart.switchMap {
         cartRepo.getCartItems()
             .onEach {
-                if (it is Resource.Success) {
-                    cartItems = it.data.toMutableList()
+                when (it) {
+                    is Resource.Loading -> {
+                        EspressoIdlingResource.increment()
+                    }
+                    is Resource.Success -> {
+                        cartItems = it.data.toMutableList()
 
-                    // Calculating amountPayable
-                    refreshPrice()
+                        // Calculating amountPayable
+                        refreshPrice()
+                        EspressoIdlingResource.decrement()
+                    }
+                    is Resource.Error -> {
+                        EspressoIdlingResource.decrement()
+                    }
                 }
             }
             .filter {
