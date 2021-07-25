@@ -4,7 +4,7 @@ import com.squareup.moshi.Moshi
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.utils.AppConfig
 import com.theapache64.nemo.utils.calladapter.flow.FlowResourceCallAdapterFactory
-import com.theapache64.retrosheet.RetrosheetInterceptor
+import com.github.theapache64.retrosheet.RetrosheetInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

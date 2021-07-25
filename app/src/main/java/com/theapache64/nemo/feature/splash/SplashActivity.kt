@@ -62,14 +62,14 @@ class SplashActivity :
     }
 
     private fun showConfigSyncError() {
-        AlertDialog.Builder(this)
+        /*AlertDialog.Builder(this)
             .setTitle(R.string.splash_sync_error_title)
             .setMessage(R.string.splash_sync_error_message)
             .setPositiveButton(R.string.action_retry) { _: DialogInterface, _: Int ->
                 viewModel.onRetryClicked()
             }
             .create()
-            .show()
+            .show()*/
     }
 
     override val viewModel: SplashViewModel by viewModels()
