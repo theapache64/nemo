@@ -63,18 +63,18 @@
             <!--Quantity Adjuster-->
             <me.himanshusoni.quantityview.QuantityView
                 android:id="@+id/qv_cart_quantity"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="wrap_content"
-                app:qv_quantityDialog="false"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_price"
-                app:qv_addButtonBackground="@drawable/quantity_button_bg"
-                app:qv_quantityBackground="@android:color/transparent"
-                app:qv_quantityPadding="15dp"
                 android:layout_marginTop="4dp"
-                app:qv_removeButtonBackground="@drawable/quantity_button_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_price"
                 app:quantity="@{cartItem.cartEntity.count}"
-                app:qv_minQuantity="1" />
+                app:qv_addButtonBackground="@drawable/quantity_button_bg"
+                app:qv_minQuantity="1"
+                app:qv_quantityBackground="@android:color/transparent"
+                app:qv_quantityDialog="false"
+                app:qv_quantityPadding="15dp"
+                app:qv_removeButtonBackground="@drawable/quantity_button_bg" />
 
             <!--Remove from cart-->
             <Button
@@ -83,9 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/red_500"
                 android:drawableStart="@drawable/ic_baseline_delete_outline_24"
                 android:text="@string/action_remove"
+                android:textColor="@color/red_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/qv_cart_quantity" />

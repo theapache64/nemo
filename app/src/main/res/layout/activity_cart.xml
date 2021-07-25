@@ -53,8 +53,8 @@
                 android:id="@+id/mcv_amount_payable"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardElevation="4dp"
                 android:layout_margin="8dp"
+                app:cardElevation="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,14 +69,14 @@
                         fontPath="fonts/GoogleSans-Bold.ttf"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toStartOf="@id/b_place_order"
                         android:padding="18dp"
                         android:text="@{viewModel.config.currency +` `+ viewModel.amountPayable}"
                         android:textColor="@android:color/black"
                         android:textSize="20sp"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/b_place_order"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="Rs 2000" />
 
                     <!--Place Order-->

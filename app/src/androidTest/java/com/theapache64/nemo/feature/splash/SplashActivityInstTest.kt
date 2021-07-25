@@ -3,18 +3,15 @@ package com.theapache64.nemo.feature.splash
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.theapache64.nemo.FakeConfigDataStore
-import com.theapache64.nemo.FakeProductDataStore
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.local.table.cart.CartDao
 import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.di.module.ApiModule
 import com.theapache64.nemo.di.module.CartModule
-import com.theapache64.nemo.feature.productdetail.ProductDetailActivity
 import com.theapache64.nemo.utils.test.IdlingRule
 import com.theapache64.nemo.utils.test.MainCoroutineRule
 import com.theapache64.nemo.utils.test.monitorActivity
@@ -23,7 +20,6 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

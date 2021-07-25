@@ -1,9 +1,7 @@
 package com.theapache64.nemo.feature.splash
 
-import android.content.DialogInterface
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.Observer

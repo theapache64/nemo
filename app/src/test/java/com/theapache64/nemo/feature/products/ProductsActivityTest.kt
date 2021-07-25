@@ -9,7 +9,6 @@ import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.asser
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
 import com.schibsted.spain.barista.interaction.BaristaListInteractions.scrollListToPosition
-import com.theapache64.nemo.FakeProductDataStore
 import com.theapache64.nemo.FakeProductsDataStore
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.Category

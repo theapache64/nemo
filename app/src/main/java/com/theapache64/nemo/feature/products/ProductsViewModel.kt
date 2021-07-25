@@ -1,6 +1,6 @@
 package com.theapache64.nemo.feature.products
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.*
 import com.theapache64.nemo.data.remote.Category
 import com.theapache64.nemo.data.remote.Config
@@ -10,6 +10,7 @@ import com.theapache64.nemo.data.repository.ProductsRepo
 import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
@@ -18,7 +19,8 @@ import timber.log.Timber
  * Copyright (c) 2020
  * All rights reserved
  */
-class ProductsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ProductsViewModel @Inject constructor(
     private val productsRepo: ProductsRepo,
     private val configRepo: ConfigRepo
 ) : BaseViewModel(), ProductsAdapter.Callback {

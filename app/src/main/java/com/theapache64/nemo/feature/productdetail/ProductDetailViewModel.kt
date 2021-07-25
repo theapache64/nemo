@@ -1,6 +1,6 @@
 package com.theapache64.nemo.feature.productdetail
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.*
 import com.theapache64.nemo.R
 import com.theapache64.nemo.data.remote.Product
@@ -11,6 +11,7 @@ import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 import com.theapache64.nemo.utils.test.EspressoIdlingResource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
 /**
  * Created by theapache64 : Jul 26 Sun,2020 @ 22:53
  */
-class ProductDetailViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ProductDetailViewModel @Inject constructor(
     private val productsRepo: ProductsRepo,
     private val configRepo: ConfigRepo,
     private val cartRepo: CartRepo

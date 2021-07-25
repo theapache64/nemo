@@ -4,6 +4,6 @@
     <!--Cart-->
     <item
         android:id="@+id/mi_home_cart"
-        android:title="@string/mi_home_action_cart"
-        android:icon="@drawable/ic_baseline_shopping_cart_24" />
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="@string/mi_home_action_cart" />
 </menu>

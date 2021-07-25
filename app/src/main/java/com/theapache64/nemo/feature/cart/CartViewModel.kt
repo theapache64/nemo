@@ -1,6 +1,6 @@
 package com.theapache64.nemo.feature.cart
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.*
 import com.theapache64.nemo.data.repository.CartRepo
 import com.theapache64.nemo.data.repository.ConfigRepo
@@ -8,6 +8,7 @@ import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 import com.theapache64.nemo.utils.test.EspressoIdlingResource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 /**
  * Created by theapache64 : Sep 19 Sat,2020 @ 14:52
  */
-class CartViewModel @ViewModelInject constructor(
+@HiltViewModel
+class CartViewModel @Inject constructor(
     private val cartRepo: CartRepo,
     configRepo: ConfigRepo
 ) : BaseViewModel(), CartAdapter.Callback {

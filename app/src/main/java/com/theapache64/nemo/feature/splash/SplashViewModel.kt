@@ -1,6 +1,5 @@
 package com.theapache64.nemo.feature.splash
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.theapache64.nemo.data.repository.AnalyticsRepo
@@ -9,14 +8,17 @@ import com.theapache64.nemo.feature.base.BaseViewModel
 import com.theapache64.nemo.utils.calladapter.flow.Resource
 import com.theapache64.nemo.utils.livedata.SingleLiveEvent
 import com.theapache64.nemo.utils.test.EspressoIdlingResource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by theapache64 : Jul 26 Sun,2020 @ 22:07
  */
-class SplashViewModel @ViewModelInject public constructor(
+@HiltViewModel
+class SplashViewModel @Inject public constructor(
     private val configRepo: ConfigRepo,
     private val analyticsRepo: AnalyticsRepo
 ) : BaseViewModel() {

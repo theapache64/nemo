@@ -1,14 +1,13 @@
 package com.theapache64.nemo.di.module
 
+import com.github.theapache64.retrosheet.RetrosheetInterceptor
 import com.squareup.moshi.Moshi
-import com.theapache64.nemo.data.remote.NemoApi
 import com.theapache64.nemo.utils.AppConfig
 import com.theapache64.nemo.utils.calladapter.flow.FlowResourceCallAdapterFactory
-import com.github.theapache64.retrosheet.RetrosheetInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -20,7 +19,7 @@ import javax.inject.Singleton
  * All rights reserved
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Singleton
